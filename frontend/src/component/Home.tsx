@@ -51,7 +51,7 @@ export default function Home() {
             ];
             setNodes(offlineNode)
         }
-    }, [topic])
+    }, [topic, setEdges, setNodes])
 
     return (
         <div style={{width: '100vw', height: '100vh'}}>
