@@ -26,7 +26,7 @@ export default function Home() {
     }, [getAllTopics])
 
     useEffect(() => {
-        buildListNodes = topic.map((data) => {
+        let buildListNodes = topic.map((data) => {
             const newNode: nodeType = {
                 id: data.id,
                 position: {x: data.position.x, y: data.position.y},
@@ -36,7 +36,7 @@ export default function Home() {
         })
         setNodes(buildListNodes)
 
-        buildListEdges = topic.map((data) => {
+        let buildListEdges = topic.map((data) => {
             const collEdges = data.edges.map((edge) => {
                 const newEdge: edgesType = {id: edge.id, source: edge.source, target: edge.target};
                 return newEdge;
