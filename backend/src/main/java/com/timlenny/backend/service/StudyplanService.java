@@ -15,7 +15,7 @@ public class StudyplanService {
     }
 
     public List<Topic> getAllTopics() {
-        return studyplanRepository.getAllTopics();
+        return studyplanRepository.findAll();
     }
 
 }

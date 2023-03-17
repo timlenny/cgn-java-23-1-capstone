@@ -23,7 +23,7 @@ class StudyplanServiceTest {
 
     @Test
     void isGetAllTopicsReturningAllTopics_whenGetAllTopicsCalled() {
-        when(studyplanRepository.getAllTopics()).thenReturn(List.of(demoTopicStart));
+        when(studyplanRepository.findAll()).thenReturn(List.of(demoTopicStart));
         List<Topic> actual = studyplanService.getAllTopics();
         assertEquals(actual, List.of(demoTopicStart));
     }

@@ -23,4 +23,5 @@ public class StudyplanController {
     public List<Topic> getAllTopics() {
         return studyplanService.getAllTopics();
     }
+
 }
