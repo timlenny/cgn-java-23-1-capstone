@@ -1,0 +1,36 @@
+.react-flow {
+    background: #2A2B6D;
+}
+
+.react-flow__node {
+    background: #8284FF;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 100%;
+}
+
+.react-flow__handle-top {
+    background-color: transparent;
+    border: none;
+}
+
+.react-flow__handle-bottom {
+    background-color: transparent;
+    border: none;
+}
+
+.react-flow__handle-left {
+    background-color: transparent;
+    border: none;
+}
+
+.react-flow__handle-right {
+    background-color: transparent;
+    border: none;
+}
