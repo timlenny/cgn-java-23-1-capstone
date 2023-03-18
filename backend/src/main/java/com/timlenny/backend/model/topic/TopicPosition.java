@@ -1,4 +1,4 @@
-package com.timlenny.backend.model;
+package com.timlenny.backend.model.topic;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

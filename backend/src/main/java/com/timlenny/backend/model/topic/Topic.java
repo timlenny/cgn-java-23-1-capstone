@@ -1,4 +1,4 @@
-package com.timlenny.backend.model;
+package com.timlenny.backend.model.topic;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,5 +23,15 @@ public class Topic {
     int size;
     boolean open;
 
+    public Topic(TopicDTO topicDTO) {
+        this.id = topicDTO.id;
+        this.topicName = topicDTO.topicName;
+        this.edges = topicDTO.edges;
+        this.position = topicDTO.position;
+        this.topicStatus = topicDTO.topicStatus;
+        this.subtopicId = topicDTO.subtopicId;
+        this.size = topicDTO.size;
+        this.open = topicDTO.open;
+    }
 }
 
