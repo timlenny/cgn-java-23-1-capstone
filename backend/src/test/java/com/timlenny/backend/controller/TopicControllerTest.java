@@ -2,8 +2,10 @@ package com.timlenny.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timlenny.backend.model.topic.Edge;
+import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;
 import com.timlenny.backend.model.topic.TopicPosition;
+import com.timlenny.backend.repository.TopicRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,16 +25,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TopicControllerTest {
     @Autowired
     MockMvc mockMvc;
+    @Autowired
+    TopicRepository topicRepository;
     ObjectMapper mapper = new ObjectMapper();
+    Topic demoTopic = new Topic(
+            "123456", "Test1", List.of(new Edge("123456", "", "")), new TopicPosition(200, 200), "", "", 3, true
+    );
     TopicDTO demoTopicDTO = new TopicDTO(
             "123456", "Test1", List.of(new Edge("123456", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
 
     @Test
-    void whenGetAllTopics_theReturnListOfAllTopics() throws Exception {
+    void whenGetAllTopicsAndRepoIsEmpty_theReturnEmptyListOfAllTopics() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/topic"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("[]"));
+    }
 
+    @Test
+    @DirtiesContext
+    void whenGetAllTopicsAndRepoHasData_theReturnListOfAllTopics() throws Exception {
+        topicRepository.save(demoTopic);
+        String jsonObj = mapper.writeValueAsString(new Topic[]{demoTopic});
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/topic"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(jsonObj));
     }
 
     @Test

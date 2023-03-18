@@ -33,6 +33,12 @@ class TopicServiceTest {
     }
 
     @Test
+    void isGetAllTopicsReturningAllTopics_whenGetAllTopicsCalledAndRepoIsEmpty() {
+        List<Topic> actual = topicService.getAllTopics();
+        assertEquals(actual, List.of());
+    }
+
+    @Test
     void isAddTopicAddingNewTopic_whenAddTopicCalled() {
         when(topicRepository.save(demoTopicStart)).thenReturn(demoTopicStart);
         Topic actual = topicService.addTopic(demoTopicStartDTO);
