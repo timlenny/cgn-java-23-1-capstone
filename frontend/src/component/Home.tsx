@@ -3,7 +3,7 @@ import ReactFlow, {addEdge, useEdgesState, useNodesState} from 'reactflow';
 import 'reactflow/dist/style.css';
 import '../style/reactFlow.css'
 import UseGetTopic from "../hook/UseGetTopic";
-import {edgesType} from "../model/Edge";
+import {edgesType} from "../model/topic/Edge";
 
 type nodeType = {
     id: string,
@@ -47,7 +47,7 @@ export default function Home() {
 
         if (buildListNodes.length < 1) {
             let offlineNode = [
-                {id: '1', position: {x: 300, y: 500}, data: {label: 'START'}},
+                {id: '1', position: {x: 300, y: 500}, data: {label: 'HOME'}},
             ];
             setNodes(offlineNode)
         }

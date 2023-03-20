@@ -1,4 +1,4 @@
-package com.timlenny.backend.model;
+package com.timlenny.backend.model.topic;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Topic {
+public class TopicDTO {
     String id;
     String topicName;
     List<Edge> edges;
@@ -18,6 +18,4 @@ public class Topic {
     String subtopicId;
     int size;
     boolean open;
-
 }
-
