@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 public class TopicPosition {
     int x;
     int y;
-
     public TopicPosition(int x, int y) {
         this.x = x;
         this.y = y;

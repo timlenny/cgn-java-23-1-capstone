@@ -14,17 +14,19 @@
 .label {
     margin-bottom: 8px;
     color: #6C87FB;
+    font-family: '.AppleSystemUIFont', sans-serif;
+    font-style: normal;
+    font-weight: 700;
 }
 
 .helperText {
-    color: white;
     font-size: 12px;
     margin-top: -10px;
     margin-bottom: 16px;
     padding-left: 3px;
     color: #96aaf9;
+    font-family: '.AppleSystemUIFont', sans-serif;
 }
-
 
 .inputField {
     box-sizing: border-box;
@@ -32,13 +34,15 @@
     height: 40px;
     background: rgba(0, 0, 0, 0.44);
     border: 1px solid #6C89FD;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 16px;
     color: white;
     outline: none;
+    font-family: '.AppleSystemUIFont', sans-serif;
     padding-left: 10px;
+    font-weight: 600;
 }
 
 .inputField::placeholder {
@@ -63,6 +67,8 @@
     color: white;
     border: none;
     cursor: pointer;
+    font-family: '.AppleSystemUIFont', sans-serif;
+    font-weight: 600;
 }
 
 .actionButtons {
