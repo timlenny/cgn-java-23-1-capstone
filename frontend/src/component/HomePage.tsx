@@ -1,9 +1,11 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {MouseEventHandler, useCallback, useEffect} from 'react';
 import ReactFlow, {addEdge, useEdgesState, useNodesState} from 'reactflow';
 import 'reactflow/dist/style.css';
-import '../style/reactFlow.css'
+import '../style/home/reactFlow.css'
 import UseGetTopic from "../hook/UseGetTopic";
 import {edgesType} from "../model/topic/Edge";
+import '../style/home/Home.css';
+import {useNavigate} from "react-router-dom";
 
 type nodeType = {
     id: string,
@@ -11,8 +13,9 @@ type nodeType = {
     data: { label: string }
 }
 
-export default function Home() {
+export default function HomePage() {
 
+    const navigate = useNavigate()
     const {getAllTopics, topic} = UseGetTopic();
     let buildListEdges: edgesType[] = []
     let buildListNodes: nodeType[] = []
@@ -53,8 +56,13 @@ export default function Home() {
         }
     }, [topic, setEdges, setNodes])
 
+    const handleSubmitAdd: MouseEventHandler<HTMLButtonElement> = () => {
+        navigate("/topic/add")
+    }
+
     return (
         <div style={{width: '100vw', height: '100vh'}}>
+            <button className="addButton" onClick={handleSubmitAdd}></button>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}

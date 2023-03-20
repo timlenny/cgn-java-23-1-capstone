@@ -32,7 +32,7 @@ class TopicControllerTest {
             "123456", "Test1", List.of(new Edge("123456", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
     TopicDTO demoTopicDTO = new TopicDTO(
-            "123456", "Test1", List.of(new Edge("123456", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "123456", "Test1", 1
     );
 
     @Test

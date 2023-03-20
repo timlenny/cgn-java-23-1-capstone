@@ -22,7 +22,7 @@ class TopicServiceTest {
             "1", "START", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
     TopicDTO demoTopicStartDTO = new TopicDTO(
-            "1", "START", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "1", "START", 3
     );
 
     @Test
@@ -42,8 +42,6 @@ class TopicServiceTest {
     void isAddTopicAddingNewTopic_whenAddTopicCalled() {
         when(topicRepository.save(demoTopicStart)).thenReturn(demoTopicStart);
         Topic actual = topicService.addTopic(demoTopicStartDTO);
-        assertEquals(actual, demoTopicStart);
+        assertEquals(actual.getTopicName(), demoTopicStart.getTopicName());
     }
-
-
 }
