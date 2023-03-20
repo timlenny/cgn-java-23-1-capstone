@@ -1,0 +1,105 @@
+.addTopicPage {
+    background-color: #212553;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.label {
+    margin-bottom: 8px;
+    color: #6C87FB;
+}
+
+.helperText {
+    color: white;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 16px;
+    padding-left: 3px;
+    color: #96aaf9;
+}
+
+
+.inputField {
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.44);
+    border: 1px solid #6C89FD;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 16px;
+    color: white;
+    outline: none;
+    padding-left: 10px;
+}
+
+.inputField::placeholder {
+    color: #96aaf9;
+}
+
+.sizeButton.selectedSize {
+    border: 2px solid white;
+}
+
+.sizeButtons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.sizeButton {
+    width: 40px;
+    height: 40px;
+    background: #6D8AFF;
+    border-radius: 50%;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding-top: 30px;
+    box-sizing: border-box;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    padding-right: 7px;
+    background: #6D8AFF;
+    border-radius: 50%;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.confirmButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    background: #6D8AFF;
+    border-radius: 50%;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
