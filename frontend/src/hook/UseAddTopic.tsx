@@ -1,7 +1,9 @@
 import axios from "axios";
 import {TopicDTO} from "../model/topic/TopicDTO";
+import {useNavigate} from "react-router-dom";
 
 export default function UseAddTopic() {
+    const navigate = useNavigate();
     function postSingleTopic(props: TopicDTO | undefined) {
         if (props) {
             axios.post("/api/topic", {
@@ -10,7 +12,7 @@ export default function UseAddTopic() {
                 size: props.size,
             })
                 .then(() => {
-                    window.location.assign("/");
+                    navigate("/")
                 })
                 .catch((error) => console.error(error))
         }

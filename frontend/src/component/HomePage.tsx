@@ -5,6 +5,7 @@ import '../style/home/reactFlow.css'
 import UseGetTopic from "../hook/UseGetTopic";
 import {edgesType} from "../model/topic/Edge";
 import '../style/home/Home.css';
+import {useNavigate} from "react-router-dom";
 
 type nodeType = {
     id: string,
@@ -14,6 +15,7 @@ type nodeType = {
 
 export default function HomePage() {
 
+    const navigate = useNavigate()
     const {getAllTopics, topic} = UseGetTopic();
     let buildListEdges: edgesType[] = []
     let buildListNodes: nodeType[] = []
@@ -54,8 +56,8 @@ export default function HomePage() {
         }
     }, [topic, setEdges, setNodes])
 
-    const handleSubmitAdd: MouseEventHandler<HTMLButtonElement> = (event) => {
-        window.location.assign("/topic/add");
+    const handleSubmitAdd: MouseEventHandler<HTMLButtonElement> = () => {
+        navigate("/topic/add")
     }
 
     return (

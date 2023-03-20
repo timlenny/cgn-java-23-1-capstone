@@ -4,9 +4,11 @@ import CheckIcon from '@mui/icons-material/Check';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {TopicDTO} from "../model/topic/TopicDTO";
 import UseAddTopic from "../hook/UseAddTopic";
+import {useNavigate} from "react-router-dom";
 
 export default function AddTopicPage() {
 
+    const navigate = useNavigate();
     const {postSingleTopic} = UseAddTopic();
     const [selectedSize, setSelectedSize] = useState(1);
     const [topicData, setTopicData] = useState<TopicDTO>({parentName: "", topicName: "", size: 1});
@@ -71,7 +73,7 @@ export default function AddTopicPage() {
             <div className="actionButtons">
                 <button className="backButton">
                     <ChevronLeftIcon onClick={() => {
-                        window.location.assign("/");
+                        navigate("/")
                     }} sx={{fontSize: 35}}/>
                 </button>
                 <button className="confirmButton">
