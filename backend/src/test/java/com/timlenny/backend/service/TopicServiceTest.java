@@ -62,4 +62,34 @@ class TopicServiceTest {
         Topic actual = topicService.addTopic(demoTopicJavaDTO);
         assertEquals(actual, demoTopicJava);
     }
+
+    @Test
+    @DirtiesContext
+    void isErrorThrown_WhenNameOfTopicToAddExists() {
+        String actual = "No Exception";
+        when(topicRepository.findByTopicName(demoTopicJavaDTO.getTopicName())).thenReturn(Optional.ofNullable(demoTopicHome));
+        try {
+            topicService.addTopic(demoTopicJavaDTO);
+        } catch (Exception error) {
+            actual = error.getMessage();
+        }
+
+        assertEquals("409 CONFLICT \"A topic with the name Java already exists\"", actual);
+    }
+
+    @Test
+    @DirtiesContext
+    void isErrorThrown_WhenParentTopicDoesntExists() {
+        String actual = "No Exception";
+        when(topicRepository.findByTopicName(demoTopicJavaDTO.getParentName())).thenReturn(Optional.empty());
+        try {
+            topicService.addTopic(demoTopicJavaDTO);
+        } catch (Exception error) {
+            actual = error.getMessage();
+        }
+
+        assertEquals("204 NO_CONTENT \"parentTopic not found!\"", actual);
+    }
+
+
 }

@@ -68,7 +68,7 @@ public class TopicConversionService {
         }
     }
 
-    private TopicPosition calcTopicPositionForSubtopics(Topic parentTopic, int randomPositionX, int randomPositionY) {
+    public TopicPosition calcTopicPositionForSubtopics(Topic parentTopic, int randomPositionX, int randomPositionY) {
         if (checkTargetInEdges(parentTopic.getEdges(), parentTopic.getId())) {
             if ((random.nextInt(2) + 1) == 1) {
                 return new TopicPosition((parentTopic.getPosition().getX() + randomPositionX), (parentTopic.getPosition().getY() + randomPositionY));
@@ -84,7 +84,7 @@ public class TopicConversionService {
         }
     }
 
-    private TopicPosition calcTopicPositionForHomeTopics(Topic parentTopic, int randomPositionX, int randomPositionY) {
+    public TopicPosition calcTopicPositionForHomeTopics(Topic parentTopic, int randomPositionX, int randomPositionY) {
         if (randomAboveBelowHome) {
             if ((random.nextInt(2) + 1) == 1) {
                 return new TopicPosition((parentTopic.getPosition().getX() + randomPositionX), (parentTopic.getPosition().getY() + randomPositionY));
