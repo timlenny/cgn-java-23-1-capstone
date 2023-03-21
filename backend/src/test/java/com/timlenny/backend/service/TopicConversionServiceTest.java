@@ -87,4 +87,51 @@ class TopicConversionServiceTest {
         assertNotEquals(parentTopic.getPosition().getX(), position.getX());
         assertNotEquals(parentTopic.getPosition().getY(), position.getY());
     }
+
+    @Test
+    void testSetNewTopicInitialPosition_NotHome() {
+        Topic nonHomeParentTopic = new Topic();
+        nonHomeParentTopic.setTopicName("NOT_HOME");
+        nonHomeParentTopic.setId("parent-id");
+        nonHomeParentTopic.setPosition(new TopicPosition(125, 250));
+        nonHomeParentTopic.setEdges(List.of(new Edge("edge-id", "source-id", "parent-id")));
+
+        TopicPosition position = topicConversionService.setNewTopicInitialPosition(nonHomeParentTopic);
+
+        assertNotNull(position);
+        assertNotEquals(nonHomeParentTopic.getPosition().getX(), position.getX());
+        assertNotEquals(nonHomeParentTopic.getPosition().getY(), position.getY());
+    }
+
+    @Test
+    void testCalcTopicPositionForSubtopics_TargetInEdges_RandomOne() {
+        Topic subtopic = new Topic();
+        subtopic.setTopicName("Subtopic");
+        subtopic.setId("subtopic-id");
+        subtopic.setPosition(new TopicPosition(200, 300));
+        subtopic.setEdges(List.of(new Edge("subtopic-edge-id", "source-id", "subtopic-id")));
+
+        TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, 50, 50);
+
+        assertNotNull(position);
+        assertNotEquals(subtopic.getPosition().getX(), position.getX());
+        assertNotEquals(subtopic.getPosition().getY(), position.getY());
+    }
+
+    @Test
+    void testCalcTopicPositionForSubtopics_TargetNotInEdges_RandomNotOne() {
+        Topic subtopic = new Topic();
+        subtopic.setTopicName("Subtopic");
+        subtopic.setId("subtopic-id");
+        subtopic.setPosition(new TopicPosition(200, 300));
+        subtopic.setEdges(List.of(new Edge("subtopic-edge-id", "subtopic-id", "child-id")));
+
+        TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, 50, 50);
+
+        assertNotNull(position);
+        assertNotEquals(subtopic.getPosition().getX(), position.getX());
+        assertNotEquals(subtopic.getPosition().getY(), position.getY());
+    }
+
+
 }
