@@ -6,8 +6,10 @@ import com.timlenny.backend.model.topic.TopicDTO;
 import com.timlenny.backend.model.topic.TopicPosition;
 import com.timlenny.backend.repository.TopicRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -19,18 +21,29 @@ class TopicServiceTest {
     TopicConversionService topicConversionService = mock(TopicConversionService.class);
     TopicService topicService = new TopicService(topicRepository, topicConversionService);
 
-    Topic demoTopicStart = new Topic(
-            "1", "START", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+    Topic demoTopicHome = new Topic(
+            "1",
+            "HOME",
+            List.of(),
+            new TopicPosition(125, 250),
+            "HOME",
+            "HOME",
+            3,
+            true
     );
-    TopicDTO demoTopicStartDTO = new TopicDTO(
-            "1", "START", 3
+    TopicDTO demoTopicJavaDTO = new TopicDTO(
+            "HOME", "Java", 3
+    );
+
+    Topic demoTopicJava = new Topic(
+            "2", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
 
     @Test
     void isGetAllTopicsReturningAllTopics_whenGetAllTopicsCalled() {
-        when(topicRepository.findAll()).thenReturn(List.of(demoTopicStart));
+        when(topicRepository.findAll()).thenReturn(List.of(demoTopicHome));
         List<Topic> actual = topicService.getAllTopics();
-        assertEquals(actual, List.of(demoTopicStart));
+        assertEquals(actual, List.of(demoTopicHome));
     }
 
     @Test
@@ -40,9 +53,13 @@ class TopicServiceTest {
     }
 
     @Test
+    @DirtiesContext
     void isAddTopicAddingNewTopic_whenAddTopicCalled() {
-        when(topicRepository.save(demoTopicStart)).thenReturn(demoTopicStart);
-        Topic actual = topicService.addTopic(demoTopicStartDTO);
-        assertEquals(actual.getTopicName(), demoTopicStart.getTopicName());
+        when(topicRepository.findByTopicName(demoTopicJavaDTO.getParentName())).thenReturn(Optional.ofNullable(demoTopicHome));
+        when(topicConversionService.convertNewDTOtoTopic(demoTopicJavaDTO, demoTopicHome)).thenReturn(demoTopicJava);
+        when(topicRepository.save(demoTopicJava)).thenReturn(demoTopicJava);
+
+        Topic actual = topicService.addTopic(demoTopicJavaDTO);
+        assertEquals(actual, demoTopicJava);
     }
 }
