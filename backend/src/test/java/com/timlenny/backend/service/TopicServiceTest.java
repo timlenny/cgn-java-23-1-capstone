@@ -16,7 +16,8 @@ import static org.mockito.Mockito.when;
 class TopicServiceTest {
 
     TopicRepository topicRepository = mock(TopicRepository.class);
-    TopicService topicService = new TopicService(topicRepository);
+    TopicConversionService topicConversionService = mock(TopicConversionService.class);
+    TopicService topicService = new TopicService(topicRepository, topicConversionService);
 
     Topic demoTopicStart = new Topic(
             "1", "START", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true

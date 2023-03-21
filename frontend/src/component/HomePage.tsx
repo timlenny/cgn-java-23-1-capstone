@@ -50,7 +50,7 @@ export default function HomePage() {
 
         if (buildListNodes.length < 1) {
             let offlineNode = [
-                {id: '1', position: {x: 300, y: 500}, data: {label: 'HOME'}},
+                {id: '1', position: {x: 125, y: 250}, data: {label: 'Loading...'}},
             ];
             setNodes(offlineNode)
         }
