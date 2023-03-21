@@ -29,7 +29,7 @@ export default function AddTopicPage() {
                 size: selectedSize
             }
         )
-    }, [topicData, setTopicData, selectedSize, selectedSize])
+    }, [topicData, setTopicData, selectedSize, setSelectedSize])
 
 
     return (
