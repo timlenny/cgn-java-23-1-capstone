@@ -3,8 +3,8 @@
 }
 
 .react-flow__node {
-    background: #8284FF;
-    border-radius: 50%;
+    background: transparent;
+    border: none;
     width: 100px;
     height: 100px;
     display: flex;
@@ -33,4 +33,17 @@
 .react-flow__handle-right {
     background-color: transparent;
     border: none;
+}
+
+.default-node {
+    background: #8284FF;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 100%;
 }

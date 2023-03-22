@@ -11,7 +11,7 @@ export default function AddTopicPage() {
     const navigate = useNavigate();
     const {postSingleTopic} = UseAddTopic();
     const [selectedSize, setSelectedSize] = useState(1);
-    const [topicData, setTopicData] = useState<TopicDTO>({parentName: "", topicName: "", size: 1});
+    const [topicData, setTopicData] = useState<TopicDTO>({parentName: "HOME", topicName: "", size: 1});
     const [buildTopic, setBuildTopic] = useState<TopicDTO>();
 
     const handleSizeButtonClick = (size: number) => {
@@ -41,7 +41,7 @@ export default function AddTopicPage() {
                 className="inputField"
                 onChange={(event) => handleInputChange(event, 'parentName')}
             />
-            <p className="helperText">A::B to select subtopics</p>
+            <p className="helperText">Enter parent topic name to create subtopic</p>
             <p className="label">Name</p>
             <input
                 type="text"

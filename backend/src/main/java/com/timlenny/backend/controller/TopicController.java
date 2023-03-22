@@ -27,5 +27,4 @@ public class TopicController {
     public Topic addTopic(@RequestBody TopicDTO topicToAddDTO) {
         return topicService.addTopic(topicToAddDTO);
     }
-
 }

@@ -1,0 +1,75 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #2a2b6d;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 50%;
+}
+
+.circle:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #8284FF;
+    background-image: linear-gradient(to bottom, #8284FF 0%, #008eed 100%);
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+.blob {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #8284FF;
+    opacity: 0.5;
+    border-radius: 30px;
+}
+
+.blob1 {
+    animation: rotato 8s .5s linear infinite;
+    transform-origin: 50% 52%;
+}
+
+.blob2 {
+    animation: rotato 10s .2s linear infinite;
+    transform-origin: 49% 49%;
+}
+
+.blob3 {
+    animation: rotato 12s linear infinite reverse;
+    transform-origin: 48% 52%;
+}
+
+.circle-text {
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 100%;
+    z-index: 8;
+}
+
+@keyframes rotato {
+    to {
+        transform: rotate(359deg);
+    }
+}
