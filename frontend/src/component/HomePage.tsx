@@ -1,17 +1,27 @@
 import React, {MouseEventHandler, useCallback, useEffect} from 'react';
-import ReactFlow, {addEdge, useEdgesState, useNodesState} from 'reactflow';
+import ReactFlow, {addEdge, NodeTypes, useEdgesState, useNodesState} from 'reactflow';
 import 'reactflow/dist/style.css';
 import '../style/home/reactFlow.css'
 import UseGetTopic from "../hook/UseGetTopic";
 import {edgesType} from "../model/topic/Edge";
 import '../style/home/Home.css';
 import {useNavigate} from "react-router-dom";
+import CustomLabelNode from "./CustomNode";
+import DefaultNode from "./DefaultNode";
+
+const nodeTypes: NodeTypes = {
+    customLabelNode: CustomLabelNode,
+    defaultNode: DefaultNode,
+};
 
 type nodeType = {
     id: string,
+    type?: string,
     position: { x: number, y: number },
     data: { label: string }
 }
+
+
 
 export default function HomePage() {
 
@@ -32,6 +42,7 @@ export default function HomePage() {
         let buildListNodes = topic.map((data) => {
             const newNode: nodeType = {
                 id: data.id,
+                type: data.topicName === 'HOME' ? 'customLabelNode' : 'defaultNode',
                 position: {x: data.position.x, y: data.position.y},
                 data: {label: data.topicName}
             }
@@ -66,6 +77,7 @@ export default function HomePage() {
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
+                nodeTypes={nodeTypes}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
