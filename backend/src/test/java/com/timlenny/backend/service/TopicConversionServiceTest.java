@@ -4,6 +4,7 @@ import com.timlenny.backend.model.topic.Edge;
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicPosition;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,8 +39,6 @@ class TopicConversionServiceTest {
         parentTopic.setPosition(new TopicPosition(125, 250));
         parentTopic.setEdges(List.of(new Edge("edge-id", "source-id", "parent-id")));
     }
-
-    // ...
 
     @ParameterizedTest
     @MethodSource("calcTopicPositionForSubtopicsArguments")
@@ -77,7 +76,7 @@ class TopicConversionServiceTest {
         );
     }
 
-    @Test
+    @RepeatedTest(3)
     void createNewEdgesFromParentName() {
         when(idService.generateId()).thenReturn("new-edge-id");
 
@@ -105,7 +104,7 @@ class TopicConversionServiceTest {
         assertNotEquals(parentTopic.getPosition().getY(), position.getY());
     }
 
-    @Test
+    @RepeatedTest(3)
     void calcTopicPositionForHomeTopics() {
         TopicPosition position = topicConversionService.calcTopicPositionForHomeTopics(parentTopic, 50, 50);
 
@@ -163,7 +162,7 @@ class TopicConversionServiceTest {
         assertEquals("new-edge-id", edge.getId());
     }
 
-    @Test
+    @RepeatedTest(3)
     void testCalcTopicPositionForSubtopics_differentPositionCases() {
         Topic subtopic = new Topic();
         subtopic.setTopicName("Subtopic");
@@ -171,7 +170,6 @@ class TopicConversionServiceTest {
         subtopic.setPosition(new TopicPosition(200, 300));
         subtopic.setEdges(List.of(new Edge("subtopic-edge-id", "subtopic-id", "child-id")));
 
-        // Test different position cases by varying xDiff and yDiff values
         TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, -50, 50);
         assertNotNull(position);
         assertNotEquals(subtopic.getPosition().getX(), position.getX());
@@ -187,6 +185,5 @@ class TopicConversionServiceTest {
         assertNotEquals(subtopic.getPosition().getX(), position.getX());
         assertNotEquals(subtopic.getPosition().getY(), position.getY());
     }
-
 
 }
