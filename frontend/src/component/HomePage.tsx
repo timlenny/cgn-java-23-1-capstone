@@ -22,7 +22,6 @@ type nodeType = {
 }
 
 
-
 export default function HomePage() {
 
     const navigate = useNavigate()
