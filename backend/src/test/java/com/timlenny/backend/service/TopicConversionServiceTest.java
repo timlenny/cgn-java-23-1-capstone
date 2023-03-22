@@ -130,9 +130,63 @@ class TopicConversionServiceTest {
     }
 
 
+    @Test
+    void testCreateNewEdgesFromParentName_targetInEdges() {
+        when(idService.generateId()).thenReturn("new-edge-id");
 
+        Topic parent = new Topic();
+        parent.setTopicName("Test");
+        parent.setId("parent-id");
+        parent.setEdges(List.of(new Edge("edge-id", "parent-id", "child-id")));
 
+        List<Edge> edges = topicConversionService.createNewEdgesFromParentName(parent, "new-child-id");
 
+        assertEquals(1, edges.size());
+        Edge edge = edges.get(0);
+        assertEquals("new-edge-id", edge.getId());
+        assertEquals("parent-id", edge.getTarget());
+    }
+
+    @Test
+    void testCreateNewEdgesFromParentName_targetNotInEdges() {
+        when(idService.generateId()).thenReturn("new-edge-id");
+
+        Topic parent = new Topic();
+        parent.setTopicName("Test");
+        parent.setId("parent-id");
+        parent.setEdges(List.of(new Edge("edge-id", "child-id", "parent-id")));
+
+        List<Edge> edges = topicConversionService.createNewEdgesFromParentName(parent, "new-child-id");
+
+        assertEquals(1, edges.size());
+        Edge edge = edges.get(0);
+        assertEquals("new-edge-id", edge.getId());
+    }
+
+    @Test
+    void testCalcTopicPositionForSubtopics_differentPositionCases() {
+        Topic subtopic = new Topic();
+        subtopic.setTopicName("Subtopic");
+        subtopic.setId("subtopic-id");
+        subtopic.setPosition(new TopicPosition(200, 300));
+        subtopic.setEdges(List.of(new Edge("subtopic-edge-id", "subtopic-id", "child-id")));
+
+        // Test different position cases by varying xDiff and yDiff values
+        TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, -50, 50);
+        assertNotNull(position);
+        assertNotEquals(subtopic.getPosition().getX(), position.getX());
+        assertNotEquals(subtopic.getPosition().getY(), position.getY());
+
+        position = topicConversionService.calcTopicPositionForSubtopics(subtopic, 50, -50);
+        assertNotNull(position);
+        assertNotEquals(subtopic.getPosition().getX(), position.getX());
+        assertNotEquals(subtopic.getPosition().getY(), position.getY());
+
+        position = topicConversionService.calcTopicPositionForSubtopics(subtopic, -50, -50);
+        assertNotNull(position);
+        assertNotEquals(subtopic.getPosition().getX(), position.getX());
+        assertNotEquals(subtopic.getPosition().getY(), position.getY());
+    }
 
 
 }
