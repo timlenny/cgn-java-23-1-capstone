@@ -6,11 +6,15 @@ import com.timlenny.backend.model.topic.TopicPosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -35,6 +39,43 @@ class TopicConversionServiceTest {
         parentTopic.setEdges(List.of(new Edge("edge-id", "source-id", "parent-id")));
     }
 
+    // ...
+
+    @ParameterizedTest
+    @MethodSource("calcTopicPositionForSubtopicsArguments")
+    void testCalcTopicPositionForSubtopics(Topic subtopic, int xDiff, int yDiff) {
+        TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, xDiff, yDiff);
+
+        assertNotNull(position);
+        assertNotEquals(subtopic.getPosition().getX(), position.getX());
+        assertNotEquals(subtopic.getPosition().getY(), position.getY());
+    }
+
+    static Stream<Arguments> calcTopicPositionForSubtopicsArguments() {
+        Topic subtopic1 = new Topic();
+        subtopic1.setTopicName("Subtopic");
+        subtopic1.setId("subtopic-id");
+        subtopic1.setPosition(new TopicPosition(200, 300));
+        subtopic1.setEdges(List.of(new Edge("subtopic-edge-id", "subtopic-id", "child-id")));
+
+        Topic subtopic2 = new Topic();
+        subtopic2.setTopicName("Subtopic");
+        subtopic2.setId("subtopic-id");
+        subtopic2.setPosition(new TopicPosition(200, 300));
+        subtopic2.setEdges(List.of(new Edge("subtopic-edge-id", "source-id", "subtopic-id")));
+
+        Topic subtopic3 = new Topic();
+        subtopic3.setTopicName("Subtopic");
+        subtopic3.setId("subtopic-id");
+        subtopic3.setPosition(new TopicPosition(200, 300));
+        subtopic3.setEdges(List.of(new Edge("subtopic-edge-id", "subtopic-id", "child-id")));
+
+        return Stream.of(
+                Arguments.of(subtopic1, 50, 50),
+                Arguments.of(subtopic2, 50, 50),
+                Arguments.of(subtopic3, 50, 50)
+        );
+    }
 
     @Test
     void createNewEdgesFromParentName() {
@@ -65,21 +106,6 @@ class TopicConversionServiceTest {
     }
 
     @Test
-    void calcTopicPositionForSubtopics() {
-        Topic subtopic = new Topic();
-        subtopic.setTopicName("Subtopic");
-        subtopic.setId("subtopic-id");
-        subtopic.setPosition(new TopicPosition(200, 300));
-        subtopic.setEdges(List.of(new Edge("subtopic-edge-id", "subtopic-id", "child-id")));
-
-        TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, 50, 50);
-
-        assertNotNull(position);
-        assertNotEquals(subtopic.getPosition().getX(), position.getX());
-        assertNotEquals(subtopic.getPosition().getY(), position.getY());
-    }
-
-    @Test
     void calcTopicPositionForHomeTopics() {
         TopicPosition position = topicConversionService.calcTopicPositionForHomeTopics(parentTopic, 50, 50);
 
@@ -103,35 +129,10 @@ class TopicConversionServiceTest {
         assertNotEquals(nonHomeParentTopic.getPosition().getY(), position.getY());
     }
 
-    @Test
-    void testCalcTopicPositionForSubtopics_TargetInEdges_RandomOne() {
-        Topic subtopic = new Topic();
-        subtopic.setTopicName("Subtopic");
-        subtopic.setId("subtopic-id");
-        subtopic.setPosition(new TopicPosition(200, 300));
-        subtopic.setEdges(List.of(new Edge("subtopic-edge-id", "source-id", "subtopic-id")));
 
-        TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, 50, 50);
 
-        assertNotNull(position);
-        assertNotEquals(subtopic.getPosition().getX(), position.getX());
-        assertNotEquals(subtopic.getPosition().getY(), position.getY());
-    }
 
-    @Test
-    void testCalcTopicPositionForSubtopics_TargetNotInEdges_RandomNotOne() {
-        Topic subtopic = new Topic();
-        subtopic.setTopicName("Subtopic");
-        subtopic.setId("subtopic-id");
-        subtopic.setPosition(new TopicPosition(200, 300));
-        subtopic.setEdges(List.of(new Edge("subtopic-edge-id", "subtopic-id", "child-id")));
 
-        TopicPosition position = topicConversionService.calcTopicPositionForSubtopics(subtopic, 50, 50);
-
-        assertNotNull(position);
-        assertNotEquals(subtopic.getPosition().getX(), position.getX());
-        assertNotEquals(subtopic.getPosition().getY(), position.getY());
-    }
 
 
 }
