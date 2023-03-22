@@ -76,7 +76,7 @@ class TopicConversionServiceTest {
         );
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(5)
     void createNewEdgesFromParentName() {
         when(idService.generateId()).thenReturn("new-edge-id");
 
@@ -104,7 +104,7 @@ class TopicConversionServiceTest {
         assertNotEquals(parentTopic.getPosition().getY(), position.getY());
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(5)
     void calcTopicPositionForHomeTopics() {
         TopicPosition position = topicConversionService.calcTopicPositionForHomeTopics(parentTopic, 50, 50);
 
@@ -162,7 +162,7 @@ class TopicConversionServiceTest {
         assertEquals("new-edge-id", edge.getId());
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(5)
     void testCalcTopicPositionForSubtopics_differentPositionCases() {
         Topic subtopic = new Topic();
         subtopic.setTopicName("Subtopic");
