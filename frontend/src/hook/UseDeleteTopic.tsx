@@ -4,7 +4,7 @@ import {useState} from "react";
 export default function UseDeleteTopic() {
     const [deleteStatus, setDeleteStatus] = useState("");
 
-    function deleteSingleTopic(id: String | undefined) {
+    function deleteSingleTopic(id: string | undefined) {
         if (id) {
             axios.delete("/api/topic/" + id)
                 .then((data) => {
