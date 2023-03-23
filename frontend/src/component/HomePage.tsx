@@ -92,7 +92,7 @@ export default function HomePage() {
                 <AddIcon sx={{fontSize: 40, color: "white"}}/>
             </button>
             <button className={deleteMode ? "delete-active" : "delete"} onClick={() => {
-                !deleteMode ? setDeleteMode(true) : setDeleteMode(false);
+                setDeleteMode(deleteMode => !deleteMode)
             }}>
                 <DeleteOutlineIcon sx={{fontSize: 30}}/>
             </button>

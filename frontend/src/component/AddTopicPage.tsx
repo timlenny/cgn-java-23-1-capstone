@@ -32,7 +32,7 @@ export default function AddTopicPage() {
         )
     }, [topicData, setTopicData, selectedSize, setSelectedSize])
 
-    function displayError() {
+    function ifErrordisplayError() {
         if (errorMsg !== "") {
             return (
                 <Alert severity="warning">{errorMsg}</Alert>
@@ -43,7 +43,7 @@ export default function AddTopicPage() {
 
     return (
         <div className="addTopicPage">
-            {displayError()}
+            {ifErrordisplayError()}
             <p className="label">Parent Topic</p>
             <input
                 type="text"
