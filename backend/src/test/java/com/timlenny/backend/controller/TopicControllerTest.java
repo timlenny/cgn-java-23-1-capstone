@@ -34,6 +34,7 @@ class TopicControllerTest {
     ObjectMapper mapper = new ObjectMapper();
     Topic demoTopicHome = new Topic(
             "1",
+            "NONE",
             "HOME",
             List.of(),
             new TopicPosition(125, 250),
@@ -47,7 +48,7 @@ class TopicControllerTest {
     );
 
     Topic demoTopicJava = new Topic(
-            "2", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "2", "NONE", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
 
     @Test
@@ -98,5 +99,16 @@ class TopicControllerTest {
                         content(jsonObj))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.topicName").value("Java"));
+    }
+
+    @Test
+    @DirtiesContext
+    void whenTopicDelete_theReturnDeletedTopicId() throws Exception {
+        topicRepository.save(demoTopicHome);
+        topicRepository.save(demoTopicJava);
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/topic/" + demoTopicJava.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(demoTopicJava.getId()));
     }
 }

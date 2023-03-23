@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class TopicService {
     TopicRepository topicRepository;
@@ -40,12 +40,36 @@ public class TopicService {
         }
 
         Optional<Topic> parentTopic = topicRepository.findByTopicName(topicToAddDTO.getParentName());
-        if (parentTopic.isPresent()) {
-            Topic topicToAdd = topicConversionService.convertNewDTOtoTopic(topicToAddDTO, parentTopic.get());
-            topicRepository.save(topicToAdd);
-            return topicToAdd;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "parentTopic not found!");
+
+        if (parentTopic.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "parentTopic not found!");
         }
+
+        Topic topicToAdd = topicConversionService.convertNewDTOtoTopic(topicToAddDTO, parentTopic.get());
+        topicRepository.save(topicToAdd);
+        return topicToAdd;
+    }
+
+    public String deleteTopic(String id) {
+            List<String> deleteIds = new ArrayList<>();
+            List<String> resultDeleteIds = getAllChildTopics(id, deleteIds);
+            resultDeleteIds.add(id);
+
+            for (String delId : resultDeleteIds) {
+                topicRepository.deleteById(delId);
+            }
+
+            return id;
+    }
+
+    private List<String> getAllChildTopics(String parentId, List<String> deleteIds) {
+        List<Topic> childTopics = topicRepository.findByParentId(parentId);
+
+        for (Topic child : childTopics) {
+            deleteIds.add(child.getId());
+            getAllChildTopics(child.getId(), deleteIds);
+        }
+
+        return deleteIds;
     }
 }

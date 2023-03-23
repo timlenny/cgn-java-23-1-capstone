@@ -15,6 +15,7 @@ import java.util.List;
 public class Topic {
     @Id
     String id;
+    String parentId;
     String topicName;
     List<Edge> edges;
     TopicPosition position;

@@ -17,5 +17,3 @@ export default function UseGetTopic() {
 
     return {getAllTopics, topic};
 }
-
-

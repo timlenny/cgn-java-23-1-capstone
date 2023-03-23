@@ -7,7 +7,7 @@ type DefaultNodeProps = {
     data: {
         label: string;
     };
-};
+}
 
 const DefaultNode: FC<DefaultNodeProps> = ({data}) => {
     return (
@@ -21,4 +21,4 @@ const DefaultNode: FC<DefaultNodeProps> = ({data}) => {
     );
 };
 
-export default DefaultNode;
+export default React.memo(DefaultNode);

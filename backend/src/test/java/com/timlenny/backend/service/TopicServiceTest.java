@@ -23,6 +23,7 @@ class TopicServiceTest {
 
     Topic demoTopicHome = new Topic(
             "1",
+            "NONE",
             "HOME",
             List.of(),
             new TopicPosition(125, 250),
@@ -36,7 +37,11 @@ class TopicServiceTest {
     );
 
     Topic demoTopicJava = new Topic(
-            "2", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "2", "NONE", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+    );
+
+    Topic demoTopicJavaChild1 = new Topic(
+            "3", "Java", "Java Child 1", List.of(new Edge("32319", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
 
     @Test
@@ -88,8 +93,14 @@ class TopicServiceTest {
             actual = error.getMessage();
         }
 
-        assertEquals("204 NO_CONTENT \"parentTopic not found!\"", actual);
+        assertEquals("400 BAD_REQUEST \"parentTopic not found!\"", actual);
     }
 
-
+    @Test
+    @DirtiesContext
+    void isTopicDeleteCorrectly_WhenDeleteTopic() {
+        when(topicRepository.findByParentId(demoTopicJava.getId())).thenReturn(List.of(demoTopicJavaChild1));
+        String actual = topicService.deleteTopic(demoTopicJava.getId());
+        assertEquals(actual, demoTopicJava.getId());
+    }
 }
