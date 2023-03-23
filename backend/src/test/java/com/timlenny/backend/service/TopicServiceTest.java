@@ -40,6 +40,10 @@ class TopicServiceTest {
             "2", "NONE", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
 
+    Topic demoTopicJavaChild1 = new Topic(
+            "3", "Java", "Java Child 1", List.of(new Edge("32319", "", "")), new TopicPosition(200, 200), "", "", 3, true
+    );
+
     @Test
     void isGetAllTopicsReturningAllTopics_whenGetAllTopicsCalled() {
         when(topicRepository.findAll()).thenReturn(List.of(demoTopicHome));
@@ -95,10 +99,8 @@ class TopicServiceTest {
     @Test
     @DirtiesContext
     void isTopicDeleteCorrectly_WhenDeleteTopic() {
-        when(topicRepository.findByParentId("NONE")).thenReturn(List.of(demoTopicJava));
+        when(topicRepository.findByParentId(demoTopicJava.getId())).thenReturn(List.of(demoTopicJavaChild1));
         String actual = topicService.deleteTopic(demoTopicJava.getId());
         assertEquals(actual, demoTopicJava.getId());
     }
-
-
 }

@@ -51,8 +51,6 @@ public class TopicService {
     }
 
     public String deleteTopic(String id) {
-        try {
-
             List<String> deleteIds = new ArrayList<>();
             List<String> resultDeleteIds = getAllChildTopics(id, deleteIds);
             resultDeleteIds.add(id);
@@ -62,9 +60,6 @@ public class TopicService {
             }
 
             return id;
-        } catch (Exception error) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Delete: Topic not found. Topic-ID: " + id);
-        }
     }
 
     private List<String> getAllChildTopics(String parentId, List<String> deleteIds) {
