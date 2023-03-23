@@ -34,4 +34,4 @@ const CustomLabelNode: FC<CustomLabelNodeProps> = ({id, data}) => {
     );
 };
 
-export default CustomLabelNode;
+export default React.memo(CustomLabelNode);

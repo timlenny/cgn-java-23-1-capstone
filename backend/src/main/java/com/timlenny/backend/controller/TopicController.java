@@ -27,4 +27,9 @@ public class TopicController {
     public Topic addTopic(@RequestBody TopicDTO topicToAddDTO) {
         return topicService.addTopic(topicToAddDTO);
     }
+
+    @DeleteMapping("/topic/{id}")
+    public String deleteTopic(@PathVariable String id) {
+        return topicService.deleteTopic(id);
+    }
 }

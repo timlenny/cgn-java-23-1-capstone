@@ -31,6 +31,7 @@ public class TopicConversionService {
         newTopic.setSubtopicId(idService.generateId());
         newTopic.setOpen(true);
         newTopic.setPosition(setNewTopicInitialPosition(parentTopic));
+        newTopic.setParentId(parentTopic.getId());
         return newTopic;
     }
 
@@ -100,9 +101,11 @@ public class TopicConversionService {
         }
     }
 
+
     public Topic initTopic() {
         return new Topic(
                 idService.generateId(),
+                "NONE",
                 "HOME",
                 List.of(),
                 new TopicPosition(125, 250),

@@ -1,5 +1,5 @@
-import React, {MouseEventHandler, useCallback, useEffect} from 'react';
-import ReactFlow, {addEdge, NodeTypes, useEdgesState, useNodesState} from 'reactflow';
+import React, {MouseEventHandler, useCallback, useEffect, useState} from 'react';
+import ReactFlow, {addEdge, NodeMouseHandler, NodeTypes, useEdgesState, useNodesState} from 'reactflow';
 import 'reactflow/dist/style.css';
 import '../style/home/reactFlow.css'
 import UseGetTopic from "../hook/UseGetTopic";
@@ -8,6 +8,9 @@ import '../style/home/Home.css';
 import {useNavigate} from "react-router-dom";
 import CustomLabelNode from "./CustomNode";
 import DefaultNode from "./DefaultNode";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import AddIcon from '@mui/icons-material/Add';
+import UseDeleteTopic from "../hook/UseDeleteTopic";
 
 const nodeTypes: NodeTypes = {
     customLabelNode: CustomLabelNode,
@@ -21,21 +24,21 @@ type nodeType = {
     data: { label: string }
 }
 
-
 export default function HomePage() {
 
     const navigate = useNavigate()
     const {getAllTopics, topic} = UseGetTopic();
+    const {deleteSingleTopic, deleteStatus} = UseDeleteTopic();
     let buildListEdges: edgesType[] = []
     let buildListNodes: nodeType[] = []
-
     const [nodes, setNodes, onNodesChange] = useNodesState(buildListNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(buildListEdges);
+    const [deleteMode, setDeleteMode] = useState(false);
     const onConnect = useCallback((params: any) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
     useEffect(() => {
         getAllTopics();
-    }, [getAllTopics])
+    }, [getAllTopics, deleteStatus])
 
     useEffect(() => {
         let buildListNodes = topic.map((data) => {
@@ -70,9 +73,29 @@ export default function HomePage() {
         navigate("/topic/add")
     }
 
+    const onNodeClickDelete: NodeMouseHandler = (event, node) => {
+        if (deleteMode && node.data.label !== "HOME") {
+            deleteSingleTopic(node.id);
+        }
+    }
+
+    function displayHint() {
+        if (deleteMode) {
+            return (<p className={"hint-text"}>CLICK TOPIC TO DELETE</p>)
+        }
+    }
+
     return (
         <div style={{width: '100vw', height: '100vh'}}>
-            <button className="addButton" onClick={handleSubmitAdd}></button>
+            {displayHint()}
+            <button className="addButton" onClick={handleSubmitAdd}>
+                <AddIcon sx={{fontSize: 40, color: "white"}}/>
+            </button>
+            <button className={deleteMode ? "delete-active" : "delete"} onClick={() => {
+                !deleteMode ? setDeleteMode(true) : setDeleteMode(false);
+            }}>
+                <DeleteOutlineIcon sx={{fontSize: 30}}/>
+            </button>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -80,6 +103,7 @@ export default function HomePage() {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
+                onNodeClick={onNodeClickDelete}
             />
         </div>
     );

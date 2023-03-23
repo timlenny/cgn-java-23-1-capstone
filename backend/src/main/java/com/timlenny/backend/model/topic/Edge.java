@@ -9,7 +9,6 @@ public class Edge {
     String id;
     String source;
     String target;
-
     public Edge(String id, String source, String target) {
         this.id = id;
         this.source = source;

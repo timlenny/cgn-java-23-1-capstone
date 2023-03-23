@@ -34,6 +34,7 @@ class TopicControllerTest {
     ObjectMapper mapper = new ObjectMapper();
     Topic demoTopicHome = new Topic(
             "1",
+            "NONE",
             "HOME",
             List.of(),
             new TopicPosition(125, 250),
@@ -47,7 +48,7 @@ class TopicControllerTest {
     );
 
     Topic demoTopicJava = new Topic(
-            "2", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "2", "NONE", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
 
     @Test

@@ -5,11 +5,12 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {TopicDTO} from "../model/topic/TopicDTO";
 import UseAddTopic from "../hook/UseAddTopic";
 import {useNavigate} from "react-router-dom";
+import {Alert} from "@mui/material";
 
 export default function AddTopicPage() {
 
     const navigate = useNavigate();
-    const {postSingleTopic} = UseAddTopic();
+    const {postSingleTopic, errorMsg} = UseAddTopic();
     const [selectedSize, setSelectedSize] = useState(1);
     const [topicData, setTopicData] = useState<TopicDTO>({parentName: "HOME", topicName: "", size: 1});
     const [buildTopic, setBuildTopic] = useState<TopicDTO>();
@@ -31,9 +32,18 @@ export default function AddTopicPage() {
         )
     }, [topicData, setTopicData, selectedSize, setSelectedSize])
 
+    function displayError() {
+        if (errorMsg !== "") {
+            return (
+                <Alert severity="warning">{errorMsg}</Alert>
+            )
+        }
+    }
+
 
     return (
         <div className="addTopicPage">
+            {displayError()}
             <p className="label">Parent Topic</p>
             <input
                 type="text"
