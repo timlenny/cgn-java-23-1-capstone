@@ -92,5 +92,13 @@ class TopicServiceTest {
         assertEquals("400 BAD_REQUEST \"parentTopic not found!\"", actual);
     }
 
+    @Test
+    @DirtiesContext
+    void isTopicDeleteCorrectly_WhenDeleteTopic() {
+        when(topicRepository.findByParentId("NONE")).thenReturn(List.of(demoTopicJava));
+        String actual = topicService.deleteTopic(demoTopicJava.getId());
+        assertEquals(actual, demoTopicJava.getId());
+    }
+
 
 }

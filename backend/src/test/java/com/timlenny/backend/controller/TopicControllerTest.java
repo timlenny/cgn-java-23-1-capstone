@@ -100,4 +100,15 @@ class TopicControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.topicName").value("Java"));
     }
+
+    @Test
+    @DirtiesContext
+    void whenTopicDelete_theReturnDeletedTopicId() throws Exception {
+        topicRepository.save(demoTopicHome);
+        topicRepository.save(demoTopicJava);
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/topic/" + demoTopicJava.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(demoTopicJava.getId()));
+    }
 }
