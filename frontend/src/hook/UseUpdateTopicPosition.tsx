@@ -16,13 +16,11 @@ export default function UseUpdateTopicPosition() {
             return topic
         })
 
-        console.log(topicsToUpdate)
-
         axios.put("/api/topic/positions", topicsToUpdate)
             .then((data) => {
-                console.log(data.data)
+               return data.data
             }).catch((error) => {
-            console.log(error)
+            console.error(error)
         })
     }
 

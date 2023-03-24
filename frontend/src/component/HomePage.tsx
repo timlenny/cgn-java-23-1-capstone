@@ -74,7 +74,7 @@ export default function HomePage() {
             ];
             setNodes(offlineNode)
         }
-    }, [topic, setEdges, setNodes])
+    }, [topic, setEdges, setNodes, setNodesBackup])
 
     const handleSubmitAdd: MouseEventHandler<HTMLButtonElement> = () => {
         navigate("/topic/add")
@@ -95,7 +95,6 @@ export default function HomePage() {
     function displaySaveChanges() {
         if (changeMode) {
             return (<button className="homeButtonSave" onClick={() => {
-                console.log(changedNodes)
                 updateTopicPosition(changedNodes);
                 setNodesBackup(nodes)
                 setChangeMode(!changeMode)
@@ -110,7 +109,7 @@ export default function HomePage() {
             return !nodesBackup.includes(node)
         })
         setChangedNodes(changedNodes);
-    }, [nodes])
+    }, [nodes, nodesBackup, setChangedNodes])
 
 
     return (
