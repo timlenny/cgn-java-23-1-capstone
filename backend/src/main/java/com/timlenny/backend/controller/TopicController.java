@@ -28,6 +28,11 @@ public class TopicController {
         return topicService.addTopic(topicToAddDTO);
     }
 
+    @PutMapping("/topic/positions")
+    public int updatePositionOfTopics(@RequestBody List<TopicDTO> changedTopics) {
+        return topicService.updatePositionOfTopics(changedTopics);
+    }
+
     @DeleteMapping("/topic/{id}")
     public String deleteTopic(@PathVariable String id) {
         return topicService.deleteTopic(id);

@@ -44,7 +44,7 @@ class TopicControllerTest {
             true
     );
     TopicDTO demoTopicJavaDTO = new TopicDTO(
-            "HOME", "Java", 3
+            "2", "HOME", "Java", 3, new TopicPosition(0, 0)
     );
 
     Topic demoTopicJava = new Topic(
@@ -110,5 +110,20 @@ class TopicControllerTest {
                         .delete("/api/topic/" + demoTopicJava.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(demoTopicJava.getId()));
+    }
+
+    @Test
+    @DirtiesContext
+    void whenTopicPositionUpdate_theReturnDeletedTopicCounter() throws Exception {
+        topicRepository.save(demoTopicJava);
+
+        String jsonObj = mapper.writeValueAsString(List.of(demoTopicJavaDTO));
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/api/topic/positions")
+                        .contentType(MediaType.APPLICATION_JSON).
+                        content(jsonObj))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .content().json("1"));
     }
 }
