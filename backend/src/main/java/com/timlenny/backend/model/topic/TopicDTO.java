@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TopicDTO {
+   String topicId;
    String parentName;
    String topicName;
    int size;
+   TopicPosition position;
 }

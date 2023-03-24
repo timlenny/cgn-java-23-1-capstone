@@ -11,13 +11,15 @@ import DefaultNode from "./DefaultNode";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
 import UseDeleteTopic from "../hook/UseDeleteTopic";
+import SaveIcon from '@mui/icons-material/Save';
+import UseUpdateTopicPosition from "../hook/UseUpdateTopicPosition";
 
 const nodeTypes: NodeTypes = {
     customLabelNode: CustomLabelNode,
     defaultNode: DefaultNode,
 };
 
-type nodeType = {
+export type nodeType = {
     id: string,
     type?: string,
     position: { x: number, y: number },
@@ -31,9 +33,13 @@ export default function HomePage() {
     const {deleteSingleTopic, deleteStatus} = UseDeleteTopic();
     let buildListEdges: edgesType[] = []
     let buildListNodes: nodeType[] = []
+    const updateTopicPosition = UseUpdateTopicPosition();
     const [nodes, setNodes, onNodesChange] = useNodesState(buildListNodes);
+    const [nodesBackup, setNodesBackup] = useNodesState(buildListNodes);
+    const [changedNodes, setChangedNodes] = useNodesState(buildListNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(buildListEdges);
     const [deleteMode, setDeleteMode] = useState(false);
+    const [changeMode, setChangeMode] = useState(false);
     const onConnect = useCallback((params: any) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
     useEffect(() => {
@@ -51,6 +57,7 @@ export default function HomePage() {
             return newNode;
         })
         setNodes(buildListNodes)
+        setNodesBackup(buildListNodes);
 
         let buildListEdges = topic.map((data) => {
             const collEdges = data.edges.map((edge) => {
@@ -85,16 +92,38 @@ export default function HomePage() {
         }
     }
 
+    function displaySaveChanges() {
+        if (changeMode) {
+            return (<button className="homeButtonSave" onClick={() => {
+                console.log(changedNodes)
+                updateTopicPosition(changedNodes);
+                setNodesBackup(nodes)
+                setChangeMode(!changeMode)
+            }}>
+                <SaveIcon sx={{fontSize: 35}}/>
+            </button>)
+        }
+    }
+
+    useEffect(() => {
+        const changedNodes = nodes.filter((node) => {
+            return !nodesBackup.includes(node)
+        })
+        setChangedNodes(changedNodes);
+    }, [nodes])
+
+
     return (
         <div style={{width: '100vw', height: '100vh'}}>
             {displayHint()}
-            <button className="addButton" onClick={handleSubmitAdd}>
-                <AddIcon sx={{fontSize: 40, color: "white"}}/>
+            {displaySaveChanges()}
+            <button className="homeButtonAdd" onClick={handleSubmitAdd}>
+                <AddIcon sx={{fontSize: 35}}/>
             </button>
-            <button className={deleteMode ? "delete-active" : "delete"} onClick={() => {
+            <button className={deleteMode ? "homeButtonDel-active" : "homeButtonDel"} onClick={() => {
                 setDeleteMode(deleteMode => !deleteMode)
             }}>
-                <DeleteOutlineIcon sx={{fontSize: 30}}/>
+                <DeleteOutlineIcon sx={{fontSize: 35}}/>
             </button>
             <ReactFlow
                 nodes={nodes}
@@ -104,6 +133,9 @@ export default function HomePage() {
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClickDelete}
+                onNodeDragStop={() => {
+                    deleteMode ? setChangeMode(false) : setChangeMode(true)
+                }}
             />
         </div>
     );

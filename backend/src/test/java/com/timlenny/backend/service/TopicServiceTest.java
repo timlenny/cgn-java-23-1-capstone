@@ -33,7 +33,7 @@ class TopicServiceTest {
             true
     );
     TopicDTO demoTopicJavaDTO = new TopicDTO(
-            "HOME", "Java", 3
+            "2", "HOME", "Java", 3, new TopicPosition(0, 0)
     );
 
     Topic demoTopicJava = new Topic(
@@ -103,4 +103,24 @@ class TopicServiceTest {
         String actual = topicService.deleteTopic(demoTopicJava.getId());
         assertEquals(actual, demoTopicJava.getId());
     }
+
+    @Test
+    @DirtiesContext
+    void isTopicPositionUpdateSetCorrect_WhenTopicPositionChanges() {
+        when(topicRepository.findById(demoTopicJava.getId())).thenReturn(Optional.ofNullable(demoTopicJava));
+        int actual = topicService.updatePositionOfTopics(List.of(demoTopicJavaDTO));
+        assertEquals(1, actual);
+    }
+
+    @Test
+    @DirtiesContext
+    void isTopicPositionUpdateThrowException_WhenTopicToUpdateNotExists() {
+        try {
+            topicService.updatePositionOfTopics(List.of(demoTopicJavaDTO));
+        } catch (Exception error) {
+            assertEquals("400 BAD_REQUEST \"Topic with id 2 not found!\"", error.getMessage());
+        }
+    }
+
+
 }

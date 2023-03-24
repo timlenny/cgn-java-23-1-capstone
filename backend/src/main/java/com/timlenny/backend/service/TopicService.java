@@ -72,4 +72,21 @@ public class TopicService {
 
         return deleteIds;
     }
+
+    public int updatePositionOfTopics(List<TopicDTO> changedTopics) {
+        int updateCounter = 0;
+        for (TopicDTO newTopicData : changedTopics) {
+            Optional<Topic> topicToUpdate = topicRepository.findById(newTopicData.getTopicId());
+            if (topicToUpdate.isPresent()) {
+                Topic topic = topicToUpdate.get();
+                topic.setPosition(newTopicData.getPosition());
+                topicRepository.save(topic);
+                updateCounter++;
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Topic with id " + newTopicData.getTopicId() + " not found!");
+            }
+        }
+
+        return updateCounter;
+    }
 }

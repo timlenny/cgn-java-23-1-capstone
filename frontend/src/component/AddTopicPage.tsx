@@ -12,7 +12,13 @@ export default function AddTopicPage() {
     const navigate = useNavigate();
     const {postSingleTopic, errorMsg} = UseAddTopic();
     const [selectedSize, setSelectedSize] = useState(1);
-    const [topicData, setTopicData] = useState<TopicDTO>({parentName: "HOME", topicName: "", size: 1});
+    const [topicData, setTopicData] = useState<TopicDTO>({
+        topicId: "",
+        parentName: "HOME",
+        topicName: "",
+        size: 1,
+        position: {x: 0, y: 0,}
+    });
     const [buildTopic, setBuildTopic] = useState<TopicDTO>();
 
     const handleSizeButtonClick = (size: number) => {
@@ -25,9 +31,11 @@ export default function AddTopicPage() {
 
     useEffect(() => {
         setBuildTopic({
+                topicId: topicData.topicId,
                 parentName: topicData.parentName,
                 topicName: topicData.topicName,
-                size: selectedSize
+                size: selectedSize,
+                position: topicData.position
             }
         )
     }, [topicData, setTopicData, selectedSize, setSelectedSize])
