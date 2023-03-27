@@ -3,10 +3,14 @@ package com.timlenny.backend.service;
 import com.timlenny.backend.model.user.MongoUser;
 import com.timlenny.backend.model.user.MongoUserDTO;
 import com.timlenny.backend.repository.MongoUserRepository;
+import com.timlenny.backend.service.user.MongoUserDetailsService;
 import com.timlenny.backend.service.user.MongoUserService;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -17,6 +21,7 @@ class MongoUserServiceTest {
     IdService idService = mock(IdService.class);
     PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
     public final MongoUserService mongoUserService = new MongoUserService(mongoUserRepository, idService, passwordEncoder);
+    public final MongoUserDetailsService mongoUserDetailsService = new MongoUserDetailsService(mongoUserRepository);
     MongoUserDTO userDTO = new MongoUserDTO("User", "Password");
     MongoUser user = new MongoUser("123", "User", "Password", "BASIC");
 
@@ -74,6 +79,13 @@ class MongoUserServiceTest {
             exceptionMsg = ex.getMessage();
         }
         assertEquals("400 BAD_REQUEST \"Password must have at least 7 characters\"", exceptionMsg);
+    }
+
+    @Test
+    void isUsernameLoadingCorrectly_WhenLoadUsernameIsCalled() {
+        when(mongoUserRepository.findByUsername(userDTO.username())).thenReturn(Optional.ofNullable(user));
+        UserDetails actual = mongoUserDetailsService.loadUserByUsername(userDTO.username());
+        assertEquals(user.username(), actual.getUsername());
     }
 
 }
