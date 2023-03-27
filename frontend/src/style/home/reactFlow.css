@@ -4,38 +4,19 @@
 
 .react-flow__node {
     background: transparent;
-    border: none;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     color: white;
-    font-size: 100%;
-}
-
-.react-flow__handle-top {
-    background-color: transparent;
     border: none;
 }
 
-.react-flow__handle-bottom {
-    background-color: transparent;
-    border: none;
-}
-
-.react-flow__handle-left {
-    background-color: transparent;
-    border: none;
-}
-
+.react-flow__handle-top,
+.react-flow__handle-bottom,
+.react-flow__handle-left,
 .react-flow__handle-right {
     background-color: transparent;
     border: none;
 }
 
-.default-node {
+.default-node3 {
     background: #8284FF;
     border-radius: 50%;
     width: 100px;
@@ -46,4 +27,41 @@
     text-align: center;
     color: white;
     font-size: 100%;
+}
+
+.default-node2 {
+    background: #8284FF;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 90%;
+}
+
+.default-node1 {
+    background: #8284FF;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 80%;
+}
+
+.home-node {
+    background: transparent;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
 }

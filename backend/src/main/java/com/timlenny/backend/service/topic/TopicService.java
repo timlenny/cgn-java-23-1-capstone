@@ -1,4 +1,4 @@
-package com.timlenny.backend.service;
+package com.timlenny.backend.service.topic;
 
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;

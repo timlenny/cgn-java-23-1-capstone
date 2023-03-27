@@ -3,6 +3,7 @@ package com.timlenny.backend.service;
 import com.timlenny.backend.model.topic.Edge;
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicPosition;
+import com.timlenny.backend.service.topic.TopicConversionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;

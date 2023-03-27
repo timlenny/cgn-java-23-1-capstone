@@ -23,7 +23,7 @@ export type nodeType = {
     id: string,
     type?: string,
     position: { x: number, y: number },
-    data: { label: string }
+    data: { label: string, size: number }
 }
 
 export default function HomePage() {
@@ -52,7 +52,7 @@ export default function HomePage() {
                 id: data.id,
                 type: data.topicName === 'HOME' ? 'customLabelNode' : 'defaultNode',
                 position: {x: data.position.x, y: data.position.y},
-                data: {label: data.topicName}
+                data: {label: data.topicName, size: data.size},
             }
             return newNode;
         })
@@ -60,17 +60,17 @@ export default function HomePage() {
         setNodesBackup(buildListNodes);
 
         let buildListEdges = topic.map((data) => {
-            const collEdges = data.edges.map((edge) => {
+            return data.edges.map((edge) => {
                 const newEdge: edgesType = {id: edge.id, source: edge.source, target: edge.target};
                 return newEdge;
             })
-            return collEdges;
+          
         }).flat()
         setEdges(buildListEdges)
 
         if (buildListNodes.length < 1) {
             let offlineNode = [
-                {id: '1', position: {x: 125, y: 250}, data: {label: 'Loading...'}},
+                {id: '1', position: {x: 125, y: 250}, data: {label: 'Loading...', size: 3}}
             ];
             setNodes(offlineNode)
         }

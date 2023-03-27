@@ -7,24 +7,24 @@ type CustomLabelNodeProps = {
     id: string;
     data: {
         label: string;
+        size: number;
     };
 };
 
 const CustomLabelNode: FC<CustomLabelNodeProps> = ({id, data}) => {
     const {label} = data;
     const isHome = label === 'HOME';
-
     return (
         <>
             {isHome ? (
-                <>
+                <div className={"home-node"}>
                     <div className="circle">
                         <div className="blob blob1"></div>
                         <div className="blob blob2"></div>
                         <div className="blob blob3"></div>
                     </div>
                     <div className="circle-text">{label}</div>
-                </>
+                </div>
             ) : (
                 <DefaultNode id={id} data={data}/>
             )}

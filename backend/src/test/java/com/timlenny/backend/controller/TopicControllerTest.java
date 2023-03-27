@@ -6,12 +6,13 @@ import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;
 import com.timlenny.backend.model.topic.TopicPosition;
 import com.timlenny.backend.repository.TopicRepository;
-import com.timlenny.backend.service.TopicConversionService;
+import com.timlenny.backend.service.topic.TopicConversionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -52,6 +53,7 @@ class TopicControllerTest {
     );
 
     @Test
+    @WithMockUser(username = "user", password = "123")
     void whenGetAllTopicsAndRepoIsEmpty_theReturnEmptyListOfAllTopics() throws Exception {
         String jsonObj = """
                    [
@@ -77,6 +79,7 @@ class TopicControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenGetAllTopicsAndRepoHasData_theReturnListOfAllTopics() throws Exception {
         topicRepository.save(demoTopicJava);
         String jsonObj = mapper.writeValueAsString(new Topic[]{demoTopicJava});
@@ -87,6 +90,7 @@ class TopicControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenAddNewTopic_thenReturnNewTopic() throws Exception {
         String jsonObj = mapper.writeValueAsString(demoTopicJavaDTO);
         Optional<Topic> existCheck = topicRepository.findByTopicName("HOME");
@@ -103,6 +107,7 @@ class TopicControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenTopicDelete_theReturnDeletedTopicId() throws Exception {
         topicRepository.save(demoTopicHome);
         topicRepository.save(demoTopicJava);
@@ -114,6 +119,7 @@ class TopicControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenTopicPositionUpdate_theReturnDeletedTopicCounter() throws Exception {
         topicRepository.save(demoTopicJava);
 

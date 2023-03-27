@@ -6,13 +6,23 @@ type DefaultNodeProps = {
     id: string;
     data: {
         label: string;
+        size: number;
     };
 }
 
 const DefaultNode: FC<DefaultNodeProps> = ({data}) => {
+    let nodeClassName;
+
+    if (data.size === 1) {
+        nodeClassName = "default-node1";
+    } else if (data.size === 2) {
+        nodeClassName = "default-node2";
+    } else {
+        nodeClassName = "default-node3";
+    }
     return (
         <>
-            <div className="default-node">
+            <div className={nodeClassName}>
                 {data.label}
             </div>
             <Handle type="target" position={Position.Top}/>

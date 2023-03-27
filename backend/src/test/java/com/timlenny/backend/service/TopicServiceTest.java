@@ -5,6 +5,8 @@ import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;
 import com.timlenny.backend.model.topic.TopicPosition;
 import com.timlenny.backend.repository.TopicRepository;
+import com.timlenny.backend.service.topic.TopicConversionService;
+import com.timlenny.backend.service.topic.TopicService;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
