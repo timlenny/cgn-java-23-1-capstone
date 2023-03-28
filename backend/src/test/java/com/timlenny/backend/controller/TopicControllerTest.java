@@ -6,12 +6,13 @@ import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;
 import com.timlenny.backend.model.topic.TopicPosition;
 import com.timlenny.backend.repository.TopicRepository;
-import com.timlenny.backend.service.TopicConversionService;
+import com.timlenny.backend.service.topic.TopicConversionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
@@ -52,6 +54,7 @@ class TopicControllerTest {
     );
 
     @Test
+    @WithMockUser(username = "user", password = "123")
     void whenGetAllTopicsAndRepoIsEmpty_theReturnEmptyListOfAllTopics() throws Exception {
         String jsonObj = """
                    [
@@ -77,6 +80,7 @@ class TopicControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenGetAllTopicsAndRepoHasData_theReturnListOfAllTopics() throws Exception {
         topicRepository.save(demoTopicJava);
         String jsonObj = mapper.writeValueAsString(new Topic[]{demoTopicJava});
@@ -87,6 +91,7 @@ class TopicControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenAddNewTopic_thenReturnNewTopic() throws Exception {
         String jsonObj = mapper.writeValueAsString(demoTopicJavaDTO);
         Optional<Topic> existCheck = topicRepository.findByTopicName("HOME");
@@ -96,24 +101,26 @@ class TopicControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/topic")
                         .contentType(MediaType.APPLICATION_JSON).
-                        content(jsonObj))
+                        content(jsonObj).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.topicName").value("Java"));
     }
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenTopicDelete_theReturnDeletedTopicId() throws Exception {
         topicRepository.save(demoTopicHome);
         topicRepository.save(demoTopicJava);
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/api/topic/" + demoTopicJava.getId()))
+                        .delete("/api/topic/" + demoTopicJava.getId()).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(demoTopicJava.getId()));
     }
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
     void whenTopicPositionUpdate_theReturnDeletedTopicCounter() throws Exception {
         topicRepository.save(demoTopicJava);
 
@@ -121,7 +128,7 @@ class TopicControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/api/topic/positions")
                         .contentType(MediaType.APPLICATION_JSON).
-                        content(jsonObj))
+                        content(jsonObj).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers
                         .content().json("1"));

@@ -11,12 +11,12 @@ export default function AddTopicPage() {
 
     const navigate = useNavigate();
     const {postSingleTopic, errorMsg} = UseAddTopic();
-    const [selectedSize, setSelectedSize] = useState(1);
+    const [selectedSize, setSelectedSize] = useState(3);
     const [topicData, setTopicData] = useState<TopicDTO>({
         topicId: "",
         parentName: "HOME",
         topicName: "",
-        size: 1,
+        size: 3,
         position: {x: 0, y: 0,}
     });
     const [buildTopic, setBuildTopic] = useState<TopicDTO>();
@@ -47,7 +47,6 @@ export default function AddTopicPage() {
             )
         }
     }
-
 
     return (
         <div className="addTopicPage">

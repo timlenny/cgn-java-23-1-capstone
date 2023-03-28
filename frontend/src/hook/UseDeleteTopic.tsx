@@ -3,7 +3,6 @@ import {useState} from "react";
 
 export default function UseDeleteTopic() {
     const [deleteStatus, setDeleteStatus] = useState("");
-
     function deleteSingleTopic(id: string | undefined) {
         if (id) {
             axios.delete("/api/topic/" + id)
@@ -15,6 +14,5 @@ export default function UseDeleteTopic() {
                 })
         }
     }
-
     return {deleteSingleTopic, deleteStatus}
 }

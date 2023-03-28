@@ -3,9 +3,7 @@ import axios from "axios";
 import {Topic} from "../model/topic/Topic";
 
 export default function UseGetTopic() {
-
     const [topic, setTopic] = useState<Topic[]>([]);
-
     const getAllTopics = useCallback(() => {
         axios
             .get("/api/topic")

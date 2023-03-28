@@ -1,9 +1,10 @@
-package com.timlenny.backend.service;
+package com.timlenny.backend.service.topic;
 
 import com.timlenny.backend.model.topic.Edge;
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;
 import com.timlenny.backend.model.topic.TopicPosition;
+import com.timlenny.backend.service.IdService;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -100,7 +101,6 @@ public class TopicConversionService {
             }
         }
     }
-
 
     public Topic initTopic() {
         return new Topic(

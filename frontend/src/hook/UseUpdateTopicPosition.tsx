@@ -10,7 +10,7 @@ export default function UseUpdateTopicPosition() {
                 topicId: node.id,
                 parentName: "",
                 topicName: node.data.label,
-                size: 0,
+                size: node.data.size,
                 position: node.position
             }
             return topic
