@@ -102,7 +102,6 @@ public class TopicConversionService {
         }
     }
 
-
     public Topic initTopic() {
         return new Topic(
                 idService.generateId(),

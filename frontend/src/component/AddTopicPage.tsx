@@ -48,7 +48,6 @@ export default function AddTopicPage() {
         }
     }
 
-
     return (
         <div className="addTopicPage">
             {ifErrordisplayError()}

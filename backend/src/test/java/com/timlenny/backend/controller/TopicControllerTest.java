@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
@@ -100,7 +101,7 @@ class TopicControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/topic")
                         .contentType(MediaType.APPLICATION_JSON).
-                        content(jsonObj))
+                        content(jsonObj).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.topicName").value("Java"));
     }
@@ -112,7 +113,7 @@ class TopicControllerTest {
         topicRepository.save(demoTopicHome);
         topicRepository.save(demoTopicJava);
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/api/topic/" + demoTopicJava.getId()))
+                        .delete("/api/topic/" + demoTopicJava.getId()).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(demoTopicJava.getId()));
     }
@@ -127,7 +128,7 @@ class TopicControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/api/topic/positions")
                         .contentType(MediaType.APPLICATION_JSON).
-                        content(jsonObj))
+                        content(jsonObj).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers
                         .content().json("1"));

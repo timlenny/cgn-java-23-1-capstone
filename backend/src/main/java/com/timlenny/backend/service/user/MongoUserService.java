@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
+
 @Service
 @RequiredArgsConstructor
 public class MongoUserService {
@@ -43,6 +45,19 @@ public class MongoUserService {
 
         MongoUser out = mongoUserRepository.save(mongoUser);
         return new MongoUser(out.id(), out.username(), null, out.role());
+    }
+
+    public MongoUser loadMongoUserFromDB(Principal principal) {
+        MongoUser me = mongoUserRepository
+                .findByUsername(principal.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+
+        return new MongoUser(
+                me.id(),
+                me.username(),
+                null,
+                me.role()
+        );
     }
 
 

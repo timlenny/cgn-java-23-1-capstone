@@ -123,6 +123,4 @@ class TopicServiceTest {
             assertEquals("400 BAD_REQUEST \"Topic with id 2 not found!\"", error.getMessage());
         }
     }
-
-
 }

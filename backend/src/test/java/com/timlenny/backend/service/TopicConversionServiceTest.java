@@ -186,5 +186,4 @@ class TopicConversionServiceTest {
         assertNotEquals(subtopic.getPosition().getX(), position.getX());
         assertNotEquals(subtopic.getPosition().getY(), position.getY());
     }
-
 }

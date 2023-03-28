@@ -10,6 +10,5 @@ import java.util.Optional;
 @Repository
 public interface TopicRepository extends MongoRepository<Topic, String> {
     Optional<Topic> findByTopicName(String topicName);
-
     List<Topic> findByParentId(String parentId);
 }

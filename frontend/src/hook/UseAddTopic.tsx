@@ -6,7 +6,6 @@ import {useState} from "react";
 export default function UseAddTopic() {
     const navigate = useNavigate();
     const [errorMsg, setErrorMsg] = useState("");
-
     function postSingleTopic(props: TopicDTO | undefined) {
         if (props?.parentName && props?.topicName && props.size) {
             axios.post("/api/topic", {
@@ -31,6 +30,5 @@ export default function UseAddTopic() {
             setErrorMsg("Please fill out all the fields");
         }
     }
-
     return {postSingleTopic, errorMsg}
 }
