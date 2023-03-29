@@ -1,15 +1,10 @@
 html, body {
     height: 100%;
     margin: 0;
-    overflow: hidden;
-}
-
-.auth-page-body {
     background-image: linear-gradient(#8284FF, #4849A6);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    height: 100%;
-    min-height: 100vh; /* Diese Zeile hinzufügen */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     color: white;
@@ -17,6 +12,7 @@ html, body {
     font-size: 14px;
     justify-content: center;
 }
+
 
 a {
     color: white;
@@ -191,7 +187,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
 }
 
 .auth-info {

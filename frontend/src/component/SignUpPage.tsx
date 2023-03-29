@@ -38,9 +38,9 @@ export default function SignUpPage() {
 
     return (
         <div className="auth-page-body">
+            <DotAnimation></DotAnimation>
             <div className="login-card">
                 {ifErrordisplayError()}
-                <DotAnimation></DotAnimation>
                 <div className="login-card-content">
                     <div className="header">
                         <div className="logo">

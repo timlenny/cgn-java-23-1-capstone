@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import '../style/AuthPageStyle.css';
 
 class Dot {
@@ -25,17 +25,17 @@ class Dot {
         this.py += this.dy;
     }
 
-    draw(scene: CanvasRenderingContext2D) {
+    draw(scene: CanvasRenderingContext2D, dots: Dot[]) {
         scene.beginPath();
         scene.arc(this.px, this.py, this.size, 0, Math.PI * 2);
         scene.closePath();
         scene.fillStyle = '#8284FF';
         scene.fill();
 
-        this.connect(scene);
+        this.connect(scene, dots);
     }
 
-    connect(scene: CanvasRenderingContext2D) {
+    connect(scene: CanvasRenderingContext2D, dots: Dot[]) {
         const nearby = (this.width + this.height) * 0.1;
 
         dots.forEach(dot => {
@@ -67,6 +67,7 @@ class Dot {
     }
 }
 
+
 let dots: Dot[];
 
 const createDots = (count: number, width: number, height: number): Dot[] => {
@@ -78,28 +79,37 @@ const handleResize = (canvas: HTMLCanvasElement) => {
     canvas.height = window.innerHeight;
 };
 
-const draw = (scene: CanvasRenderingContext2D, width: number, height: number) => {
+const draw = (scene: CanvasRenderingContext2D, width: number, height: number, dots: Dot[]) => {
     scene.clearRect(0, 0, width, height);
 
     dots.forEach(particle => {
         particle.update();
-        particle.draw(scene);
+        particle.draw(scene, dots);
     });
-
-    requestAnimationFrame(() => draw(scene, width, height));
 };
 
 const DotAnimation: React.FC = () => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const animationRef = useRef<number | null>(null);
+
     useEffect(() => {
-        const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-        const scene = canvas && canvas.getContext('2d');
-        if (!canvas || !scene) return;
+        if (!canvasRef.current) return;
+        const canvas = canvasRef.current;
+        const scene = canvas.getContext("2d");
+        if (!scene) return;
 
         let width = (canvas.width = window.innerWidth);
         let height = (canvas.height = window.innerHeight);
 
         dots = createDots(75, width, height);
-        draw(scene, width, height);
+
+        const animate = () => {
+            if (!scene) return;
+            draw(scene, width, height, dots);
+            animationRef.current = requestAnimationFrame(animate);
+        };
+
+        animate();
 
         const resizeListener = () => {
             handleResize(canvas);
@@ -107,19 +117,21 @@ const DotAnimation: React.FC = () => {
             height = canvas.height;
         };
 
-        window.addEventListener('resize', resizeListener);
+        window.addEventListener("resize", resizeListener);
 
         return () => {
-            window.removeEventListener('resize', resizeListener);
+            window.removeEventListener("resize", resizeListener);
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
         };
     }, []);
 
     return (
         <div className="dot-animation">
-            <canvas id="canvas"></canvas>
+            <canvas ref={canvasRef} id="canvas"></canvas>
         </div>
     );
-
 };
 
 export default DotAnimation;

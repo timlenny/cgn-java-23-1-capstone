@@ -14,7 +14,6 @@ export default function LoginPage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         const authHeader = window.btoa(`${username}:${password}`);
-
         axios
             .post(
                 "/api/users/login",
@@ -45,9 +44,9 @@ export default function LoginPage() {
 
     return (
         <div className="auth-page-body">
+            <DotAnimation></DotAnimation>
             <div className="login-card">
                 {ifErrordisplayError()}
-                <DotAnimation></DotAnimation>
                 <div className="login-card-content">
                     <div className="header">
                         <div className="logo">
@@ -61,14 +60,14 @@ export default function LoginPage() {
                                 <i className="far fa-user"></i>
                             </div>
                             <input type="text" placeholder="Username"
-                                   value={username} onChange={e => setUsername(e.currentTarget.value)}/>
+                                   value={username} onChange={user => setUsername(user.currentTarget.value)}/>
                         </div>
                         <div className="form-field password">
                             <div className="icon">
                                 <i className="fas fa-lock"></i>
                             </div>
                             <input type="password" placeholder="Password"
-                                   value={password} onChange={e => setPassword(e.currentTarget.value)}/>
+                                   value={password} onChange={password => setPassword(password.currentTarget.value)}/>
                         </div>
                         <button type="submit" onClick={handleSubmit}>Login</button>
                         <div>
