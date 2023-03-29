@@ -6,21 +6,17 @@ import SignUpPage from "./component/SignUpPage"
 import axios from "axios";
 import Cookies from "js-cookie";
 import LoginPage from "./component/LoginPage";
-import useAuthRedirect from "./hook/UseAuthRedirect";
 
+axios.interceptors.request.use(function (config) {
+    return fetch("/api/csrf").then(() => {
+        config.headers["X-XSRF-TOKEN"] = Cookies.get("XSRF-TOKEN");
+        return config;
+    });
+}, function (error) {
+    return Promise.reject(error);
+});
 
 function App() {
-    useAuthRedirect();
-
-    axios.interceptors.request.use(function (config) {
-        return fetch("/api/csrf").then(() => {
-            config.headers["X-XSRF-TOKEN"] = Cookies.get("XSRF-TOKEN");
-            return config;
-        });
-    }, function (error) {
-        return Promise.reject(error);
-    });
-
     return (
         <div className="App">
             <Routes>

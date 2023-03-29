@@ -2,7 +2,10 @@ package com.timlenny.backend.service.topic;
 
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;
+import com.timlenny.backend.model.topic.TopicPosition;
 import com.timlenny.backend.repository.TopicRepository;
+import com.timlenny.backend.service.IdService;
+import com.timlenny.backend.service.user.MongoUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,42 +13,62 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class TopicService {
     TopicRepository topicRepository;
     TopicConversionService topicConversionService;
+    MongoUserService mongoUserService;
+    IdService idService;
 
-    public TopicService(TopicRepository topicRepository, TopicConversionService topicConversionService) {
+    public TopicService(TopicRepository topicRepository, TopicConversionService topicConversionService, MongoUserService mongoUserService, IdService idService) {
         this.topicRepository = topicRepository;
         this.topicConversionService = topicConversionService;
+        this.mongoUserService = mongoUserService;
+        this.idService = idService;
     }
 
     public List<Topic> getAllTopics() {
-        List<Topic> allTopics = topicRepository.findAll();
-        if (allTopics.isEmpty()) {
-            allTopics = initialTopicDataSetup();
+        List<Topic> topicIdsUser = topicRepository.findAllById(mongoUserService.loadTopicsFromCurrentUser());
+        if (topicIdsUser.isEmpty()) {
+            return setInitHomeTopic();
+        } else {
+            return topicIdsUser;
         }
-        return allTopics;
     }
 
-    private List<Topic> initialTopicDataSetup() {
-        topicRepository.save(topicConversionService.initTopic());
-        return topicRepository.findAll();
+    public List<Topic> setInitHomeTopic() {
+        Topic initTopic = new Topic(
+                idService.generateId(),
+                idService.generateId(),
+                "HOME",
+                List.of(),
+                new TopicPosition(125, 250),
+                "HOME",
+                "HOME",
+                3,
+                true
+        );
+        topicRepository.save(initTopic);
+        mongoUserService.addTopicIdToUser(initTopic.getId());
+        return List.of(initTopic);
     }
 
     public Topic addTopic(TopicDTO topicToAddDTO) {
-        Optional<Topic> duplicateCheck = topicRepository.findByTopicName(topicToAddDTO.getTopicName());
+        List<String> userTopicIds = mongoUserService.loadTopicsFromCurrentUser();
+        Optional<Topic> duplicateCheck = topicRepository.findByTopicNameAndIdIn(topicToAddDTO.getTopicName(), userTopicIds);
         if (duplicateCheck.isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A topic with the name " + topicToAddDTO.getTopicName() + " already exists");
         }
 
-        Optional<Topic> parentTopic = topicRepository.findByTopicName(topicToAddDTO.getParentName());
+        Optional<Topic> parentTopic = topicRepository.findByTopicNameAndIdIn(topicToAddDTO.getParentName(), userTopicIds);
 
         if (parentTopic.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "parentTopic not found!");
         }
 
         Topic topicToAdd = topicConversionService.convertNewDTOtoTopic(topicToAddDTO, parentTopic.get());
+        mongoUserService.addTopicIdToUser(topicToAdd.getId());
         topicRepository.save(topicToAdd);
         return topicToAdd;
     }
@@ -56,6 +79,7 @@ public class TopicService {
             resultDeleteIds.add(id);
 
             for (String delId : resultDeleteIds) {
+                mongoUserService.removeTopicIdFromUser(delId);
                 topicRepository.deleteById(delId);
             }
 
@@ -86,7 +110,6 @@ public class TopicService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Topic with id " + newTopicData.getTopicId() + " not found!");
             }
         }
-
         return updateCounter;
     }
 }

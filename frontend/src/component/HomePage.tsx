@@ -13,6 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import UseDeleteTopic from "../hook/UseDeleteTopic";
 import SaveIcon from '@mui/icons-material/Save';
 import UseUpdateTopicPosition from "../hook/UseUpdateTopicPosition";
+import useAuthRedirect from "../hook/UseAuthRedirect";
 
 const nodeTypes: NodeTypes = {
     customLabelNode: CustomLabelNode,
@@ -41,7 +42,7 @@ export default function HomePage() {
     const [deleteMode, setDeleteMode] = useState(false);
     const [changeMode, setChangeMode] = useState(false);
     const onConnect = useCallback((params: any) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
-
+    useAuthRedirect()
     useEffect(() => {
         getAllTopics();
     }, [getAllTopics, deleteStatus])

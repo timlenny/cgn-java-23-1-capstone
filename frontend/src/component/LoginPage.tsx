@@ -1,10 +1,14 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import '../style/AuthPageStyle.css'
+import DotAnimation from "../style/DotAnimation";
+import {Alert} from "@mui/material";
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
+    const [error, setError] = React.useState<string>("");
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -26,40 +30,55 @@ export default function LoginPage() {
                 window.sessionStorage.removeItem("signInRedirect");
                 navigate(redirect);
             })
-            .catch((err) => {
-                alert(err.response.data.error);
+            .catch(() => {
+                setError("Incorrect username and / or password")
             });
     };
 
-    return (
-        <div style={{padding: "5rem 0"}}>
-            <h1>Sign In</h1>
-            <form onSubmit={e => {
-                handleSubmit(e)
-            }}>
-                <div>
-                    <label>
-                        Username
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={e => setUsername(e.currentTarget.value)}
-                        />
-                    </label>
-                </div>
+    function ifErrordisplayError() {
+        if (error !== "") {
+            return (
+                <Alert severity="warning">{error}</Alert>
+            )
+        }
+    }
 
-                <div>
-                    <label>
-                        Password
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={e => setPassword(e.currentTarget.value)}
-                        />
-                    </label>
+    return (
+        <div className="auth-page-body">
+            <div className="login-card">
+                {ifErrordisplayError()}
+                <DotAnimation></DotAnimation>
+                <div className="login-card-content">
+                    <div className="header">
+                        <div className="logo">
+                            <div>EDUFYLY</div>
+                        </div>
+                        <h3 className={"auth-info"}>LOGIN</h3>
+                    </div>
+                    <div className="form">
+                        <div className="form-field username">
+                            <div className="icon">
+                                <i className="far fa-user"></i>
+                            </div>
+                            <input type="text" placeholder="Username"
+                                   value={username} onChange={e => setUsername(e.currentTarget.value)}/>
+                        </div>
+                        <div className="form-field password">
+                            <div className="icon">
+                                <i className="fas fa-lock"></i>
+                            </div>
+                            <input type="password" placeholder="Password"
+                                   value={password} onChange={e => setPassword(e.currentTarget.value)}/>
+                        </div>
+                        <button type="submit" onClick={handleSubmit}>Login</button>
+                        <div>
+                            Don't have an account? <a onClick={() => {
+                            navigate("/signup")
+                        }}>Sign Up Now</a>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit">Sign In</button>
-            </form>
+            </div>
         </div>
     );
 }

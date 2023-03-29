@@ -61,7 +61,6 @@ public class TopicConversionService {
         return false;
     }
 
-
     public TopicPosition setNewTopicInitialPosition(Topic parentTopic) {
         if (parentTopic.getTopicName().equals("HOME")) {
             return calcTopicPositionForHomeTopics(parentTopic, random.nextInt(151) + 50, random.nextInt(151) + 150);
@@ -100,19 +99,5 @@ public class TopicConversionService {
                 return new TopicPosition((parentTopic.getPosition().getX() + randomPositionX), (parentTopic.getPosition().getY() - randomPositionY));
             }
         }
-    }
-
-    public Topic initTopic() {
-        return new Topic(
-                idService.generateId(),
-                "NONE",
-                "HOME",
-                List.of(),
-                new TopicPosition(125, 250),
-                "HOME",
-                "HOME",
-                3,
-                true
-        );
     }
 }

@@ -6,9 +6,10 @@ import {TopicDTO} from "../model/topic/TopicDTO";
 import UseAddTopic from "../hook/UseAddTopic";
 import {useNavigate} from "react-router-dom";
 import {Alert} from "@mui/material";
+import useAuthRedirect from "../hook/UseAuthRedirect";
 
 export default function AddTopicPage() {
-
+    useAuthRedirect()
     const navigate = useNavigate();
     const {postSingleTopic, errorMsg} = UseAddTopic();
     const [selectedSize, setSelectedSize] = useState(3);

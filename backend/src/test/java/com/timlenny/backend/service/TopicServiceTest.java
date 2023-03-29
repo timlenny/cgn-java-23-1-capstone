@@ -7,6 +7,7 @@ import com.timlenny.backend.model.topic.TopicPosition;
 import com.timlenny.backend.repository.TopicRepository;
 import com.timlenny.backend.service.topic.TopicConversionService;
 import com.timlenny.backend.service.topic.TopicService;
+import com.timlenny.backend.service.user.MongoUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -21,11 +22,13 @@ class TopicServiceTest {
 
     TopicRepository topicRepository = mock(TopicRepository.class);
     TopicConversionService topicConversionService = mock(TopicConversionService.class);
-    TopicService topicService = new TopicService(topicRepository, topicConversionService);
+    MongoUserService mongoUserService = mock(MongoUserService.class);
+    IdService idService = mock(IdService.class);
+    TopicService topicService = new TopicService(topicRepository, topicConversionService, mongoUserService, idService);
 
     Topic demoTopicHome = new Topic(
             "1",
-            "NONE",
+            "1",
             "HOME",
             List.of(),
             new TopicPosition(125, 250),
@@ -39,7 +42,7 @@ class TopicServiceTest {
     );
 
     Topic demoTopicJava = new Topic(
-            "2", "NONE", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "2", "1", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
     );
 
     Topic demoTopicJavaChild1 = new Topic(
@@ -47,22 +50,28 @@ class TopicServiceTest {
     );
 
     @Test
+    @DirtiesContext
     void isGetAllTopicsReturningAllTopics_whenGetAllTopicsCalled() {
+        when(idService.generateId()).thenReturn("1");
         when(topicRepository.findAll()).thenReturn(List.of(demoTopicHome));
         List<Topic> actual = topicService.getAllTopics();
         assertEquals(actual, List.of(demoTopicHome));
     }
 
     @Test
+    @DirtiesContext
     void isGetAllTopicsReturningAllTopics_whenGetAllTopicsCalledAndRepoIsEmpty() {
+        when(idService.generateId()).thenReturn("1");
         List<Topic> actual = topicService.getAllTopics();
-        assertEquals(actual, List.of());
+        assertEquals(actual, List.of(demoTopicHome));
     }
 
     @Test
     @DirtiesContext
     void isAddTopicAddingNewTopic_whenAddTopicCalled() {
-        when(topicRepository.findByTopicName(demoTopicJavaDTO.getParentName())).thenReturn(Optional.ofNullable(demoTopicHome));
+        when(mongoUserService.loadTopicsFromCurrentUser()).thenReturn(List.of("1"));
+        when(idService.generateId()).thenReturn("1");
+        when(topicRepository.findByTopicNameAndIdIn(demoTopicJavaDTO.getParentName(), List.of("1"))).thenReturn(Optional.ofNullable(demoTopicHome));
         when(topicConversionService.convertNewDTOtoTopic(demoTopicJavaDTO, demoTopicHome)).thenReturn(demoTopicJava);
         when(topicRepository.save(demoTopicJava)).thenReturn(demoTopicJava);
 
@@ -73,8 +82,12 @@ class TopicServiceTest {
     @Test
     @DirtiesContext
     void isErrorThrown_WhenNameOfTopicToAddExists() {
+        when(idService.generateId()).thenReturn("1");
+        when(mongoUserService.loadTopicsFromCurrentUser()).thenReturn(List.of("1"));
+        when(topicRepository.findByTopicNameAndIdIn(demoTopicJavaDTO.getParentName(), List.of("1"))).thenReturn(Optional.ofNullable(demoTopicJava));
+        when(topicRepository.findByTopicNameAndIdIn(demoTopicJavaDTO.getTopicName(), List.of("1"))).thenReturn(Optional.ofNullable(demoTopicHome));
+        when(topicConversionService.convertNewDTOtoTopic(demoTopicJavaDTO, demoTopicHome)).thenReturn(demoTopicJava);
         String actual = "No Exception";
-        when(topicRepository.findByTopicName(demoTopicJavaDTO.getTopicName())).thenReturn(Optional.ofNullable(demoTopicHome));
         try {
             topicService.addTopic(demoTopicJavaDTO);
         } catch (Exception error) {
