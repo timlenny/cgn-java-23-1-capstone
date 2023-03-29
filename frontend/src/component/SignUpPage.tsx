@@ -65,9 +65,9 @@ export default function SignUpPage() {
                         </div>
                         <button type="submit" onClick={handleSubmit}>SIGN UP NOW</button>
                         <div>
-                            Already have an account? <a onClick={() => {
+                            Already have an account? <text style={{fontWeight: "bold"}} onClick={() => {
                             navigate("/login")
-                        }}>Login Now</a>
+                        }}>Login Now</text>
                         </div>
                     </div>
                 </div>

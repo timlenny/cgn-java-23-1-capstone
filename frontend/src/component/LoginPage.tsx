@@ -71,9 +71,9 @@ export default function LoginPage() {
                         </div>
                         <button type="submit" onClick={handleSubmit}>Login</button>
                         <div>
-                            Don't have an account? <a onClick={() => {
+                            Don't have an account? <text style={{fontWeight: "bold"}} onClick={() => {
                             navigate("/signup")
-                        }}>Sign Up Now</a>
+                        }}>Sign Up Now</text>
                         </div>
                     </div>
                 </div>

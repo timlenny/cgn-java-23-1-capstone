@@ -9,13 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -83,7 +83,7 @@ public class MongoUserService {
         if (user.isPresent()) {
             return user.get().topicIds();
         } else {
-            throw new UsernameNotFoundException("Current user could not be determined. Topics could not be loaded.");
+            throw new NoSuchElementException("Current user could not be determined. Topics could not be loaded.");
         }
     }
 
@@ -95,7 +95,7 @@ public class MongoUserService {
             topicIds.add(id);
             mongoUserRepository.save(new MongoUser(userToUpdate.id(), userToUpdate.username(), userToUpdate.password(), userToUpdate.role(), userToUpdate.topicIds()));
         } else {
-            throw new UsernameNotFoundException("Current user could not be determined. Could not add topic ID.");
+            throw new NoSuchElementException("Current user could not be determined. Could not add topic ID.");
         }
     }
 
@@ -107,7 +107,7 @@ public class MongoUserService {
             topicIds.remove(id);
             mongoUserRepository.save(new MongoUser(userToUpdate.id(), userToUpdate.username(), userToUpdate.password(), userToUpdate.role(), userToUpdate.topicIds()));
         } else {
-            throw new UsernameNotFoundException("Current user could not be determined. Could not add topic ID.");
+            throw new NoSuchElementException("Current user could not be determined. Could not add topic ID.");
         }
     }
 }
