@@ -54,14 +54,14 @@ export default function SignUpPage() {
                                 <i className="far fa-user"></i>
                             </div>
                             <input type="text" placeholder="Username"
-                                   value={username} onChange={e => setUsername(e.currentTarget.value)}/>
+                                   value={username} onChange={username => setUsername(username.currentTarget.value)}/>
                         </div>
                         <div className="form-field password">
                             <div className="icon">
                                 <i className="fas fa-lock"></i>
                             </div>
                             <input type="password" placeholder="Password"
-                                   value={password} onChange={e => setPassword(e.currentTarget.value)}/>
+                                   value={password} onChange={pw => setPassword(pw.currentTarget.value)}/>
                         </div>
                         <button type="submit" onClick={handleSubmit}>SIGN UP NOW</button>
                         <div>
