@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Handle, Position} from 'reactflow';
-import '../style/home/customeNodeAnimation.css';
+import '../../style/home/customeNodeAnimation.css';
 import DefaultNode from './DefaultNode';
 
 type CustomLabelNodeProps = {

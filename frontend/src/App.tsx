@@ -1,11 +1,12 @@
 import './App.css';
-import HomePage from './component/./HomePage'
+import HomePage from './component/home/HomePage'
 import {Route, Routes} from "react-router-dom";
-import AddTopicPage from "./component/AddTopicPage";
-import SignUpPage from "./component/SignUpPage"
+import AddTopicPage from "./component/home/AddTopicPage";
+import SignUpPage from "./component/auth/SignUpPage"
 import axios from "axios";
 import Cookies from "js-cookie";
-import LoginPage from "./component/LoginPage";
+import LoginPage from "./component/auth/LoginPage";
+import Subtopic from "./component/subtopic/Subtopic";
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/signup" element={<SignUpPage/>}></Route>
                 <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/topic/add" element={<AddTopicPage/>}></Route>
+                <Route path="/subtopic/:id" element={<Subtopic/>}></Route>
             </Routes>
         </div>
     );

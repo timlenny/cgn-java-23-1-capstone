@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import '../style/AddTopicPage.css';
+import '../../style/topic/AddTopicPage.css';
 import CheckIcon from '@mui/icons-material/Check';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import {TopicDTO} from "../model/topic/TopicDTO";
-import UseAddTopic from "../hook/UseAddTopic";
+import {TopicDTO} from "../../model/topic/TopicDTO";
+import UseAddTopic from "../../hook/topic/UseAddTopic";
 import {useNavigate} from "react-router-dom";
 import {Alert} from "@mui/material";
-import useAuthRedirect from "../hook/UseAuthRedirect";
+import useAuthRedirect from "../../hook/auth/UseAuthRedirect";
 
 export default function AddTopicPage() {
     useAuthRedirect()

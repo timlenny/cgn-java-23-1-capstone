@@ -1,4 +1,4 @@
-package com.timlenny.backend.controller;
+package com.timlenny.backend.controller.auth;
 
 import com.timlenny.backend.model.user.MongoUser;
 import com.timlenny.backend.model.user.MongoUserDTO;

@@ -1,6 +1,6 @@
 import axios from "axios";
-import {TopicDTO} from "../model/topic/TopicDTO";
-import {nodeType} from "../component/HomePage";
+import {TopicDTO} from "../../model/topic/TopicDTO";
+import {nodeType} from "../../component/home/HomePage";
 
 export default function UseUpdateTopicPosition() {
     function updateTopicPosition(props: nodeType[]) {

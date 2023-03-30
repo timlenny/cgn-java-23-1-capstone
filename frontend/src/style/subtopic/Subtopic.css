@@ -1,0 +1,42 @@
+.vertical-timeline-wrapper {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.subtopic-header-img {
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    position: static;
+}
+
+
+@media only screen and (max-width: 1169px) {
+    .subtopic-body {
+        height: 100%;
+    }
+
+    .vertical-timeline--animate .vertical-timeline-element-content.bounce-in {
+        visibility: visible;
+        animation: timeline-slide 0.6s;
+    }
+}
+
+@keyframes timeline-slide {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    60% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
