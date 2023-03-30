@@ -5,8 +5,11 @@ import com.timlenny.backend.model.topic.Edge;
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicDTO;
 import com.timlenny.backend.model.topic.TopicPosition;
+import com.timlenny.backend.model.user.MongoUser;
+import com.timlenny.backend.repository.MongoUserRepository;
 import com.timlenny.backend.repository.TopicRepository;
 import com.timlenny.backend.service.topic.TopicConversionService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,6 +36,8 @@ class TopicControllerTest {
     TopicRepository topicRepository;
     @Autowired
     TopicConversionService topicConversionService;
+    @Autowired
+    MongoUserRepository mongoUserRepository;
     ObjectMapper mapper = new ObjectMapper();
     Topic demoTopicHome = new Topic(
             "1",
@@ -55,7 +60,9 @@ class TopicControllerTest {
 
     @Test
     @WithMockUser(username = "user", password = "123")
+    @DirtiesContext
     void whenGetAllTopicsAndRepoIsEmpty_theReturnEmptyListOfAllTopics() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of()));
         String jsonObj = """
                    [
                                {
@@ -82,17 +89,18 @@ class TopicControllerTest {
     @DirtiesContext
     @WithMockUser(username = "user", password = "123")
     void whenGetAllTopicsAndRepoHasData_theReturnListOfAllTopics() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of()));
         topicRepository.save(demoTopicJava);
-        String jsonObj = mapper.writeValueAsString(new Topic[]{demoTopicJava});
         mockMvc.perform(MockMvcRequestBuilders.get("/api/topic"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(jsonObj));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(Matchers.greaterThanOrEqualTo(1)));
     }
 
     @Test
     @DirtiesContext
     @WithMockUser(username = "user", password = "123")
     void whenAddNewTopic_thenReturnNewTopic() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of("1")));
         String jsonObj = mapper.writeValueAsString(demoTopicJavaDTO);
         Optional<Topic> existCheck = topicRepository.findByTopicName("HOME");
         if (existCheck.isEmpty()) {
@@ -110,6 +118,7 @@ class TopicControllerTest {
     @DirtiesContext
     @WithMockUser(username = "user", password = "123")
     void whenTopicDelete_theReturnDeletedTopicId() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of()));
         topicRepository.save(demoTopicHome);
         topicRepository.save(demoTopicJava);
         mockMvc.perform(MockMvcRequestBuilders

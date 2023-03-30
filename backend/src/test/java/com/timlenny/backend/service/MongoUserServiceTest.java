@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +24,7 @@ class MongoUserServiceTest {
     public final MongoUserService mongoUserService = new MongoUserService(mongoUserRepository, idService, passwordEncoder);
     public final MongoUserDetailsService mongoUserDetailsService = new MongoUserDetailsService(mongoUserRepository);
     MongoUserDTO userDTO = new MongoUserDTO("User", "Password");
-    MongoUser user = new MongoUser("123", "User", "Password", "BASIC");
+    MongoUser user = new MongoUser("123", "User", "Password", "BASIC", List.of());
 
     @Test
     @DirtiesContext
