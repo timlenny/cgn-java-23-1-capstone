@@ -14,7 +14,7 @@ import UseDeleteTopic from "../../hook/topic/UseDeleteTopic";
 import SaveIcon from '@mui/icons-material/Save';
 import UseUpdateTopicPosition from "../../hook/topic/UseUpdateTopicPosition";
 import useAuthRedirect from "../../hook/auth/UseAuthRedirect";
-import headerbgr from "../../style/image/headerbgr.png";
+import HomeHeaderBox from "./HomeHeaderBox";
 
 const nodeTypes: NodeTypes = {
     customLabelNode: CustomLabelNode,
@@ -117,10 +117,7 @@ export default function HomePage() {
 
     return (
         <div style={{width: '100vw', height: '100vh'}}>
-            <div className={"home-header-bar"}>
-                <p className={"text-header-hello"}>Hello. Let's start.</p>
-                <img src={headerbgr} className={"homepage-header-img"} alt={""}/>
-            </div>
+            {HomeHeaderBox()}
             {displayHint()}
             {displaySaveChanges()}
             <button className="homeButtonAdd" onClick={handleSubmitAdd}>
