@@ -21,7 +21,7 @@ export default function SubtopicPage() {
         if (id != null) {
             getAllSubtopics(id);
         }
-    }, [getAllSubtopics])
+    }, [getAllSubtopics, id])
 
     return (
         <div>
