@@ -6,7 +6,8 @@ import SignUpPage from "./component/auth/SignUpPage"
 import axios from "axios";
 import Cookies from "js-cookie";
 import LoginPage from "./component/auth/LoginPage";
-import Subtopic from "./component/subtopic/Subtopic";
+import SubtopicPage from "./component/subtopic/SubtopicPage";
+import AddSubtopicPage from "./component/subtopic/AddSubtopicPage";
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -25,7 +26,8 @@ function App() {
                 <Route path="/signup" element={<SignUpPage/>}></Route>
                 <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/topic/add" element={<AddTopicPage/>}></Route>
-                <Route path="/subtopic/:id" element={<Subtopic/>}></Route>
+                <Route path="/subtopic/:id" element={<SubtopicPage/>}></Route>
+                <Route path="/subtopic/add/:id" element={<AddSubtopicPage/>}></Route>
             </Routes>
         </div>
     );

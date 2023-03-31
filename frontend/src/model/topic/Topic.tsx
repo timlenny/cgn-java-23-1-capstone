@@ -6,7 +6,7 @@ export type Topic = {
     edges: edgesType[];
     position: TopicPosition;
     topicStatus: string;
-    subtopicId: string;
+    subtopicIds: string[];
     size: number;
     open: boolean;
 }

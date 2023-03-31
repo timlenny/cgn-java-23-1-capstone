@@ -33,7 +33,7 @@ class TopicServiceTest {
             List.of(),
             new TopicPosition(125, 250),
             "HOME",
-            "HOME",
+            List.of("HOME"),
             3,
             true
     );
@@ -42,11 +42,11 @@ class TopicServiceTest {
     );
 
     Topic demoTopicJava = new Topic(
-            "2", "1", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "2", "1", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", List.of(""), 3, true
     );
 
     Topic demoTopicJavaChild1 = new Topic(
-            "3", "Java", "Java Child 1", List.of(new Edge("32319", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "3", "Java", "Java Child 1", List.of(new Edge("32319", "", "")), new TopicPosition(200, 200), "", List.of(""), 3, true
     );
 
     @Test
