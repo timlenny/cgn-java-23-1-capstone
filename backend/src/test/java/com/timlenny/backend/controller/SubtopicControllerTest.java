@@ -54,7 +54,7 @@ class SubtopicControllerTest {
         mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of()));
         subtopicRepository.save(demoSubtopic1);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/subtopic/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/subtopics/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.[0].id").value("1234"))
                 .andExpect(jsonPath("$.[0].topicId").value("1"))
@@ -74,7 +74,7 @@ class SubtopicControllerTest {
         String jsonObj = mapper.writeValueAsString(demoSubtopic1DTO);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/subtopic")
+                        .post("/api/subtopics")
                         .contentType(MediaType.APPLICATION_JSON).
                         content(jsonObj).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
