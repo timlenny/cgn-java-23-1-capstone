@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/subtopic")
+@RequestMapping("/api/subtopics")
 public class SubtopicController {
     SubtopicService subtopicService;
 
