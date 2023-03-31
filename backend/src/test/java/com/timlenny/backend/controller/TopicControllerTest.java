@@ -46,7 +46,7 @@ class TopicControllerTest {
             List.of(),
             new TopicPosition(125, 250),
             "HOME",
-            "HOME",
+            List.of("HOME"),
             3,
             true
     );
@@ -55,7 +55,7 @@ class TopicControllerTest {
     );
 
     Topic demoTopicJava = new Topic(
-            "2", "NONE", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", "", 3, true
+            "2", "NONE", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", List.of(""), 3, true
     );
 
     @Test
@@ -73,7 +73,7 @@ class TopicControllerTest {
                                        "y": 250
                                    },
                                    "topicStatus": "HOME",
-                                   "subtopicId": "HOME",
+                                   "subtopicIds": ["HOME"],
                                    "size": 3,
                                    "open": true
                                }

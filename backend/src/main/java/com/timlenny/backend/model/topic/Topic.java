@@ -20,7 +20,7 @@ public class Topic {
     List<Edge> edges;
     TopicPosition position;
     String topicStatus;
-    String subtopicId;
+    List<String> subtopicIds;
     int size;
     boolean open;
 

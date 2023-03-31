@@ -45,7 +45,7 @@ public class TopicService {
                 List.of(),
                 new TopicPosition(125, 250),
                 "HOME",
-                "HOME",
+                List.of("HOME"),
                 3,
                 true
         );

@@ -1,28 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {VerticalTimeline, VerticalTimelineElement} from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import '../../style/subtopic/Subtopic.css'
 import headerbgr from "../../style/image/headerbgr.png"
+import UseGetSubtopicData from "../../hook/subtopic/UseGetSubtopicData";
+import {useNavigate, useParams} from "react-router-dom";
+import useAuthRedirect from "../../hook/auth/UseAuthRedirect";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export default function Subtopic() {
-    const timeline = [
-        {
-            id: "3123-21321-21321",
-            icon: "",
-            position: "",
-            date: '01.05.2023, 12:15 Uhr',
-            title: 'Java',
-            subtitle: 'Grundlagen Java',
-            desc: 'Was ist Java? Was sind Klasssen und Objekte?'
-        },
-    ];
+export default function SubtopicPage() {
+    useAuthRedirect()
+    const params = useParams();
+    const id: string | undefined = params.id;
+    const [deleteMode, setDeleteMode] = useState(false);
+    const navigate = useNavigate()
+    const {getAllSubtopics, subtopics} = UseGetSubtopicData();
+
+    useEffect(() => {
+        if (id != null) {
+            getAllSubtopics(id);
+        }
+    }, [getAllSubtopics])
 
     return (
         <div>
             <img src={headerbgr} height={"120"} width={"100%"} className={"subtopic-header-img"} alt={""}/>
             <div className={"vertical-timeline-wrapper"}>
                 <VerticalTimeline>
-                    {timeline.map((t) => {
+                    {subtopics.map((t) => {
                         const contentStyle = {background: 'white', color: 'black'};
                         const arrowStyle = {borderRight: '7px solid  white'};
                         return (
@@ -31,15 +37,14 @@ export default function Subtopic() {
                                 className="vertical-timeline-element--work"
                                 contentStyle={contentStyle}
                                 contentArrowStyle={arrowStyle}
-                                date={t.date}
-                                icon={t.icon}
+                                date={t.timeTermin.toString()}
                                 iconStyle={{background: 'white', color: "blue", border: "none", boxShadow: "none"}}
                             >
                                 {t.title ? (
                                     <React.Fragment>
                                         <h3 className="vertical-timeline-element-title">{t.title}</h3>
-                                        {t.subtitle &&
-                                            <h4 className="vertical-timeline-element-subtitle">{t.subtitle}</h4>}
+                                        {t.subtitel &&
+                                            <h4 className="vertical-timeline-element-subtitle">{t.subtitel}</h4>}
                                         {t.desc && <p>{t.desc}</p>}
                                     </React.Fragment>
                                 ) : undefined}
@@ -47,6 +52,16 @@ export default function Subtopic() {
                         );
                     })}
                 </VerticalTimeline>
+                <button className="subtopicButtonAdd" onClick={() => {
+                    navigate("/subtopic/add/" + id)
+                }}>
+                    <AddIcon sx={{fontSize: 35}}/>
+                </button>
+                <button className={deleteMode ? "subtopicButtonDel-active" : "subtopicButtonDel"} onClick={() => {
+                    setDeleteMode(deleteMode => !deleteMode)
+                }}>
+                    <DeleteOutlineIcon sx={{fontSize: 35}}/>
+                </button>
                 <br/>
             </div>
         </div>

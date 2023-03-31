@@ -29,7 +29,7 @@ public class TopicConversionService {
         newTopic.setId(idService.generateId());
         newTopic.setEdges(createNewEdgesFromParentName(parentTopic, newTopic.getId()));
         newTopic.setTopicStatus("Pending");
-        newTopic.setSubtopicId(idService.generateId());
+        newTopic.setSubtopicIds(List.of(idService.generateId()));
         newTopic.setOpen(true);
         newTopic.setPosition(setNewTopicInitialPosition(parentTopic));
         newTopic.setParentId(parentTopic.getId());
