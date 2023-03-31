@@ -7,6 +7,7 @@ import headerbgr from "../../style/image/headerbgr.png"
 export default function Subtopic() {
     const timeline = [
         {
+            id: "3123-21321-21321",
             icon: "",
             position: "",
             date: '01.05.2023, 12:15 Uhr',
@@ -21,12 +22,12 @@ export default function Subtopic() {
             <img src={headerbgr} height={"120"} width={"100%"} className={"subtopic-header-img"} alt={""}/>
             <div className={"vertical-timeline-wrapper"}>
                 <VerticalTimeline>
-                    {timeline.map((t, i) => {
+                    {timeline.map((t) => {
                         const contentStyle = {background: 'white', color: 'black'};
                         const arrowStyle = {borderRight: '7px solid  white'};
                         return (
                             <VerticalTimelineElement
-                                key={i}
+                                key={t.id}
                                 className="vertical-timeline-element--work"
                                 contentStyle={contentStyle}
                                 contentArrowStyle={arrowStyle}
