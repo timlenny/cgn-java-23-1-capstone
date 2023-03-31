@@ -1,5 +1,5 @@
 import axios from "axios";
-import {TopicDTO} from "../model/topic/TopicDTO";
+import {TopicDTO} from "../../model/topic/TopicDTO";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 

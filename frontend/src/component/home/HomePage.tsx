@@ -1,19 +1,20 @@
 import React, {MouseEventHandler, useCallback, useEffect, useState} from 'react';
 import ReactFlow, {addEdge, NodeMouseHandler, NodeTypes, useEdgesState, useNodesState} from 'reactflow';
 import 'reactflow/dist/style.css';
-import '../style/home/reactFlow.css'
-import UseGetTopic from "../hook/UseGetTopic";
-import {edgesType} from "../model/topic/Edge";
-import '../style/home/Home.css';
+import '../../style/home/reactFlow.css'
+import UseGetTopic from "../../hook/topic/UseGetTopic";
+import {edgesType} from "../../model/topic/Edge";
+import '../../style/home/Home.css';
 import {useNavigate} from "react-router-dom";
 import CustomLabelNode from "./CustomNode";
 import DefaultNode from "./DefaultNode";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
-import UseDeleteTopic from "../hook/UseDeleteTopic";
+import UseDeleteTopic from "../../hook/topic/UseDeleteTopic";
 import SaveIcon from '@mui/icons-material/Save';
-import UseUpdateTopicPosition from "../hook/UseUpdateTopicPosition";
-import useAuthRedirect from "../hook/UseAuthRedirect";
+import UseUpdateTopicPosition from "../../hook/topic/UseUpdateTopicPosition";
+import useAuthRedirect from "../../hook/auth/UseAuthRedirect";
+import HomeHeaderBox from "./HomeHeaderBox";
 
 const nodeTypes: NodeTypes = {
     customLabelNode: CustomLabelNode,
@@ -41,6 +42,7 @@ export default function HomePage() {
     const [edges, setEdges, onEdgesChange] = useEdgesState(buildListEdges);
     const [deleteMode, setDeleteMode] = useState(false);
     const [changeMode, setChangeMode] = useState(false);
+    const [dragStartTime, setDragStartTime] = useState<number | null>(null);
     const onConnect = useCallback((params: any) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
     useAuthRedirect()
     useEffect(() => {
@@ -115,6 +117,7 @@ export default function HomePage() {
 
     return (
         <div style={{width: '100vw', height: '100vh'}}>
+            {HomeHeaderBox()}
             {displayHint()}
             {displaySaveChanges()}
             <button className="homeButtonAdd" onClick={handleSubmitAdd}>
@@ -133,8 +136,18 @@ export default function HomePage() {
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClickDelete}
-                onNodeDragStop={() => {
-                    deleteMode ? setChangeMode(false) : setChangeMode(true)
+                onNodeDragStart={() => {
+                    setDragStartTime(Date.now());
+                }}
+                onNodeDragStop={(event, node) => {
+                    const dragDuration =
+                        dragStartTime !== null ? Math.max((Date.now() - dragStartTime) / 1000, 0) : 0;
+                    if (dragDuration > 0.19) {
+                        deleteMode ? setChangeMode(false) : setChangeMode(true);
+                    } else {
+                        if (!deleteMode)
+                            navigate("/subtopic/" + node.id)
+                    }
                 }}
             />
         </div>

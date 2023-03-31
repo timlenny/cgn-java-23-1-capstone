@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import '../style/AuthPageStyle.css';
+import '../auth/AuthPageStyle.css';
 
 class Dot {
     size: number;

@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Handle, Position} from 'reactflow';
-import '../style/home/reactFlow.css'
+import '../../style/home/reactFlow.css'
 
 type DefaultNodeProps = {
     id: string;

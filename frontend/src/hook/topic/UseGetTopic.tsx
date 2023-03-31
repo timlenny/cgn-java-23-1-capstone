@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
 import axios from "axios";
-import {Topic} from "../model/topic/Topic";
+import {Topic} from "../../model/topic/Topic";
 
 export default function UseGetTopic() {
     const [topic, setTopic] = useState<Topic[]>([]);

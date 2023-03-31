@@ -1,5 +1,5 @@
-html, body {
-    height: 100%;
+.auth-page-body {
+    height: auto;
     margin: 0;
     background-image: linear-gradient(#8284FF, #4849A6);
     background-repeat: no-repeat;
@@ -12,6 +12,7 @@ html, body {
     font-size: 14px;
     justify-content: center;
 }
+
 
 a {
     color: white;
