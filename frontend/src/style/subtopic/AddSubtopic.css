@@ -1,0 +1,74 @@
+.header-wrapper-addsubt {
+    max-width: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 60px;
+    background: linear-gradient(to right, #D19E35, #B2281C);
+}
+
+.header-content-addsubt {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 15px;
+    z-index: 2;
+    max-height: 80%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-content-addsubt h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 17px;
+    font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+}
+
+.header-content-addsubt * {
+    text-align: center;
+    color: white;
+    margin: 0;
+}
+
+.backButtonAddSubt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    padding-right: 7px;
+    background: transparent;
+    border-radius: 50%;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.addSubtopicPage-confirm-button {
+    width: 100%;
+    background: linear-gradient(to right, #D19E35, #B2281C);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    font-size: 15px;
+}
+

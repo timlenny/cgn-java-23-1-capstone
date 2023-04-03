@@ -27,7 +27,7 @@ function App() {
                 <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/topic/add" element={<AddTopicPage/>}></Route>
                 <Route path="/subtopic/:id" element={<SubtopicPage/>}></Route>
-                <Route path="/subtopic/add/:id" element={<AddSubtopicPage/>}></Route>
+                <Route path="/subtopic/add/:id/:length" element={<AddSubtopicPage/>}></Route>
             </Routes>
         </div>
     );

@@ -1,5 +1,5 @@
 .vertical-timeline-wrapper {
-    padding-top: 100px;
+    padding-top: 80px;
     padding-bottom: 100px;
     padding-left: 10px;
     padding-right: 10px;
@@ -9,9 +9,55 @@
 .subtopic-header-img {
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
-    position: static;
+    position: relative;
 }
 
+.header-content-subt {
+    position: absolute;
+    width: 60%;
+    max-width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    border: 1px solid #FFFFFF;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    z-index: 2;
+    max-height: 80%;
+    overflow: auto;
+}
+
+.header-content-subt h1 {
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.header-content-subt * {
+    text-align: center;
+    color: white;
+}
+
+.header-wrapper-subt {
+    max-width: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 80px;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    background: linear-gradient(to right, #59C2B7, #397AC1);
+}
 
 @media only screen and (max-width: 1169px) {
     .subtopic-body {
@@ -41,19 +87,21 @@
 }
 
 .subtopicButtonAdd {
-    position: fixed;
     bottom: 40px;
-    right: 20px;
     z-index: 10;
+    padding-top: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    right: 20px;
     font-size: 24px;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.5);
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(to right, #E49E39, #E25B40);
     border-radius: 50%;
     color: white;
     border: none;
-    padding-top: 6px;
 }
+
 
 .subtopicButtonDel {
     position: fixed;
@@ -61,12 +109,13 @@
     left: 20px;
     z-index: 10;
     font-size: 24px;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.5);
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
+    background: #FFFFFF;
+    border: 0.5px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0.1px 10px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
     color: white;
-    border: none;
     cursor: pointer;
     padding-top: 5px;
 }
@@ -77,8 +126,8 @@
     left: 20px;
     z-index: 10;
     font-size: 24px;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     background: rgba(255, 64, 64, 0.5);
     border-radius: 50%;
     color: white;
@@ -86,3 +135,23 @@
     cursor: pointer;
     padding-top: 5px;
 }
+
+.vertical-timeline-element-title {
+    color: #4FADBA;
+}
+
+.empty-subtopic-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.empty-subtopic-dialog text {
+    padding-top: 20px;
+    color: #8A97A3;
+}
+
+
+

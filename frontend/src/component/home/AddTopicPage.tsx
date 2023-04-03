@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import '../../style/topic/AddTopicPage.css';
-import CheckIcon from '@mui/icons-material/Check';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {TopicDTO} from "../../model/topic/TopicDTO";
 import UseAddTopic from "../../hook/topic/UseAddTopic";
@@ -50,54 +49,59 @@ export default function AddTopicPage() {
     }
 
     return (
-        <div className="addTopicPage">
-            {ifErrordisplayError()}
-            <p className="label">Parent Topic</p>
-            <input
-                type="text"
-                defaultValue={"HOME"}
-                className="inputField"
-                onChange={(event) => handleInputChange(event, 'parentName')}
-            />
-            <p className="helperText">Enter parent topic name to create subtopic</p>
-            <p className="label">Name</p>
-            <input
-                type="text"
-                placeholder="New Topic"
-                className="inputField"
-                onChange={(event) => handleInputChange(event, 'topicName')}
-            />
-            <p className="label">Size</p>
-            <div className="sizeButtons">
-                <button
-                    className={`sizeButton${selectedSize === 1 ? ' selectedSize' : ''}`}
-                    onClick={() => handleSizeButtonClick(1)}
-                >
-                    S
-                </button>
-                <button
-                    className={`sizeButton${selectedSize === 2 ? ' selectedSize' : ''}`}
-                    onClick={() => handleSizeButtonClick(2)}
-                >
-                    M
-                </button>
-                <button
-                    className={`sizeButton${selectedSize === 3 ? ' selectedSize' : ''}`}
-                    onClick={() => handleSizeButtonClick(3)}
-                >
-                    XL
-                </button>
-            </div>
-            <div className="actionButtons">
+        <div>
+            <div className="header-wrapper-addtopic">
                 <button className="backButton">
                     <ChevronLeftIcon onClick={() => {
                         navigate("/")
                     }} sx={{fontSize: 35}}/>
                 </button>
-                <button className="confirmButton">
-                    <CheckIcon sx={{fontSize: 35}} onClick={() => {
-                        postSingleTopic(buildTopic)
-                    }}/>
+                <div className="header-content-addtopic">
+                    <h1>Add new topic</h1>
+                </div>
+            </div>
+            <div className="addTopicPage">
+                {ifErrordisplayError()}
+                <p className="label">Parent Topic</p>
+                <input
+                    type="text"
+                    defaultValue={"HOME"}
+                    className="inputField"
+                    onChange={(event) => handleInputChange(event, 'parentName')}
+                />
+                <p className="helperText">Enter parent topic name to create subtopic</p>
+                <p className="label">Name</p>
+                <input
+                    type="text"
+                    placeholder="New Topic"
+                    className="inputField"
+                    onChange={(event) => handleInputChange(event, 'topicName')}
+                />
+                <p className="label">Size</p>
+                <div className="sizeButtons">
+                    <button
+                        className={`sizeButton${selectedSize === 1 ? ' selectedSize' : ''}`}
+                        onClick={() => handleSizeButtonClick(1)}
+                    >
+                        S
+                    </button>
+                    <button
+                        className={`sizeButton${selectedSize === 2 ? ' selectedSize' : ''}`}
+                        onClick={() => handleSizeButtonClick(2)}
+                    >
+                        M
+                    </button>
+                    <button
+                        className={`sizeButton${selectedSize === 3 ? ' selectedSize' : ''}`}
+                        onClick={() => handleSizeButtonClick(3)}
+                    >
+                        XL
+                    </button>
+                </div>
+                <br/>
+                <button className={"addTopicPage-confirm-button"} onClick={() => {
+                    postSingleTopic(buildTopic)
+                }}>CREATE
                 </button>
             </div>
         </div>

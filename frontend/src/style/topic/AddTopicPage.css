@@ -1,44 +1,44 @@
 .addTopicPage {
-    background-color: #212553;
+    padding-top: 75px;
+    background-color: #F9F8FA;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100vw;
     height: 100vh;
-    padding: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
     box-sizing: border-box;
     overflow-y: auto;
 }
 
 .label {
     margin-bottom: 8px;
-    color: #6C87FB;
-    font-family: '.AppleSystemUIFont', sans-serif;
-    font-style: normal;
-    font-weight: 700;
+    color: #687789;
+    font-size: 15px;
+    font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
 }
 
 .helperText {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: -10px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     padding-left: 3px;
-    color: #96aaf9;
-    font-family: '.AppleSystemUIFont', sans-serif;
+    color: white;
+    font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
 }
 
 .inputField {
     box-sizing: border-box;
     width: 100%;
     height: 40px;
-    background: rgba(0, 0, 0, 0.44);
-    border: 1px solid #6C89FD;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: transparent;
+    border: 2px solid #DADFE7;
+    border-radius: 5px;
     padding: 5px;
     margin-bottom: 16px;
-    color: white;
+    color: #1E364E;
     outline: none;
     font-family: '.AppleSystemUIFont', sans-serif;
     padding-left: 10px;
@@ -46,11 +46,12 @@
 }
 
 .inputField::placeholder {
-    color: #96aaf9;
+    color: #8A97A3;
 }
 
 .sizeButton.selectedSize {
-    border: 2px solid white;
+    width: 50px;
+    height: 50px;
 }
 
 .sizeButtons {
@@ -62,7 +63,7 @@
 .sizeButton {
     width: 40px;
     height: 40px;
-    background: #6D8AFF;
+    background: #4FADBA;
     border-radius: 50%;
     color: white;
     border: none;
@@ -71,29 +72,23 @@
     font-weight: 600;
 }
 
-.actionButtons {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    padding-top: 30px;
-    box-sizing: border-box;
-}
 
 .backButton {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    width: 50px;
-    height: 50px;
+    font-size: 10px;
     padding-right: 7px;
-    background: #6D8AFF;
+    background: transparent;
     border-radius: 50%;
     color: white;
     border: none;
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 1%;
+    transform: translateY(-50%);
+    z-index: 10;
 }
 
 .confirmButton {
@@ -109,3 +104,60 @@
     border: none;
     cursor: pointer;
 }
+
+.header-content-addtopic {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 15px;
+    z-index: 2;
+    max-height: 80%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-content-addtopic h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 17px;
+    font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+}
+
+.header-content-addtopic * {
+    text-align: center;
+    color: white;
+    margin: 0;
+}
+
+.header-wrapper-addtopic {
+    max-width: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 60px;
+    background: linear-gradient(to right, #59C2B7, #397AC1);
+}
+
+.addTopicPage-confirm-button {
+    width: 100%;
+    background: linear-gradient(to right, #59C2B7, #397AC1);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    font-size: 15px;
+}
+

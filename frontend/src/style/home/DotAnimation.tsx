@@ -7,7 +7,6 @@ class Dot {
     dy: number;
     px: number;
     py: number;
-
     constructor(private width: number, private height: number) {
         const angle = Math.floor(Math.random() * 360);
 
@@ -17,10 +16,8 @@ class Dot {
         this.px = Math.random() * width;
         this.py = Math.random() * height;
     }
-
     update() {
         this.bounds();
-
         this.px += this.dx;
         this.py += this.dy;
     }
@@ -29,7 +26,7 @@ class Dot {
         scene.beginPath();
         scene.arc(this.px, this.py, this.size, 0, Math.PI * 2);
         scene.closePath();
-        scene.fillStyle = '#8284FF';
+        scene.fillStyle = '#60D2B5';
         scene.fill();
 
         this.connect(scene, dots);

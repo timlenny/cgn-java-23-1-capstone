@@ -1,5 +1,7 @@
 .react-flow {
-    background: #2A2B6D;
+    background: #E7EFF9;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
 }
 
 .react-flow__node {
@@ -17,7 +19,8 @@
 }
 
 .default-node3 {
-    background: #8284FF;
+    background: linear-gradient(to right, #3B80C0, #60D2B5);
+    box-shadow: 0 0 10px 5px rgba(94, 205, 182, 0.7);
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -30,7 +33,8 @@
 }
 
 .default-node2 {
-    background: #8284FF;
+    background: linear-gradient(to right, #3B80C0, #60D2B5);
+    box-shadow: 0 0 10px 5px rgba(94, 205, 182, 0.7);
     border-radius: 50%;
     width: 90px;
     height: 90px;
@@ -43,7 +47,8 @@
 }
 
 .default-node1 {
-    background: #8284FF;
+    background: linear-gradient(to right, #3B80C0, #60D2B5);
+    box-shadow: 0 0 10px 5px rgba(94, 205, 182, 0.7);
     border-radius: 50%;
     width: 80px;
     height: 80px;

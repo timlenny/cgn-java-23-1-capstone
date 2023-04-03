@@ -18,13 +18,14 @@ export default function SignUpPage() {
         }).then(() => {
             navigate("/login");
         }).catch(err => {
-            if (err.response.data.includes("HTTP Status 409 – Conflict")) {
+            if (err.message.includes("409")) {
                 setError("Username already exists")
-            } else if (err.response.data.includes("HTTP Status 400 – Bad Request")) {
+            } else if (err.message.includes("400")) {
                 setError("Username must have at least 3 characters. Password must have at least 7 characters.")
             } else {
-                setError(err.code)
+                setError(err.response.data)
             }
+            console.log(err)
         });
     };
 
@@ -63,7 +64,8 @@ export default function SignUpPage() {
                             <input type="password" placeholder="Password"
                                    value={password} onChange={pw => setPassword(pw.currentTarget.value)}/>
                         </div>
-                        <button type="submit" onClick={handleSubmit}>SIGN UP NOW</button>
+                        <button className={"button-login-page"} type="submit" onClick={handleSubmit}>SIGN UP NOW
+                        </button>
                         <div>
                             Already have an account? <text style={{fontWeight: "bold"}} onClick={() => {
                             navigate("/login")
