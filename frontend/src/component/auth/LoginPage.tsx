@@ -69,7 +69,7 @@ export default function LoginPage() {
                             <input type="password" placeholder="Password"
                                    value={password} onChange={password => setPassword(password.currentTarget.value)}/>
                         </div>
-                        <button type="submit" onClick={handleSubmit}>Login</button>
+                        <button className={"button-login-page"} type="submit" onClick={handleSubmit}>Login</button>
                         <div>
                             Don't have an account? <text style={{fontWeight: "bold"}} onClick={() => {
                             navigate("/signup")

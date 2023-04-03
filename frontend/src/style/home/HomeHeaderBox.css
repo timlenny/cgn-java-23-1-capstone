@@ -1,23 +1,40 @@
-.home-header-bar {
-    position: relative;
-}
-
-.homepage-header-img {
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
-    position: static;
+.home-header-bar1 {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100px;
+    z-index: 10;
+    height: 110px;
+    background: linear-gradient(to right, #479EA6, #33739B);
 }
 
-.text-header-hello {
+
+.text-header-hello1 {
     font-style: normal;
-    font-weight: 700;
-    font-size: 23px;
+    font-weight: 450;
+    font-size: 30px;
     text-align: center;
+    font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
     color: #FFFFFF;
     position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding-left: 10px;
+    top: 25px;
+    left: 20px;
+    z-index: 2;
+}
+
+.text-header-date1 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    color: #FFFFFF;
+    position: absolute;
+    padding-left: 10px;
+    top: 10px;
+    left: 20px;
+    z-index: 2;
+    letter-spacing: 0.1px;
 }

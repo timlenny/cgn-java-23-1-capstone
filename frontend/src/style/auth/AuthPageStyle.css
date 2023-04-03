@@ -1,7 +1,7 @@
 .auth-page-body {
     height: auto;
     margin: 0;
-    background-image: linear-gradient(#8284FF, #4849A6);
+    background-image: linear-gradient(to bottom left, #3B80C0, #60D2B5);
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
@@ -56,6 +56,14 @@ a:focus {
     display: flex;
     flex-direction: column;
     z-index: 1;
+    box-sizing: border-box;
+    padding: 16px;
+    gap: 16px;
+    position: relative;
+    background: rgba(37, 37, 37, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(5px);
+    border-radius: 16px;
 }
 
 .login-card-footer {
@@ -75,7 +83,7 @@ h2 {
 }
 
 h3 {
-    color: #4849A6;
+    color: #1E364E;
     font-size: 14px;
     line-height: 18px;
     margin: 0;
@@ -99,10 +107,10 @@ h3 {
     font-size: 70px;
 }
 
-button {
+.button-login-page {
     background: white;
     display: block;
-    color: #4849A6;
+    color: #1E364E;
     width: 100%;
     border: none;
     border-radius: 40px;
@@ -114,6 +122,7 @@ button {
     z-index: 1;
 }
 
+
 .form-field {
     margin-bottom: 16px;
     width: 100%;
@@ -124,7 +133,7 @@ button {
 .form-field .icon {
     position: absolute;
     background: white;
-    color: #4849A6;
+    color: #1E364E;
     left: 0;
     top: 0;
     display: flex;
@@ -171,13 +180,13 @@ button {
 .form-field input:hover,
 .form-field input:focus {
     background: white;
-    color: #4849A6;
+    color: #1E364E;
     transition: all 0.2s;
     z-index: 1;
 }
 
 .form-field input:hover::placeholder {
-    color: #4849A6;
+    color: #1E364E;
 }
 
 .dot-animation {
@@ -193,4 +202,20 @@ button {
     color: white;
     font-size: 27px;
     font-weight: lighter;
+}
+
+.card-auth {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+    position: relative;
+    width: 343px;
+    height: 139px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(40px);
+    border-radius: 16px;
 }

@@ -117,16 +117,16 @@ export default function HomePage() {
 
     return (
         <div style={{width: '100vw', height: '100vh'}}>
-            {HomeHeaderBox()}
             {displayHint()}
             {displaySaveChanges()}
+            <HomeHeaderBox/>
             <button className="homeButtonAdd" onClick={handleSubmitAdd}>
                 <AddIcon sx={{fontSize: 35}}/>
             </button>
             <button className={deleteMode ? "homeButtonDel-active" : "homeButtonDel"} onClick={() => {
                 setDeleteMode(deleteMode => !deleteMode)
             }}>
-                <DeleteOutlineIcon sx={{fontSize: 35}}/>
+                <DeleteOutlineIcon sx={{fontSize: 30, color: "#1B334C"}}/>
             </button>
             <ReactFlow
                 nodes={nodes}
