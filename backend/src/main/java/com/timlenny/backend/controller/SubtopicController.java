@@ -28,7 +28,6 @@ public class SubtopicController {
 
     @DeleteMapping("/{id}")
     public String deleteSubtopic(@PathVariable String id) {
-
         return subtopicService.deleteSubtopic(id);
     }
 }
