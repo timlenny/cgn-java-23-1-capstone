@@ -10,7 +10,6 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FormatDateLocal from "../../hook/subtopic/UseConvertDateToLocal";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import "../../style/tree/TreeAnimationStart";
 import TreeAnimationStart from "../../style/tree/TreeAnimationStart";
 import "../../style/subtopic/AddSubtopic.css"
 import {Subtopic} from "../../model/subtopic/Subtopic";

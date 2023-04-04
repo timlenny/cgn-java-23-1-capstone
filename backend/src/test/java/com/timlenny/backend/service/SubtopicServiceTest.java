@@ -66,6 +66,7 @@ class SubtopicServiceTest {
     void isCalcPositionForSubtopicCorrect() {
 
         SubtopicDTO subtToAdd = new SubtopicDTO("2", 4, demoTime, "titleADD", "descADD");
+        SubtopicDTO subtToAdd2 = new SubtopicDTO("2", 1, demoTime, "titleADD", "descADD");
 
         Subtopic topic1 = new Subtopic("234", "2", 1, 1, demoTime, "title1", "subtitle1", "desc", demoTime);
         Subtopic topic2 = new Subtopic("2341", "2", 1, 2, demoTime, "title2", "subtitle2", "desc", demoTime);
@@ -74,8 +75,10 @@ class SubtopicServiceTest {
         when(subtopicRepository.findByTopicId("2")).thenReturn(List.of(new Subtopic[]{topic1, topic2, topic3}));
 
         int actual = subtopicService.calcSubtopicPosition(subtToAdd, "2");
+        int actual2 = subtopicService.calcSubtopicPosition(subtToAdd2, "2");
 
         assertEquals(4, actual);
+        assertEquals(1, actual2);
     }
 
 }
