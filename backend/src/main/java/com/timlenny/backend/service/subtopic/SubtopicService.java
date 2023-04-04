@@ -31,7 +31,8 @@ public class SubtopicService {
     }
 
     public List<Subtopic> getAllSubtopicsFromTopicId(String topicId) {
-        List<Subtopic> subtopics = subtopicRepository.findByTopicId(topicId);
+        List<Subtopic> subtopicsResult = subtopicRepository.findByTopicId(topicId);
+        List<Subtopic> subtopics = new ArrayList<>(subtopicsResult);
         subtopics.sort(Comparator.comparingInt(Subtopic::getPosition));
         return subtopics;
     }

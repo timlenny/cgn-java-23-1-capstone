@@ -139,7 +139,6 @@ export function stopAndReset() {
     gsap.killTweensOf("#leaf-lm g");
     gsap.set("#tree", {clearProps: "all"});
     gsap.set("#shadow", {clearProps: "all"});
-    gsap.set("#leaf-top", {clearProps: "all"});
     gsap.set("#leaf-rb", {clearProps: "all"});
     gsap.set("#leaf-rm", {clearProps: "all"});
     gsap.set("#leaf-lb", {clearProps: "all"});
