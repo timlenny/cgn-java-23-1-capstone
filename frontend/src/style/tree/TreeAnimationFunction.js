@@ -1,36 +1,22 @@
 import {gsap} from 'gsap';
 
-function setElementsTransformOrigin() {
-    gsap.set("#shadow", {transformOrigin: "15px 8px"});
-    gsap.set("#tree", {transformOrigin: "154px bottom"});
-    gsap.set("#leaf-rb", {transformOrigin: "left bottom"});
-    gsap.set("#leaf-rm", {transformOrigin: "left bottom"});
-    gsap.set("#leaf-lb", {transformOrigin: "right bottom"});
-    gsap.set("#leaf-lm", {transformOrigin: "right bottom"});
-    gsap.set("#leaf-top", {transformOrigin: "center bottom"});
-    gsap.set("#leaf-rb g", {transformOrigin: "left 60px"});
-    gsap.set("#leaf-rm g", {transformOrigin: "22px 140px"});
-    gsap.set("#leaf-lb g", {transformOrigin: "right 56px"});
-    gsap.set("#leaf-lm g", {transformOrigin: "106px bottom"});
-}
-
-function resetElements() {
-    gsap.set("#tree", {clearProps: "all"});
-    gsap.set("#shadow", {clearProps: "all"});
-    gsap.set("#leaf-rb", {clearProps: "all"});
-    gsap.set("#leaf-rm", {clearProps: "all"});
-    gsap.set("#leaf-lb", {clearProps: "all"});
-    gsap.set("#leaf-lm", {clearProps: "all"});
-    gsap.set("#leaf-top", {clearProps: "all"});
-    gsap.set("#leaf-rb g", {clearProps: "all"});
-    gsap.set("#leaf-rm g", {clearProps: "all"});
-    gsap.set("#leaf-lb g", {clearProps: "all"});
-    gsap.set("#leaf-lm g", {clearProps: "all"});
-}
-
 export function setup() {
 
-    setElementsTransformOrigin();
+    const shadow = document.querySelector("#shadow");
+    const tree = document.querySelector("#tree");
+    const leafRb = document.querySelector("#leaf-rb");
+    const leafRm = document.querySelector("#leaf-rm");
+    const leafLb = document.querySelector("#leaf-lb");
+    const leafLm = document.querySelector("#leaf-lm");
+    const leafTop = document.querySelector("#leaf-top");
+    const leafLbG = document.querySelector("#leaf-lb g");
+    const leafLmG = document.querySelector("#leaf-lm g");
+    const leafRbG = document.querySelector("#leaf-rb g");
+    const leafRmG = document.querySelector("#leaf-rm g");
+
+    if (!shadow || !tree || !leafRb || !leafRm || !leafLb || !leafLm || !leafTop || !leafLbG || !leafLmG || !leafRbG || !leafRmG) {
+        return;
+    }
 
     gsap.set("#shadow", {
         scale: 0,
@@ -150,7 +136,17 @@ export function stopAndReset() {
     gsap.killTweensOf("#leaf-rm g");
     gsap.killTweensOf("#leaf-lb g");
     gsap.killTweensOf("#leaf-lm g");
-    resetElements()
+    gsap.set("#tree", {clearProps: "all"});
+    gsap.set("#shadow", {clearProps: "all"});
+    gsap.set("#leaf-rb", {clearProps: "all"});
+    gsap.set("#leaf-rm", {clearProps: "all"});
+    gsap.set("#leaf-lb", {clearProps: "all"});
+    gsap.set("#leaf-lm", {clearProps: "all"});
+    gsap.set("#leaf-top", {clearProps: "all"});
+    gsap.set("#leaf-rb g", {clearProps: "all"});
+    gsap.set("#leaf-rm g", {clearProps: "all"});
+    gsap.set("#leaf-lb g", {clearProps: "all"});
+    gsap.set("#leaf-lm g", {clearProps: "all"});
 }
 
 export function playAgain() {
