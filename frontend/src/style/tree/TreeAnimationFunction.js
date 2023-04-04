@@ -72,7 +72,6 @@ export function setup() {
     });
 }
 
-// This should be called on document.load
 export function animate() {
 
     const shadow = document.querySelector("#shadow");
