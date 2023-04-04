@@ -1,8 +1,8 @@
 .vertical-timeline-wrapper {
     padding-top: 80px;
     padding-bottom: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     text-align: left;
 }
 
@@ -59,31 +59,33 @@
     background: linear-gradient(to right, #59C2B7, #397AC1);
 }
 
-@media only screen and (max-width: 1169px) {
-    .subtopic-body {
-        height: 100%;
-    }
 
-    .vertical-timeline--animate .vertical-timeline-element-content.bounce-in {
-        visibility: visible;
-        animation: timeline-slide 0.6s;
-    }
+.vertical-timeline-element-icon {
+    position: absolute !important;
+    background-color: white !important;
+    height: 80px !important;
+    width: 80px !important;
+    top: 1% !important;
+    transform: translateX(-25%) !important;
 }
 
-@keyframes timeline-slide {
-    0% {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
+.vertical-timeline-element-icon svg {
+    left: 0 !important;
+    right: 0 !important;
+    top: -25% !important;
+    bottom: 0 !important;
+    position: absolute;
+    background-color: transparent;
+}
 
-    60% {
-        transform: translateY(-10px);
-    }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.cust-date-class {
+    font-size: 15px;
+    position: center;
+    color: black;
+    font-family: '.AppleSystemUIFont', sans-serif;
+    font-weight: 400;
+    padding-top: 2px;
 }
 
 .subtopicButtonAdd {
@@ -148,7 +150,7 @@
     height: 80vh;
 }
 
-.empty-subtopic-dialog text {
+.empty-subtopic-dialog p {
     padding-top: 20px;
     color: #8A97A3;
 }

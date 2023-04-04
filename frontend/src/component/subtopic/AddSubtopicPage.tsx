@@ -8,7 +8,6 @@ import {SubtopicDTO} from "../../model/subtopic/SubtopicDTO";
 import UseAddSubtopic from "../../hook/subtopic/UseAddSubtopic";
 import {DateTimePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import "../../style/subtopic/AddSubtopic.css"
 
 export default function AddSubtopicPage() {
     const params = useParams();
@@ -19,7 +18,7 @@ export default function AddSubtopicPage() {
     const {postSingleSubtopic, errorMsg} = UseAddSubtopic();
     const [subtopicData, setSubtopicData] = useState<SubtopicDTO>({
         topicId: id ? id : "",
-        position: 1,
+        position: parseInt(length ? length : "1"),
         timeTermin: new Date(),
         title: "",
         desc: "",

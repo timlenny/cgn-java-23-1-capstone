@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +31,10 @@ public class SubtopicService {
     }
 
     public List<Subtopic> getAllSubtopicsFromTopicId(String topicId) {
-        return subtopicRepository.findByTopicId(topicId);
+        List<Subtopic> subtopicsResult = subtopicRepository.findByTopicId(topicId);
+        List<Subtopic> subtopics = new ArrayList<>(subtopicsResult);
+        subtopics.sort(Comparator.comparingInt(Subtopic::getPosition));
+        return subtopics;
     }
 
     public Subtopic addSubtopic(SubtopicDTO subtopicDTO) {
@@ -39,7 +44,7 @@ public class SubtopicService {
                     idService.generateId(),
                     subtopicDTO.getTopicId(),
                     1,
-                    subtopicDTO.getPosition(),
+                    calcSubtopicPosition(subtopicDTO, topicForSub.get().getId()),
                     subtopicDTO.getTimeTermin(),
                     topicForSub.get().getTopicName(),
                     subtopicDTO.getTitle(),
@@ -49,5 +54,32 @@ public class SubtopicService {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Topic with id " + subtopicDTO.getTopicId() + " not found!");
         }
+    }
+
+    public int calcSubtopicPosition(SubtopicDTO subtopicDTO, String topicId) {
+        List<Subtopic> allSubtopicsFromTopicResult = subtopicRepository.findByTopicId(topicId);
+
+        List<Subtopic> allSubtopicsFromTopic = new ArrayList<>(allSubtopicsFromTopicResult);
+        allSubtopicsFromTopic.sort(Comparator.comparingInt(Subtopic::getPosition));
+
+
+        List<Subtopic> subtopicsSamePosition = (allSubtopicsFromTopic.stream().filter((subtopic -> subtopic.getPosition() == subtopicDTO.getPosition())).toList());
+
+        if (!subtopicsSamePosition.isEmpty()) {
+
+            for (Subtopic subt : allSubtopicsFromTopic) {
+
+                if (subt.getPosition() >= subtopicsSamePosition.get(0).getPosition()) {
+                    subt.setPosition((subt.getPosition() + 1));
+                    subtopicRepository.save(subt);
+                }
+            }
+        }
+        return subtopicDTO.getPosition();
+    }
+
+    public String deleteSubtopic(String id) {
+        subtopicRepository.deleteById(id);
+        return id;
     }
 }
