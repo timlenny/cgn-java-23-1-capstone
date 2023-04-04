@@ -10,6 +10,12 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FormatDateLocal from "../../hook/subtopic/UseConvertDateToLocal";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import "../../style/tree/TreeAnimationStart";
+import TreeAnimationStart from "../../style/tree/TreeAnimationStart";
+import "../../style/subtopic/AddSubtopic.css"
+import {Subtopic} from "../../model/subtopic/Subtopic";
+import UseDeleteSubtopic from "../../hook/subtopic/UseDeleteSubtopic";
+
 
 export default function SubtopicPage() {
     useAuthRedirect()
@@ -17,8 +23,9 @@ export default function SubtopicPage() {
     const id: string | undefined = params.id;
     const [deleteMode, setDeleteMode] = useState(false);
     const navigate = useNavigate()
-    const {getAllSubtopics, subtopics} = UseGetSubtopicData();
+    const {getAllSubtopics, subtopics, setSubtopics} = UseGetSubtopicData();
     const [isLoading, setIsLoading] = useState(true);
+    const {deleteSubtopic} = UseDeleteSubtopic();
 
     useEffect(() => {
         async function fetchData() {
@@ -37,16 +44,26 @@ export default function SubtopicPage() {
         fetchData();
     }, [id, getAllSubtopics]);
 
+    function handleTimelineElementClick(t: Subtopic) {
+        if (deleteMode) {
+            deleteSubtopic(t.id)
+            const updatedSubtopics = subtopics.filter(subtopic => subtopic.id !== t.id);
+            setSubtopics(updatedSubtopics);
+        }
+    }
+
+
     function buildVerticalTimeline() {
         if (isLoading) {
-            return <text></text>
+            return <p></p>
         } else if (subtopics.length > 0) {
-            return (<VerticalTimeline lineColor={'linear-gradient(to bottom, #D09934, #BB4720)'}>
+            return (<VerticalTimeline lineColor={'#B1B1B7'} animate={false}>
                 {subtopics.map((t) => {
                     const contentStyle = {
                         background: 'white', color: 'black', borderLeft: "7px solid transparent",
                         borderImageSource: 'linear-gradient(to bottom, #D19E35, #B2281C)',
                         borderImageSlice: 1,
+                        left: "15px"
                     };
                     const arrowStyle = {borderRight: '0px solid  white'};
                     return (
@@ -55,19 +72,16 @@ export default function SubtopicPage() {
                             className="vertical-timeline-element--work"
                             contentStyle={contentStyle}
                             contentArrowStyle={arrowStyle}
-                            date={FormatDateLocal({date: t.timeTermin.toString()})}
-                            iconStyle={{
-                                background: 'linear-gradient(to right, #D19E35, #B2281C)',
-                                color: "blue",
-                                border: "none",
-                                boxShadow: "none"
-                            }}
+                            icon={<TreeAnimationStart props={3}></TreeAnimationStart>}
+                            onTimelineElementClick={() => handleTimelineElementClick(t)}
                         >
                             {t.title ? (
                                 <React.Fragment>
-                                    <h3 className="vertical-timeline-element-title">{t.title}</h3>
+                                    <h3 className="vertical-timeline-element-title">{t.title + t.position}</h3>
                                     {t.subtitel &&
                                         <h4 className="vertical-timeline-element-subtitle">{t.subtitel}</h4>}
+                                    <div
+                                        className={"cust-date-class"}>{FormatDateLocal({date: t.timeTermin.toString()})}</div>
                                     {t.desc && <p>{t.desc}</p>}
                                 </React.Fragment>
                             ) : undefined}
@@ -79,7 +93,7 @@ export default function SubtopicPage() {
             return (
                 <div className={"empty-subtopic-dialog"}>
                     <img src={addsubtopic} width={"50%"} alt={""}/>
-                    <text>Start your journey and create new subtopics</text>
+                    <p>Start your journey and create new subtopics</p>
                 </div>
             )
         }

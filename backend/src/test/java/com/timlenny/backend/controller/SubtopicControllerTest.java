@@ -81,4 +81,19 @@ class SubtopicControllerTest {
                 .andExpect(jsonPath("$.title").value("Java"))
                 .andExpect(jsonPath("$.desc").value("desc"));
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+    void whenDeleteSubtopic_ReturnDeletedSubtopicId() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of("1")));
+        subtopicRepository.save(demoSubtopic1);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/subtopics/" + demoSubtopic1.getId()).with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .content().string(demoSubtopic1.getId()));
+    }
+
 }

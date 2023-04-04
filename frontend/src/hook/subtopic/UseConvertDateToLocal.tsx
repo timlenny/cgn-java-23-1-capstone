@@ -1,7 +1,6 @@
 interface Props {
     date: string;
 }
-
 const FormatDateLocal = (props: Props): string => {
     const formattedDateToLocal = new Date(props.date).toLocaleString('default', {
         weekday: 'long',

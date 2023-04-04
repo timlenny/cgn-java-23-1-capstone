@@ -15,5 +15,5 @@ export default function UseGetSubtopicData() {
         }
     }, []);
 
-    return {getAllSubtopics, subtopics};
+    return {getAllSubtopics, subtopics, setSubtopics};
 }

@@ -9,7 +9,6 @@ export default function UseAddSubtopic() {
 
     function postSingleSubtopic(props: SubtopicDTO | undefined) {
         if (props?.title && props?.desc && props.timeTermin) {
-            console.log(props.topicId)
             axios.post("/api/subtopics", {
                 topicId: props.topicId,
                 position: props.position,

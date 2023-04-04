@@ -54,4 +54,28 @@ class SubtopicServiceTest {
         assertEquals(demoSubtopic1, actual);
     }
 
+    @Test
+    @DirtiesContext
+    void isSubtopicDeleted_WhenDeleteSubtopic() {
+        String actual = subtopicService.deleteSubtopic(demoSubtopic1.getId());
+        assertEquals(demoSubtopic1.getId(), actual);
+    }
+
+    @Test
+    @DirtiesContext
+    void isCalcPositionForSubtopicCorrect() {
+
+        SubtopicDTO subtToAdd = new SubtopicDTO("2", 4, demoTime, "titleADD", "descADD");
+
+        Subtopic topic1 = new Subtopic("234", "2", 1, 1, demoTime, "title1", "subtitle1", "desc", demoTime);
+        Subtopic topic2 = new Subtopic("2341", "2", 1, 2, demoTime, "title2", "subtitle2", "desc", demoTime);
+        Subtopic topic3 = new Subtopic("2342", "2", 1, 3, demoTime, "title3", "subtitle3", "desc", demoTime);
+
+        when(subtopicRepository.findByTopicId("2")).thenReturn(List.of(new Subtopic[]{topic1, topic2, topic3}));
+
+        int actual = subtopicService.calcSubtopicPosition(subtToAdd, "2");
+
+        assertEquals(4, actual);
+    }
+
 }
