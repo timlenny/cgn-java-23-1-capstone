@@ -1,7 +1,6 @@
 import {gsap} from 'gsap';
 
-export function setup() {
-
+function getElements() {
     const shadow = document.querySelector("#shadow");
     const tree = document.querySelector("#tree");
     const leafRb = document.querySelector("#leaf-rb");
@@ -14,9 +13,36 @@ export function setup() {
     const leafRbG = document.querySelector("#leaf-rb g");
     const leafRmG = document.querySelector("#leaf-rm g");
 
-    if (!shadow || !tree || !leafRb || !leafRm || !leafLb || !leafLm || !leafTop || !leafLbG || !leafLmG || !leafRbG || !leafRmG) {
+    if (
+        !shadow || !tree || !leafRb || !leafRm || !leafLb || !leafLm ||
+        !leafTop || !leafLbG || !leafLmG || !leafRbG || !leafRmG
+    ) {
+        return null;
+    }
+
+    return {
+        shadow,
+        tree,
+        leafRb,
+        leafRm,
+        leafLb,
+        leafLm,
+        leafTop,
+        leafLbG,
+        leafLmG,
+        leafRbG,
+        leafRmG,
+    };
+}
+
+
+export function setup() {
+
+    const elements = getElements();
+    if (!elements) {
         return;
     }
+
 
     gsap.set("#shadow", {
         scale: 0,
@@ -74,21 +100,11 @@ export function setup() {
 
 export function animate() {
 
-    const shadow = document.querySelector("#shadow");
-    const tree = document.querySelector("#tree");
-    const leafRb = document.querySelector("#leaf-rb");
-    const leafRm = document.querySelector("#leaf-rm");
-    const leafLb = document.querySelector("#leaf-lb");
-    const leafLm = document.querySelector("#leaf-lm");
-    const leafTop = document.querySelector("#leaf-top");
-    const leafLbG = document.querySelector("#leaf-lb g");
-    const leafLmG = document.querySelector("#leaf-lm g");
-    const leafRbG = document.querySelector("#leaf-rb g");
-    const leafRmG = document.querySelector("#leaf-rm g");
-
-    if (!shadow || !tree || !leafRb || !leafRm || !leafLb || !leafLm || !leafTop || !leafLbG || !leafLmG || !leafRbG || !leafRmG) {
+    const elements = getElements();
+    if (!elements) {
         return;
     }
+
 
     const tl = gsap.timeline({
         delay: 0,
@@ -109,19 +125,8 @@ export function animate() {
 }
 
 export function stopAndReset() {
-    const shadow = document.querySelector("#shadow");
-    const tree = document.querySelector("#tree");
-    const leafRb = document.querySelector("#leaf-rb");
-    const leafRm = document.querySelector("#leaf-rm");
-    const leafLb = document.querySelector("#leaf-lb");
-    const leafLm = document.querySelector("#leaf-lm");
-    const leafTop = document.querySelector("#leaf-top");
-    const leafLbG = document.querySelector("#leaf-lb g");
-    const leafLmG = document.querySelector("#leaf-lm g");
-    const leafRbG = document.querySelector("#leaf-rb g");
-    const leafRmG = document.querySelector("#leaf-rm g");
-
-    if (!shadow || !tree || !leafRb || !leafRm || !leafLb || !leafLm || !leafTop || !leafLbG || !leafLmG || !leafRbG || !leafRmG) {
+    const elements = getElements();
+    if (!elements) {
         return;
     }
 
