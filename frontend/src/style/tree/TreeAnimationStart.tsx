@@ -12,7 +12,7 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
         if (props === 3) {
             playAgain()
         }
-    }, []);
+    }, [props]);
 
     return (
         <div>
