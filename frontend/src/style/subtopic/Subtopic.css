@@ -72,7 +72,7 @@
 .vertical-timeline-element-icon svg {
     left: 0 !important;
     right: 0 !important;
-    top: -25% !important;
+    top: -35% !important;
     bottom: 0 !important;
     position: absolute;
     background-color: transparent;
@@ -154,6 +154,3 @@
     padding-top: 20px;
     color: #8A97A3;
 }
-
-
-
