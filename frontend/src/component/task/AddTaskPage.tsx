@@ -87,6 +87,7 @@ export default function AddTaskPage() {
                     onChange={(event) => handleInputChange(event, 'title')}
                 />
                 <p className="label">Description</p>
+                <br/>
                 <textarea
                     placeholder="Insert a description"
                     className="inputField"
