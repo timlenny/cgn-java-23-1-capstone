@@ -12,7 +12,7 @@ export default function TasksPage() {
     const topicId: string | undefined = params.topicId;
     const id: string | undefined = params.id;
     const navigate = useNavigate()
-    const {getAllTasks, task: task} = UseGetAllTasks();
+    const {getAllTasks, task} = UseGetAllTasks();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export default function TasksPage() {
     }, [id, getAllTasks]);
 
     if (isLoading) {
-        return <h1></h1>
+        return <h1>Loading...</h1>
     } else {
         console.log(task)
         return (
