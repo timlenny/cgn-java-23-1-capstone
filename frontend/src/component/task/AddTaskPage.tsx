@@ -24,7 +24,7 @@ export default function AddTaskPage() {
     useAuthRedirect()
 
     const navigate = useNavigate();
-    const {postSingleTask: postSingleTask, errorMsg} = UseAddTask();
+    const {postSingleTask, errorMsg} = UseAddTask();
     const [taskData, setTaskData] = useState<TaskDTO>({
         subtopicId: id ? id : "",
         title: "",
@@ -47,7 +47,7 @@ export default function AddTaskPage() {
             id: id ? id : ""
         })
 
-    }, [taskData, setTaskData])
+    }, [taskData, setTaskData, id, topicId])
 
     function ifErrordisplayError() {
         if (errorMsg !== "") {
