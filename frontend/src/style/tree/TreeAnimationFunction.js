@@ -1,6 +1,7 @@
 import {gsap} from 'gsap';
 
 function getElements() {
+
     const shadow = document.querySelector("#shadow");
     const tree = document.querySelector("#tree");
     const leafRb = document.querySelector("#leaf-rb");
@@ -98,7 +99,7 @@ export function setup() {
     });
 }
 
-export function animate() {
+export function animateLarge() {
 
     const elements = getElements();
     if (!elements) {
@@ -112,15 +113,69 @@ export function animate() {
 
     tl.to("#shadow", {scale: 1, duration: 2}, 0)
         .to("#tree", {scale: 1, duration: 2}, 0)
-        .to("#leaf-rb", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
-        .to("#leaf-rm", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
-        .to("#leaf-lb", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
-        .to("#leaf-lm", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
-        .to("#leaf-top", {scale: 1, delay: 0.35, duration: 2.5}, 0)
+        .to("#leaf-rb3", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
+        .to("#leaf-rm3", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
+        .to("#leaf-lb3", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
+        .to("#leaf-lm3", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
+        .to("#leaf-top3", {scale: 1, delay: 0.35, duration: 2.5}, 0)
         .to("#leaf-lb g", {scale: 1, delay: 0.5, duration: 2.25}, 0)
         .to("#leaf-lm g", {scale: 1, delay: 0.6, duration: 2.25}, 0)
         .to("#leaf-rb g", {scale: 1, delay: 0.5, duration: 2.25}, 0)
         .to("#leaf-rm g", {scale: 1, delay: 0.6, duration: 2.25}, 0);
+    return tl;
+}
+
+export function animateMedium() {
+
+    const elements2 = getElements();
+    if (!elements2) {
+        return;
+    }
+
+
+    const tl2 = gsap.timeline({
+        delay: 0,
+    });
+
+    tl2.to("#shadow", 2, {scale: 1}, 0)
+        .to("#tree", 2, {scale: 1}, 0)
+        .to("#leaf-rb2", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-rm2", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-lb2", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-lm2", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-top2", 0, {scale: 0, delay: 0.35}, 0)
+        .to("#leaf-lb g", 2.25, {scale: 1, delay: 0.5}, 0)
+        .to("#leaf-lm g", 0, {scale: 0, delay: 0.6}, 0)
+        .to("#leaf-rb g", 2.25, {scale: 1, delay: 0.5}, 0)
+        .to("#leaf-rm g", 2.25, {scale: 1, delay: 0.6}, 0);
+
+    return tl2;
+}
+
+export function animateSmall() {
+
+    const elements = getElements();
+    if (!elements) {
+        return;
+    }
+
+    const tl = gsap.timeline({
+        delay: 0,
+    });
+
+    tl.to("#shadow", 2, {scale: 1}, 0)
+        .to("#tree", 2, {scale: 1}, 0)
+        .to("#leaf-rb", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-rm", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-lb", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-lm", 2, {scale: 1, rotation: '0cw', y: 0, delay: 0.35}, 0)
+        .to("#leaf-top", 0, {scale: 0, delay: 0.35}, 0)
+        .to("#leaf-lb g", 2.25, {scale: 1, delay: 0.5}, 0)
+        .to("#leaf-lm g", 0, {scale: 0, delay: 0.6}, 0)
+        .to("#leaf-rb g", 2.25, {scale: 1, delay: 0.5}, 0)
+        .to("#leaf-rm g", 0, {scale: 0, delay: 0.6}, 0);
+
+
     return tl;
 }
 
@@ -154,12 +209,18 @@ export function stopAndReset() {
     gsap.set("#leaf-lm g", {clearProps: "all"});
 }
 
-export function playAgain() {
+export function playAgain(props) {
     stopAndReset();
     setup();
-    animate();
+    if (props === 1) {
+        animateSmall()
+    } else if (props === 2) {
+        animateMedium()
+    } else {
+        animateLarge()
+    }
 }
 
 stopAndReset();
 setup();
-window.onload = animate;
+

@@ -10,10 +10,12 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FormatDateLocal from "../../hook/subtopic/UseConvertDateToLocal";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import TreeAnimationStart from "../../style/tree/TreeAnimationStart";
 import "../../style/subtopic/AddSubtopic.css"
 import {Subtopic} from "../../model/subtopic/Subtopic";
 import UseDeleteSubtopic from "../../hook/subtopic/UseDeleteSubtopic";
+import TreeAnimationDivLarge from "../../style/tree/TreeAnimationDivLarge";
+import TreeAnimationDivMedium from "../../style/tree/TreeAnimationDivMedium";
+import TreeAnimationDivSmall from "../../style/tree/TreeAnimationDivSmall";
 
 
 export default function SubtopicPage() {
@@ -25,6 +27,7 @@ export default function SubtopicPage() {
     const {getAllSubtopics, subtopics, setSubtopics} = UseGetSubtopicData();
     const [isLoading, setIsLoading] = useState(true);
     const {deleteSubtopic} = UseDeleteSubtopic();
+    const [key] = useState(Date.now());
 
     useEffect(() => {
         async function fetchData() {
@@ -48,15 +51,27 @@ export default function SubtopicPage() {
             deleteSubtopic(t.id)
             const updatedSubtopics = subtopics.filter(subtopic => subtopic.id !== t.id);
             setSubtopics(updatedSubtopics);
+        } else {
+            navigate("/tasks/" + t.topicId + "/" + t.id)
+        }
+    }
+
+    function handleTreeIcon(iconStatus: number) {
+        if (iconStatus === 1) {
+            return <TreeAnimationDivSmall></TreeAnimationDivSmall>
+        } else if (iconStatus === 2) {
+            return <TreeAnimationDivMedium></TreeAnimationDivMedium>
+        } else if (iconStatus === 3) {
+            return <TreeAnimationDivLarge></TreeAnimationDivLarge>
         }
     }
 
 
     function buildVerticalTimeline() {
         if (isLoading) {
-            return <p></p>
+            return <p>LOADING</p>
         } else if (subtopics.length > 0) {
-            return (<VerticalTimeline lineColor={'#B1B1B7'} animate={false}>
+            return (<VerticalTimeline key={key} lineColor={'#B1B1B7'} animate={false}>
                 {subtopics.map((t) => {
                     const contentStyle = {
                         background: 'white', color: 'black', borderLeft: "7px solid transparent",
@@ -71,7 +86,7 @@ export default function SubtopicPage() {
                             className="vertical-timeline-element--work"
                             contentStyle={contentStyle}
                             contentArrowStyle={arrowStyle}
-                            icon={<TreeAnimationStart props={3}></TreeAnimationStart>}
+                            icon={handleTreeIcon(t.iconStatus)}
                             onTimelineElementClick={() => handleTimelineElementClick(t)}
                         >
                             {t.title ? (

@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import LoginPage from "./component/auth/LoginPage";
 import SubtopicPage from "./component/subtopic/SubtopicPage";
 import AddSubtopicPage from "./component/subtopic/AddSubtopicPage";
+import TasksPage from "./component/task/TasksPage";
+import AddTaskPage from "./component/task/AddTaskPage";
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -28,6 +30,8 @@ function App() {
                 <Route path="/topic/add" element={<AddTopicPage/>}></Route>
                 <Route path="/subtopic/:id" element={<SubtopicPage/>}></Route>
                 <Route path="/subtopic/add/:id/:length" element={<AddSubtopicPage/>}></Route>
+                <Route path="/tasks/:topicId/:id" element={<TasksPage/>}></Route>
+                <Route path="/tasks/add/:topicId/:id" element={<AddTaskPage/>}></Route>
             </Routes>
         </div>
     );

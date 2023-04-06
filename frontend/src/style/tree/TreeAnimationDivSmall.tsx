@@ -2,17 +2,11 @@ import React, {useEffect} from 'react';
 import './TreeAnimation.css';
 import {playAgain} from "./TreeAnimationFunction";
 
-interface TreeAnimationStartProps {
-    props: number;
-}
-
-export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
+export default function TreeAnimationDivSmall() {
 
     useEffect(() => {
-        if (props === 3) {
-            playAgain()
-        }
-    }, [props]);
+        playAgain(1)
+    });
 
     return (
         <div>
@@ -133,7 +127,7 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
                             transform="translate(-1.14 -2.3)" fill="url(#Dégradé_sans_nom_4-4)"/>
                     </g>
                     <g id="main">
-                        <g id="leaf-top">
+                        <g id={"leaf-top"}>
                             <path
                                 d="M190.25,76.57c-9.85-43.37-33.1-57.63-35.6-63.08a65.5,65.5,0,0,1-5.52-10.68L151,123.66s-3.84,36.9,5.84,41.35C156.83,165,200.48,136.27,190.25,76.57Z"
                                 transform="translate(-1.14 -2.3)" fill="url(#Dégradé_sans_nom_2-6)"/>
