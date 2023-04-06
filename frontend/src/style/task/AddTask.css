@@ -1,0 +1,23 @@
+.header-wrapper-addtask {
+    max-width: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 60px;
+    background: linear-gradient(to right, #2A99F3, #2854B5);
+}
+
+.addTaskPage-confirm-button {
+    width: 100%;
+    background: linear-gradient(to right, #2A99F3, #2854B5);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    font-size: 15px;
+}

@@ -1,76 +1,19 @@
 import React, {useEffect} from 'react';
 import './TreeAnimation.css';
 import {playAgain} from "./TreeAnimationFunction";
+import TreeBuildBasic from "./TreeBuildBasic";
 
-interface TreeAnimationStartProps {
-    props: number;
-}
-
-export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
+export default function TreeAnimationDivMedium() {
 
     useEffect(() => {
-        if (props === 3) {
-            playAgain()
-        }
-    }, [props]);
+        playAgain(2)
+    });
 
     return (
         <div>
             <svg id="animation" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                  viewBox="0 0 302.7 436.37">
-                <defs>
-                    <linearGradient id="Dégradé_sans_nom_18" data-name="Dégradé sans nom 18" x1="156.31"
-                                    y1="365.15" x2="246.31" y2="431.81" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stopColor="#39505d"/>
-                        <stop offset="1" stopColor="#39505d" stopOpacity="0"/>
-                    </linearGradient>
-                    <linearGradient id="Dégradé_sans_nom_4" data-name="Dégradé sans nom 4" x1="200.34"
-                                    y1="253.69" x2="176.67" y2="221.09" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stopColor="#929669"/>
-                        <stop offset="0.23" stopColor="#929669"/>
-                        <stop offset="1" stopColor="#fdfcf1"/>
-                    </linearGradient>
-                    <linearGradient id="Dégradé_sans_nom_2" data-name="Dégradé sans nom 2" x1="303.2"
-                                    y1="168.65" x2="213.62" y2="249.02" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stopColor="#45aa3a"/>
-                        <stop offset="1" stopColor="#3d9439"/>
-                    </linearGradient>
-                    <linearGradient id="Dégradé_sans_nom_3" data-name="Dégradé sans nom 3" x1="236.83"
-                                    y1="175.48" x2="254.62" y2="212.29" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stopColor="#41a83b"/>
-                        <stop offset="1" stopColor="#5ebc44"/>
-                    </linearGradient>
-                    <linearGradient id="Dégradé_sans_nom_4-2" x1="196.6" y1="195.74" x2="177" y2="178.38"
-                                    xlinkHref="#Dégradé_sans_nom_4"/>
-                    <linearGradient id="Dégradé_sans_nom_3-2" x1="296.11" y1="44.64" x2="176.48" y2="155.68"
-                                    xlinkHref="#Dégradé_sans_nom_3"/>
-                    <linearGradient id="Dégradé_sans_nom_2-2" x1="274.3" y1="150.3" x2="231.97" y2="99.99"
-                                    xlinkHref="#Dégradé_sans_nom_2"/>
-                    <linearGradient id="Dégradé_sans_nom_4-3" x1="-19.56" y1="223.16" x2="218.1" y2="279.92"
-                                    xlinkHref="#Dégradé_sans_nom_4"/>
-                    <linearGradient id="Dégradé_sans_nom_2-3" x1="16.11" y1="204.08" x2="92.18" y2="276.48"
-                                    xlinkHref="#Dégradé_sans_nom_2"/>
-                    <linearGradient id="Dégradé_sans_nom_2-4" x1="106.7" y1="255.03" x2="106.7" y2="255.03"
-                                    xlinkHref="#Dégradé_sans_nom_2"/>
-                    <linearGradient id="Dégradé_sans_nom_3-3" x1="63.36" y1="209.36" x2="54.16" y2="240.65"
-                                    xlinkHref="#Dégradé_sans_nom_3"/>
-                    <linearGradient id="Dégradé_sans_nom_4-4" x1="75.32" y1="182.31" x2="144.32" y2="160.33"
-                                    xlinkHref="#Dégradé_sans_nom_4"/>
-                    <linearGradient id="Dégradé_sans_nom_2-5" x1="19.89" y1="76.27" x2="141.37" y2="193.45"
-                                    xlinkHref="#Dégradé_sans_nom_2"/>
-                    <linearGradient id="Dégradé_sans_nom_3-4" x1="38.58" y1="178.83" x2="83.36" y2="134.66"
-                                    xlinkHref="#Dégradé_sans_nom_3"/>
-                    <linearGradient id="Dégradé_sans_nom_39" data-name="Dégradé sans nom 39" x1="148.36"
-                                    y1="248.02" x2="163.23" y2="248.02" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stopColor="#cbccb1"/>
-                        <stop offset="0.69" stopColor="#a8ab84"/>
-                        <stop offset="1" stopColor="#abae89"/>
-                    </linearGradient>
-                    <linearGradient id="Dégradé_sans_nom_2-6" x1="147.41" y1="4.1" x2="181.15" y2="164.83"
-                                    xlinkHref="#Dégradé_sans_nom_2"/>
-                    <linearGradient id="Dégradé_sans_nom_3-5" x1="98.37" y1="94.42" x2="168.31" y2="80.31"
-                                    xlinkHref="#Dégradé_sans_nom_3"/>
-                </defs>
+                {TreeBuildBasic()}
                 <title>mongo-tree</title>
                 <g id="shadow">
                     <path
@@ -78,7 +21,7 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
                         transform="translate(-1.14 -2.3)" opacity="0.1" fill="url(#Dégradé_sans_nom_18)"/>
                 </g>
                 <g id="tree">
-                    <g id="leaf-rb">
+                    <g id="leaf-rb2">
                         <g>
                             <path
                                 d="M226.46,217.24S207.89,223.52,201,229c-2.12,1.69.56,1.74.52,3.5,0,0,30.61,20,66.11-3.15,25.12-18.4,27.8-37.3,30.61-40.42a45.85,45.85,0,0,1,5.32-6.52Z"
@@ -91,7 +34,7 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
                             d="M214.36,221.93c-8.15,2.8-14.29,4.4-16.71,4.41-8.73,8.22-47.32,28-47.32,28l.33,3.69s42.57-24.81,47.09-25.68a8.57,8.57,0,0,1,4,.26l-.21-.13C201.6,228.71,208,224.83,214.36,221.93Z"
                             transform="translate(-1.14 -2.3)" fill="url(#Dégradé_sans_nom_4)"/>
                     </g>
-                    <g id="leaf-rm">
+                    <g id="leaf-rm2">
                         <g>
                             <path
                                 d="M278.57,52c-5.14,3.07-32.38,1.65-65.06,31.82-42.24,43.41-22.55,91.82-22.55,91.82,10.05,8.39,28.23-30.77,28.23-30.77l70-98.55A65.5,65.5,0,0,1,278.57,52Z"
@@ -104,7 +47,7 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
                             d="M209.28,160.51c-5.8,8.06-13,16-18.34,15.1l-.12-.3c-7.31,14.08-39.23,40.24-39.23,40.24l2.08,2.47s30.9-29.42,45-35.26h-.15C199.16,179.4,203.11,171.2,209.28,160.51Z"
                             transform="translate(-1.14 -2.3)" fill="url(#Dégradé_sans_nom_4-2)"/>
                     </g>
-                    <g id="leaf-lb">
+                    <g id="leaf-lb2">
                         <polygon points="106.7 255.03 106.7 255.03 106.7 255.03 106.7 255.03"
                                  fill="url(#Dégradé_sans_nom_2-3)"/>
                         <g>
@@ -119,7 +62,7 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
                             d="M151.59,271.16s-26.7-11.72-40.52-20.5l.05.17A63.85,63.85,0,0,1,93,249c6.56,2.28,14.39,4.57,14.84,8.33h0l-.2.15a8.57,8.57,0,0,1,3.94-.64c4.58.43,40,18,40,18Z"
                             transform="translate(-1.14 -2.3)" fill="url(#Dégradé_sans_nom_4-3)"/>
                     </g>
-                    <g id="leaf-lm">
+                    <g id="leaf-lm2">
                         <g>
                             <path
                                 d="M100.8,117C68.12,86.85,40.88,88.27,35.74,85.2a65.5,65.5,0,0,1-10.6-5.68l70,98.55S108.58,201.6,118,210c3.14,2.8,2.73-.7,5.36-1.16C123.36,208.84,143,160.43,100.8,117Z"
@@ -133,7 +76,7 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
                             transform="translate(-1.14 -2.3)" fill="url(#Dégradé_sans_nom_4-4)"/>
                     </g>
                     <g id="main">
-                        <g id="leaf-top">
+                        <g id={"leaf-top2"}>
                             <path
                                 d="M190.25,76.57c-9.85-43.37-33.1-57.63-35.6-63.08a65.5,65.5,0,0,1-5.52-10.68L151,123.66s-3.84,36.9,5.84,41.35C156.83,165,200.48,136.27,190.25,76.57Z"
                                 transform="translate(-1.14 -2.3)" fill="url(#Dégradé_sans_nom_2-6)"/>
@@ -150,6 +93,5 @@ export default function TreeAnimationStart({props}: TreeAnimationStartProps) {
         </div>
     );
 };
-
 
 

@@ -2,11 +2,12 @@ import {TaskType} from "../../model/task/Task";
 import React, {useState} from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import EditIcon from "@mui/icons-material/Edit";
+import UseUpdateTask from "../../hook/task/UseUpdateTask";
 
 export default function TaskList(props: { tasks: TaskType[] }) {
     const [isEditing, setIsEditing] = useState("");
     const [editedTitle, setEditedTitle] = useState("");
-
+    const {updateSingleTask} = UseUpdateTask();
     const taskList = props.tasks.map((task) => {
 
         const handleEdit = () => {
@@ -18,6 +19,7 @@ export default function TaskList(props: { tasks: TaskType[] }) {
             }
             if (isEditing) {
                 task.title = editedTitle;
+                updateSingleTask(task)
             }
         };
 
