@@ -1,0 +1,66 @@
+.task-page {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    min-height: 600px;
+    text-align: center;
+    border-radius: 10px;
+    padding-bottom: 32px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: hidden;
+}
+
+.complete {
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+.task-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px auto;
+    color: #000000;
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 5px;
+    max-width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.edit-title-task {
+    background-color: transparent;
+    border: none;
+    mso-border-shadow: no;
+    outline: none;
+    color: #2854B5;
+    width: 100vw;
+    font-size: 16px;
+    padding: 0;
+}
+
+.taskRoundButtonAdd {
+    bottom: 40px;
+    z-index: 10;
+    padding-top: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    right: 20px;
+    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(to right, #2A99F3, #2854B5);
+    border-radius: 50%;
+    color: white;
+    border: none;
+}
