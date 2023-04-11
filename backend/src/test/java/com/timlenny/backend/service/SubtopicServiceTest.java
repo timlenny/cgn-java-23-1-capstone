@@ -2,6 +2,7 @@ package com.timlenny.backend.service;
 
 import com.timlenny.backend.model.subtopic.Subtopic;
 import com.timlenny.backend.model.subtopic.SubtopicDTO;
+import com.timlenny.backend.model.task.Task;
 import com.timlenny.backend.model.topic.Edge;
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicPosition;
@@ -83,4 +84,39 @@ class SubtopicServiceTest {
         assertEquals(1, actual2);
     }
 
+    @Test
+    @DirtiesContext
+    void isTreeSizeCallCorrect_whenNotingDone() {
+        Task demoTask1 = new Task("ID111", "SUBT222", "Title1", "Desc1", false, demoTime);
+        Task demoTask2 = new Task("ID111", "SUBT222", "Title1", "Desc1", false, demoTime);
+        Task demoTask3 = new Task("ID111", "SUBT222", "Title1", "Desc1", false, demoTime);
+        Task demoTask4 = new Task("ID111", "SUBT222", "Title1", "Desc1", false, demoTime);
+        when(taskRepository.findBySubtopicId(demoSubtopic1.getId())).thenReturn(List.of(demoTask1, demoTask2, demoTask3, demoTask4));
+        Subtopic actual = subtopicService.calcTreeSizeForSubtopics(demoSubtopic1);
+        assertEquals(1, actual.getIconStatus());
+    }
+
+    @Test
+    @DirtiesContext
+    void isTreeSizeCallCorrect_when50PercentDone() {
+        Task demoTask1 = new Task("ID111", "SUBT222", "Title1", "Desc1", true, demoTime);
+        Task demoTask2 = new Task("ID111", "SUBT222", "Title1", "Desc1", false, demoTime);
+        Task demoTask3 = new Task("ID111", "SUBT222", "Title1", "Desc1", false, demoTime);
+        Task demoTask4 = new Task("ID111", "SUBT222", "Title1", "Desc1", true, demoTime);
+        when(taskRepository.findBySubtopicId(demoSubtopic1.getId())).thenReturn(List.of(demoTask1, demoTask2, demoTask3, demoTask4));
+        Subtopic actual = subtopicService.calcTreeSizeForSubtopics(demoSubtopic1);
+        assertEquals(2, actual.getIconStatus());
+    }
+
+    @Test
+    @DirtiesContext
+    void isTreeSizeCallCorrect_whenAllDone() {
+        Task demoTask1 = new Task("ID111", "SUBT222", "Title1", "Desc1", true, demoTime);
+        Task demoTask2 = new Task("ID111", "SUBT222", "Title1", "Desc1", true, demoTime);
+        Task demoTask3 = new Task("ID111", "SUBT222", "Title1", "Desc1", true, demoTime);
+        Task demoTask4 = new Task("ID111", "SUBT222", "Title1", "Desc1", true, demoTime);
+        when(taskRepository.findBySubtopicId(demoSubtopic1.getId())).thenReturn(List.of(demoTask1, demoTask2, demoTask3, demoTask4));
+        Subtopic actual = subtopicService.calcTreeSizeForSubtopics(demoSubtopic1);
+        assertEquals(3, actual.getIconStatus());
+    }
 }
