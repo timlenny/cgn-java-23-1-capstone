@@ -95,4 +95,16 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$.desc").value("Desc1"))
                 .andExpect(jsonPath("$.isCompleted").value(false));
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+    void whenDeleteTask_isDeletedTaskIdReturned() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of("1")));
+        taskRepository.save(demoTask1);
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/tasks/" + demoTask1.getId()).with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(demoTask1.getId()));
+    }
 }

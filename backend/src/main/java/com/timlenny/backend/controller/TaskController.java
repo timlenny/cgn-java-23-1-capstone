@@ -33,4 +33,9 @@ public class TaskController {
     public Task updateTask(@RequestBody TaskUpdateDTO taskToUpdate) {
         return taskService.updateTask(taskToUpdate);
     }
+
+    @DeleteMapping("/{id}")
+    public String deleteTask(@PathVariable String id) {
+        return taskService.deleteTask(id);
+    }
 }

@@ -28,6 +28,7 @@ export default function SubtopicPage() {
     const {deleteSubtopic} = UseDeleteSubtopic();
     const [key] = useState(Date.now());
 
+
     useEffect(() => {
         async function fetchData() {
             if (id != null) {
@@ -89,7 +90,7 @@ export default function SubtopicPage() {
                         >
                             {t.title ? (
                                 <React.Fragment>
-                                    <h3 className="vertical-timeline-element-title">{t.title + t.position}</h3>
+                                    <h3 className="vertical-timeline-element-title">{t.title}</h3>
                                     {t.subtitel &&
                                         <h4 className="vertical-timeline-element-subtitle">{t.subtitel}</h4>}
                                     <div

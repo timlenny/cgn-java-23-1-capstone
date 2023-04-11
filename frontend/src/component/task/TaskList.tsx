@@ -3,12 +3,15 @@ import React, {useState} from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import EditIcon from "@mui/icons-material/Edit";
 import UseUpdateTask from "../../hook/task/UseUpdateTask";
+import UseDeleteTask from "../../hook/task/UseDeleteTask";
 
 export default function TaskList(props: { tasks: TaskType[] }) {
     const [isEditing, setIsEditing] = useState("");
     const [editedTitle, setEditedTitle] = useState("");
     const {updateSingleTask} = UseUpdateTask();
-    const taskList = props.tasks.map((task) => {
+    const {deleteTask} = UseDeleteTask();
+    const [allTasks, setAllTasks] = useState(props.tasks);
+    const taskList = allTasks.map((task) => {
 
         const handleEdit = () => {
             setEditedTitle(task.title)
@@ -23,6 +26,19 @@ export default function TaskList(props: { tasks: TaskType[] }) {
             }
         };
 
+        const handleTaskClick = (clickedTask: TaskType) => {
+            const updatedTasks = allTasks.map((task) => {
+                if (task.id === clickedTask.id) {
+                    const changedTask = {...task, isCompleted: !clickedTask.isCompleted}
+                    updateSingleTask(changedTask)
+                    return changedTask
+                } else {
+                    return task
+                }
+            })
+            setAllTasks(updatedTasks)
+        };
+
         return (
             <div
                 className={task.isCompleted ? "task-row complete" : "task-row"}
@@ -35,10 +51,17 @@ export default function TaskList(props: { tasks: TaskType[] }) {
                         onChange={(e) => setEditedTitle(e.target.value)}
                     />
                 ) : (
-                    <div key={task.id}>{task.title}</div>
+                    <div
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            handleTaskClick(task);
+                        }}
+                        key={task.id}>{task.title}</div>
                 )}
                 <div className="icons">
                     <HighlightOffIcon onClick={() => {
+                        deleteTask(task.id);
+                        setAllTasks(allTasks.filter((tasklist) => tasklist.id !== task.id));
                     }}></HighlightOffIcon>
                     <EditIcon style={{paddingLeft: "10px"}} onClick={handleEdit}></EditIcon>
                 </div>

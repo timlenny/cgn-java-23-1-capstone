@@ -6,6 +6,7 @@ import com.timlenny.backend.model.topic.Edge;
 import com.timlenny.backend.model.topic.Topic;
 import com.timlenny.backend.model.topic.TopicPosition;
 import com.timlenny.backend.repository.SubtopicRepository;
+import com.timlenny.backend.repository.TaskRepository;
 import com.timlenny.backend.repository.TopicRepository;
 import com.timlenny.backend.service.subtopic.SubtopicService;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,8 @@ class SubtopicServiceTest {
     IdService idService = mock(IdService.class);
     TopicRepository topicRepository = mock(TopicRepository.class);
     TimeService timeService = mock(TimeService.class);
-    SubtopicService subtopicService = new SubtopicService(subtopicRepository, idService, topicRepository, timeService);
+    TaskRepository taskRepository = mock(TaskRepository.class);
+    SubtopicService subtopicService = new SubtopicService(subtopicRepository, idService, topicRepository, timeService, taskRepository);
 
     Instant demoTime = Instant.parse("2022-04-01T10:00:00Z");
     SubtopicDTO demoSubtopic1DTO = new SubtopicDTO("1", 1, demoTime, "Title", "desc");

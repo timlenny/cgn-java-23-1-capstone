@@ -51,7 +51,7 @@ export function setup() {
     });
     gsap.set("#tree", {
         scale: 0,
-        transformOrigin: "154px bottom"
+        transformOrigin: "154px bottom",
     });
     gsap.set("#leaf-rb", {
         scale: 0,
@@ -101,18 +101,18 @@ export function setup() {
 
 export function animateLarge() {
 
+
     const elements = getElements();
     if (!elements) {
         return;
     }
-
 
     const tl = gsap.timeline({
         delay: 0,
     });
 
     tl.to("#shadow", {scale: 1, duration: 2}, 0)
-        .to("#tree", {scale: 1, duration: 2}, 0)
+        .to("#tree", {scale: 1, duration: 2, opacity: 1}, 0)
         .to("#leaf-rb3", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
         .to("#leaf-rm3", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
         .to("#leaf-lb3", {scale: 1, rotation: '0cw', y: 0, delay: 0.35, duration: 2}, 0)
@@ -210,8 +210,8 @@ export function stopAndReset() {
 }
 
 export function playAgain(props) {
-    stopAndReset();
-    setup();
+    stopAndReset()
+    setup()
     if (props === 1) {
         animateSmall()
     } else if (props === 2) {

@@ -69,4 +69,11 @@ class TaskServiceTest {
         }
         assertEquals("400 BAD_REQUEST \"Task to update not found!\"", error);
     }
+
+    @Test
+    @DirtiesContext
+    void isTaskDeletedById_whenDeleteById() {
+        String actual = taskService.deleteTask("123");
+        assertEquals("123", actual);
+    }
 }
