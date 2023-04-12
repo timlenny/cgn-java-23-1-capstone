@@ -58,4 +58,9 @@ public class TaskService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Task to update not found!");
         }
     }
+
+    public String deleteTask(String id) {
+        taskRepository.deleteById(id);
+        return id;
+    }
 }
