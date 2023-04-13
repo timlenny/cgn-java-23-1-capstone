@@ -52,7 +52,7 @@ export default function OverviewPage() {
                     navigate("/map")
                 }}>
                     <div>
-                        <img src={over_banner} alt={"GO TO STUDYMAP"}/>
+                        <img src={over_banner} alt={"GO TO STUDY MAP"}/>
                         <div className={"open-study-map"}>Go to your StudyMap</div>
                     </div>
                 </button>
