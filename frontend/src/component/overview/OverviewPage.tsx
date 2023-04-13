@@ -72,16 +72,7 @@ export default function OverviewPage() {
                 </div>
                 <h3 className={"card-view-title"}>Upcoming topics:</h3>
                 <div className="vertical-scroll">
-                    {subtopicsToday.map((subtopicT) => (
-                        <div key={subtopicT.id} className="task" style={{width: '250px'}}>
-                            <h3 className="vertical-timeline-element-title">{subtopicT.title}</h3>
-                            {subtopicT.subtitel &&
-                                <h4 className="vertical-timeline-element-subtitle">{subtopicT.subtitel}</h4>}
-                            <div
-                                className={"cust-date-class"}>{FormatDateLocal({date: subtopicT.timeTermin.toString()})}</div>
-                            {subtopicT.desc && <p>{truncateText(subtopicT.desc)}</p>}
-                        </div>
-                    ))}
+                   <div>UPCOMING</div>
                 </div>
             </div>
         </div>
