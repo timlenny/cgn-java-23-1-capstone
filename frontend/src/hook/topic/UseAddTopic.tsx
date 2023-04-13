@@ -14,7 +14,7 @@ export default function UseAddTopic() {
                 size: props.size,
             })
                 .then(() => {
-                    navigate("/")
+                    navigate("/map")
                 })
                 .catch((error) => {
                         if (error.response.data.error === "Conflict") {

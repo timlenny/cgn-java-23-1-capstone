@@ -5,23 +5,21 @@
     left: 0;
     width: 100%;
     z-index: 10;
-    height: 110px;
+    height: 60px;
     background: linear-gradient(to right, #479EA6, #33739B);
 }
 
 
 .text-header-hello1 {
+    font-size: 22px;
     font-style: normal;
-    font-weight: 450;
-    font-size: 30px;
-    text-align: center;
+    font-weight: 600;
     font-family: "San Francisco Pro", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-    color: #FFFFFF;
-    position: absolute;
-    padding-left: 10px;
-    top: 25px;
-    left: 20px;
+    text-align: center;
+    color: white;
     z-index: 2;
+    padding-bottom: 30px;
+    height: 100%;
 }
 
 .text-header-date1 {

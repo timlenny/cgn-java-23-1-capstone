@@ -9,10 +9,13 @@ import com.timlenny.backend.repository.TaskRepository;
 import com.timlenny.backend.repository.TopicRepository;
 import com.timlenny.backend.service.IdService;
 import com.timlenny.backend.service.TimeService;
+import com.timlenny.backend.service.user.MongoUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,13 +28,15 @@ public class SubtopicService {
     private final TopicRepository topicRepository;
     private final TimeService timeService;
     private final TaskRepository taskRepository;
+    private final MongoUserService mongoUserService;
 
-    public SubtopicService(SubtopicRepository subtopicRepository, IdService idService, TopicRepository topicRepository, TimeService timeService, TaskRepository taskRepository) {
+    public SubtopicService(SubtopicRepository subtopicRepository, IdService idService, TopicRepository topicRepository, TimeService timeService, TaskRepository taskRepository, MongoUserService mongoUserService) {
         this.subtopicRepository = subtopicRepository;
         this.idService = idService;
         this.topicRepository = topicRepository;
         this.timeService = timeService;
         this.taskRepository = taskRepository;
+        this.mongoUserService = mongoUserService;
     }
 
     public List<Subtopic> getAllSubtopicsFromTopicId(String topicId) {
@@ -100,5 +105,26 @@ public class SubtopicService {
     public String deleteSubtopic(String id) {
         subtopicRepository.deleteById(id);
         return id;
+    }
+
+    public List<Subtopic> getAllSubtopicsToday() {
+        List<String> allUserTopics = mongoUserService.loadTopicsFromCurrentUser();
+        List<Subtopic> allUserSubtopics = new ArrayList<>();
+
+        Instant today = Instant.now();
+        Instant tomorrow = today.plus(Duration.ofDays(1));
+
+        for (String topicId : allUserTopics) {
+            List<Subtopic> subtopicsFromTopicId = this.getAllSubtopicsFromTopicId(topicId);
+            allUserSubtopics.addAll(subtopicsFromTopicId);
+        }
+
+        allUserSubtopics = allUserSubtopics.stream().filter((subtopic ->
+                        subtopic.getTimeTermin().isBefore(tomorrow) && subtopic.getIconStatus() != 3))
+                .toList();
+
+        List<Subtopic> subtopicsToday = new ArrayList<>(allUserSubtopics);
+        subtopicsToday.sort(Comparator.comparing(Subtopic::getTimeTermin));
+        return subtopicsToday;
     }
 }

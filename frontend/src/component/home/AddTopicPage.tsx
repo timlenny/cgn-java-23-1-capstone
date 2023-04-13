@@ -53,7 +53,7 @@ export default function AddTopicPage() {
             <div className="header-wrapper-addtopic">
                 <button className="backButton">
                     <ChevronLeftIcon onClick={() => {
-                        navigate("/")
+                        navigate("/map")
                     }} sx={{fontSize: 35}}/>
                 </button>
                 <div className="header-content-addtopic">

@@ -126,7 +126,7 @@ export default function SubtopicPage() {
             <div className="header-wrapper-subt">
                 <button className="backButtonAddSubt">
                     <ChevronLeftIcon onClick={() => {
-                        navigate("/")
+                        navigate("/map")
                     }} sx={{fontSize: 35}}/>
                 </button>
                 {displayTopicNameIfExists()}
