@@ -10,6 +10,7 @@ import SubtopicPage from "./component/subtopic/SubtopicPage";
 import AddTaskPage from "./component/task/AddTaskPage";
 import TasksPage from "./component/task/TaskPage";
 import AddSubtopicPage from "./component/subtopic/AddSubtopicPage";
+import OverviewPage from "./component/overview/OverviewPage";
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -24,7 +25,8 @@ function App() {
     return (
         <div className="App">
             <Routes>
-                <Route path="/" element={<HomePage/>}></Route>
+                <Route path="/" element={<OverviewPage/>}></Route>
+                <Route path="/map" element={<HomePage/>}></Route>
                 <Route path="/signup" element={<SignUpPage/>}></Route>
                 <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/topic/add" element={<AddTopicPage/>}></Route>

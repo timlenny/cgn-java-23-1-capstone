@@ -10,10 +10,12 @@ import com.timlenny.backend.repository.SubtopicRepository;
 import com.timlenny.backend.repository.TaskRepository;
 import com.timlenny.backend.repository.TopicRepository;
 import com.timlenny.backend.service.subtopic.SubtopicService;
+import com.timlenny.backend.service.user.MongoUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,8 @@ class SubtopicServiceTest {
     TopicRepository topicRepository = mock(TopicRepository.class);
     TimeService timeService = mock(TimeService.class);
     TaskRepository taskRepository = mock(TaskRepository.class);
-    SubtopicService subtopicService = new SubtopicService(subtopicRepository, idService, topicRepository, timeService, taskRepository);
+    MongoUserService mongoUserService = mock(MongoUserService.class);
+    SubtopicService subtopicService = new SubtopicService(subtopicRepository, idService, topicRepository, timeService, taskRepository, mongoUserService);
 
     Instant demoTime = Instant.parse("2022-04-01T10:00:00Z");
     SubtopicDTO demoSubtopic1DTO = new SubtopicDTO("1", 1, demoTime, "Title", "desc");
@@ -118,5 +121,22 @@ class SubtopicServiceTest {
         when(taskRepository.findBySubtopicId(demoSubtopic1.getId())).thenReturn(List.of(demoTask1, demoTask2, demoTask3, demoTask4));
         Subtopic actual = subtopicService.calcTreeSizeForSubtopics(demoSubtopic1);
         assertEquals(3, actual.getIconStatus());
+    }
+
+    @Test
+    @DirtiesContext
+    void isGetAllSubtopicsToday_ReturnAllSubtopicsForToday() {
+        Instant demoTimeFuture = Instant.parse("2099-04-01T10:00:00Z");
+        Instant demoTimeNear = Instant.parse("2023-04-13T02:00:00Z");
+        Subtopic demoSubtopic1 = new Subtopic("1234", "1", 1, 1, demoTime, "111", "Title", "desc", demoTime);
+        Subtopic demoSubtopic2 = new Subtopic("123324", "1", 1, 1, demoTime, "222", "Title", "desc", demoTime);
+        Subtopic demoSubtopic3 = new Subtopic("12rzr3324", "1", 1, 1, demoTimeFuture, "333", "Title", "desc", demoTimeFuture);
+        Subtopic demoSubtopic4 = new Subtopic("12332rr4", "1", 1, 1, demoTimeNear, "444", "Title", "desc", demoTimeNear);
+        when(mongoUserService.loadTopicsFromCurrentUser()).thenReturn(Collections.singletonList("1"));
+        when(subtopicService.getAllSubtopicsFromTopicId("1")).thenReturn(List.of(demoSubtopic1, demoSubtopic2, demoSubtopic3, demoSubtopic4));
+
+        List<Subtopic> actual = subtopicService.getAllSubtopicsToday();
+
+        assertEquals(List.of(demoSubtopic1, demoSubtopic2, demoSubtopic4), actual);
     }
 }

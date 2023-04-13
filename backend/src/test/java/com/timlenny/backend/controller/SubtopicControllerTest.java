@@ -41,7 +41,8 @@ class SubtopicControllerTest {
     @Autowired
     TopicRepository topicRepository;
 
-    Subtopic demoSubtopic1 = new Subtopic("1234", "1", 1, 1, Instant.now(), "Title", "Subtitle", "desc", Instant.now());
+    Instant demoTime = Instant.parse("2022-04-01T10:00:00Z");
+    Subtopic demoSubtopic1 = new Subtopic("1234", "1", 1, 1, demoTime, "Title", "Subtitle", "desc", Instant.now());
     SubtopicDTO demoSubtopic1DTO = new SubtopicDTO("1", 1, Instant.now(), "Title", "desc");
     Topic demoTopicJava = new Topic(
             "1", "1", "Java", List.of(new Edge("3231", "", "")), new TopicPosition(200, 200), "", List.of(""), 3, true
@@ -94,6 +95,26 @@ class SubtopicControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers
                         .content().string(demoSubtopic1.getId()));
+    }
+
+
+    @Test
+    @WithMockUser(username = "user", password = "123")
+    @DirtiesContext
+    void whenGetAllSubtopicsToday_ThenReturnListOfSubtopicsForToday() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of("1")));
+        topicRepository.save(demoTopicJava);
+        subtopicRepository.save(demoSubtopic1);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/subtopics/today"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.[0].id").value("1234"))
+                .andExpect(jsonPath("$.[0].topicId").value("1"))
+                .andExpect(jsonPath("$.[0].iconStatus").value(1))
+                .andExpect(jsonPath("$.[0].position").value(1))
+                .andExpect(jsonPath("$.[0].title").value("Title"))
+                .andExpect(jsonPath("$.[0].subtitel").value("Subtitle"))
+                .andExpect(jsonPath("$.[0].desc").value("desc"));
     }
 
 }

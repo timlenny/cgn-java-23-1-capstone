@@ -30,4 +30,9 @@ public class SubtopicController {
     public String deleteSubtopic(@PathVariable String id) {
         return subtopicService.deleteSubtopic(id);
     }
+
+    @GetMapping("/today")
+    public List<Subtopic> getAllSubtopicsToday() {
+        return subtopicService.getAllSubtopicsToday();
+    }
 }
