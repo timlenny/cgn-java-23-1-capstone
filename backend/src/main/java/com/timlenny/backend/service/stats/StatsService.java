@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-
 @Service
 public class StatsService {
 
