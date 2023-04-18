@@ -33,6 +33,11 @@ public class SubtopicController {
 
     @GetMapping("/today")
     public List<Subtopic> getAllSubtopicsToday() {
-        return subtopicService.getAllSubtopicsToday();
+        return subtopicService.getAllSubtopicsToday(false);
+    }
+
+    @GetMapping("/upcoming")
+    public List<Subtopic> getAllSubtopicsUpcoming() {
+        return subtopicService.getAllSubtopicsToday(true);
     }
 }

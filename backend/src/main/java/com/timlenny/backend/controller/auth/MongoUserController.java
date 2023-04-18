@@ -38,4 +38,5 @@ public class MongoUserController {
                 .getAuthentication()
                 .getName();
     }
+
 }

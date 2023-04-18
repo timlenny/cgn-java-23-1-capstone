@@ -145,7 +145,7 @@ export default function HomePage() {
                     if (dragDuration > 0.19) {
                         deleteMode ? setChangeMode(false) : setChangeMode(true);
                     } else {
-                        if (!deleteMode)
+                        if (!deleteMode && node.data.label !== "HOME")
                             navigate("/subtopic/" + node.id)
                     }
                 }}

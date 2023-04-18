@@ -117,4 +117,26 @@ class SubtopicControllerTest {
                 .andExpect(jsonPath("$.[0].desc").value("desc"));
     }
 
+    @Test
+    @WithMockUser(username = "user", password = "123")
+    @DirtiesContext
+    void whenGetAllSubtopicsTodayWithUpcomingTrue_ThenReturnListOfSubtopicsForTodayUpcoming() throws Exception {
+        mongoUserRepository.save(new MongoUser("111", "user", "123", "BASIC", List.of("1")));
+        Instant demoTimeFuture = Instant.parse("2029-04-01T10:00:00Z");
+        Subtopic demoSubtopic1Future = new Subtopic("1234", "1", 1, 1, demoTimeFuture, "Title", "Subtitle", "desc", Instant.now());
+
+        topicRepository.save(demoTopicJava);
+        subtopicRepository.save(demoSubtopic1Future);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/subtopics/upcoming"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.[0].id").value("1234"))
+                .andExpect(jsonPath("$.[0].topicId").value("1"))
+                .andExpect(jsonPath("$.[0].iconStatus").value(1))
+                .andExpect(jsonPath("$.[0].position").value(1))
+                .andExpect(jsonPath("$.[0].title").value("Title"))
+                .andExpect(jsonPath("$.[0].subtitel").value("Subtitle"))
+                .andExpect(jsonPath("$.[0].desc").value("desc"));
+    }
+
 }

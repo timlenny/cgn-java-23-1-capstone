@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 import FormatDateLocal from "../../hook/subtopic/UseConvertDateToLocal";
 import UseGetSubtopicsToday from "../../hook/subtopic/UseGetSubtopicsToday";
 import useAuthRedirect from "../../hook/auth/UseAuthRedirect";
+import UseGetSubtopicsUpcoming from "../../hook/subtopic/UseGetSubtopicsUpcoming";
+import UseGetStreak from "../../hook/stats/UseGetStreak";
 
 
 function getMotivation(): string {
@@ -20,7 +22,7 @@ function getMotivation(): string {
 }
 
 function truncateText(text: string) {
-    const maxLength = 70
+    const maxLength = 50
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 }
 
@@ -28,35 +30,30 @@ export default function OverviewPage() {
     useAuthRedirect()
     const navigate = useNavigate()
     const {getAllSubtopicsToday, subtopicsToday} = UseGetSubtopicsToday();
+    const {getAllSubtopicsUpcoming, subtopicsUpcoming} = UseGetSubtopicsUpcoming();
+    const {getStreak, streak} = UseGetStreak();
 
     useEffect(() => {
         getAllSubtopicsToday()
-    }, [getAllSubtopicsToday])
+        getAllSubtopicsUpcoming()
+        getStreak();
+    }, [getAllSubtopicsToday, getAllSubtopicsUpcoming, getStreak])
 
-    return (
-        <div className="container-over">
-            <div className="header-over">
-                <h1 className={"header-over-title"}>Welcome</h1>
-                <h2 className={"header-over-subtitle"}>Your current streak is 1 day</h2>
-                <div className="weekdays">
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
-                        <div key={day} className="weekday">
-                            {day}
-                        </div>
-                    ))}
+    function renderWeekdays(weekdayStatus: boolean[]) {
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        return days.map((day, index) => {
+            const cssClass = weekdayStatus[index] ? "weekday" : "weekday_open";
+            return (
+                <div key={day} className={cssClass}>
+                    {day}
                 </div>
-                <div className={"get-motivation"}>{getMotivation()}</div>
-            </div>
-            <div className="content-over">
-                <button className="yellow-box" onClick={() => {
-                    navigate("/map")
-                }}>
-                    <div>
-                        <img src={over_banner} alt={"GO TO STUDY MAP"}/>
-                        <div className={"open-study-map"}>Go to your StudyMap</div>
-                    </div>
-                </button>
-                <h3 className={"card-view-title"}>Your today's topics:</h3>
+            );
+        });
+    }
+
+    function cardsSubtToday() {
+        if (subtopicsToday.length > 0) {
+            return (<><h3 className={"card-view-title"}>Your today's topics:</h3>
                 <div className="horizontal-scroll">
                     {subtopicsToday.map((subtopicT) => (
                         <div key={subtopicT.id} className="task" style={{width: '250px'}}>
@@ -70,10 +67,51 @@ export default function OverviewPage() {
                     ))}
 
                 </div>
-                <h3 className={"card-view-title"}>Upcoming topics:</h3>
+            </>)
+        }
+    }
+
+    function cardsSubtUpcoming() {
+        if (subtopicsUpcoming.length > 0) {
+            return (<><h3 className={"card-view-title"}>Upcoming topics:</h3>
                 <div className="vertical-scroll">
-                   <div>UPCOMING</div>
+                    {subtopicsUpcoming.map((subtopicT) => (
+                        <div key={subtopicT.id} className="task" style={{width: '250px'}}>
+                            <h3 className="vertical-timeline-element-title">{subtopicT.title}</h3>
+                            {subtopicT.subtitel &&
+                                <h4 className="vertical-timeline-element-subtitle">{subtopicT.subtitel}</h4>}
+                            <div
+                                className={"cust-date-class"}>{FormatDateLocal({date: subtopicT.timeTermin.toString()})}</div>
+                            {subtopicT.desc && <p>{truncateText(subtopicT.desc)}</p>}
+                        </div>
+                    ))}
                 </div>
+            </>)
+        }
+    }
+
+    return (
+        <div className="container-over">
+            <div className="header-over">
+                <h1 className={"header-over-title"}>Welcome</h1>
+                <h2 className={"header-over-subtitle"}>Your current streak
+                    is {streak.reduce((count, status) => count + (status ? 1 : 0), 0)} days for this week </h2>
+                <div className="weekdays">
+                    {renderWeekdays(streak)}
+                </div>
+                <div className={"get-motivation"}>{getMotivation()}</div>
+            </div>
+            <div className="content-over">
+                <button className="yellow-box" onClick={() => {
+                    navigate("/map")
+                }}>
+                    <div>
+                        <img src={over_banner} alt={"GO TO STUDY MAP"}/>
+                        <div className={"open-study-map"}>Go to your StudyMap</div>
+                    </div>
+                </button>
+                {cardsSubtToday()}
+                {cardsSubtUpcoming()}
             </div>
         </div>
     );

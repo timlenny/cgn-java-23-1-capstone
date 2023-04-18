@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import DotAnimation from "../../style/home/DotAnimation";
@@ -37,9 +37,20 @@ export default function SignUpPage() {
         }
     }
 
+    const [setIsPaused, setSetIsPaused] = useState<(value: boolean) => void>(() => () => {
+    });
+
+    useEffect(() => {
+        return () => {
+            if (setIsPaused) {
+                setIsPaused(true);
+            }
+        };
+    }, [setIsPaused]);
+
     return (
         <div className="auth-page-body">
-            <DotAnimation></DotAnimation>
+            <DotAnimation setPause={setSetIsPaused}></DotAnimation>
             <div className="login-card">
                 {ifErrordisplayError()}
                 <div className="login-card-content">
