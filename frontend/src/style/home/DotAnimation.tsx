@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../auth/AuthPageStyle.css';
 
 class Dot {
@@ -84,10 +84,10 @@ const draw = (scene: CanvasRenderingContext2D, width: number, height: number, do
         particle.draw(scene, dots);
     });
 };
-
-const DotAnimation: React.FC = () => {
+const DotAnimation: React.FC<{ setPause: (pause: () => void) => void }> = ({setPause}) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const animationRef = useRef<number | null>(null);
+    const [isPaused, setIsPaused] = useState(false);
 
     useEffect(() => {
         if (!canvasRef.current) return;
@@ -101,7 +101,7 @@ const DotAnimation: React.FC = () => {
         dots = createDots(75, width, height);
 
         const animate = () => {
-            if (!scene) return;
+            if (!scene || isPaused) return;
             draw(scene, width, height, dots);
             animationRef.current = requestAnimationFrame(animate);
         };
@@ -122,7 +122,13 @@ const DotAnimation: React.FC = () => {
                 cancelAnimationFrame(animationRef.current);
             }
         };
-    }, []);
+    }, [isPaused]);
+
+    useEffect(() => {
+        if (setPause) {
+            setPause(() => setIsPaused);
+        }
+    }, [setPause]);
 
     return (
         <div className="dot-animation">

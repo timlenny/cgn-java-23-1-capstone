@@ -8,7 +8,7 @@ export default function HomeHeaderBox() {
 
     return (
         <div className={"home-header-bar1"}>
-            <p className={"text-header-hello1"}>StudyMap</p>
+            <p className={"text-header-hello1"}>Study Map</p>
             <button className="backButtonAddSubt">
                 <ChevronLeftIcon onClick={() => {
                     navigate("/")

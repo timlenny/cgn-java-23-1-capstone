@@ -5,7 +5,7 @@ import TreeBuildBasic from "./TreeBuildBasic";
 
 export default function TreeAnimationDivLarge() {
     useEffect(() => {
-        playAgain(0)
+        playAgain(3)
     });
 
     return (

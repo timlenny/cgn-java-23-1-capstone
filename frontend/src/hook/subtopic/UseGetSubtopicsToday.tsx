@@ -10,7 +10,6 @@ export default function UseGetSubtopicsToday() {
             const response = await axios.get("/api/subtopics/today");
             console.log(response);
             setSubtopicsToday(response.data);
-            console.log(response.data)
         } catch (error) {
             console.error(error);
         }

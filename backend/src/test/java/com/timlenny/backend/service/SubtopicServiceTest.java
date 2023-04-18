@@ -127,7 +127,7 @@ class SubtopicServiceTest {
     @DirtiesContext
     void isGetAllSubtopicsToday_ReturnAllSubtopicsForToday() {
         Instant demoTimeFuture = Instant.parse("2099-04-01T10:00:00Z");
-        Instant demoTimeNear = Instant.parse("2023-04-13T02:00:00Z");
+        Instant demoTimeNear = Instant.parse("2099-04-15T02:00:00Z");
         Subtopic demoSubtopic1 = new Subtopic("1234", "1", 1, 1, demoTime, "111", "Title", "desc", demoTime);
         Subtopic demoSubtopic2 = new Subtopic("123324", "1", 1, 1, demoTime, "222", "Title", "desc", demoTime);
         Subtopic demoSubtopic3 = new Subtopic("12rzr3324", "1", 1, 1, demoTimeFuture, "333", "Title", "desc", demoTimeFuture);
@@ -135,8 +135,26 @@ class SubtopicServiceTest {
         when(mongoUserService.loadTopicsFromCurrentUser()).thenReturn(Collections.singletonList("1"));
         when(subtopicService.getAllSubtopicsFromTopicId("1")).thenReturn(List.of(demoSubtopic1, demoSubtopic2, demoSubtopic3, demoSubtopic4));
 
-        List<Subtopic> actual = subtopicService.getAllSubtopicsToday();
+        List<Subtopic> actual = subtopicService.getAllSubtopicsToday(false);
 
-        assertEquals(List.of(demoSubtopic1, demoSubtopic2, demoSubtopic4), actual);
+        assertEquals(List.of(demoSubtopic1, demoSubtopic2), actual);
+    }
+
+
+    @Test
+    @DirtiesContext
+    void isGetAllSubtopicsTodayWithUpcomingTrue_ReturnAllSubtopicsUpcoming() {
+        Instant demoTimeFuture = Instant.parse("2099-04-01T10:00:00Z");
+        Instant demoTimeNear = Instant.parse("2025-04-13T02:00:00Z");
+        Subtopic demoSubtopic1 = new Subtopic("1234", "1", 1, 1, demoTime, "111", "Title", "desc", demoTime);
+        Subtopic demoSubtopic2 = new Subtopic("123324", "1", 1, 1, demoTime, "222", "Title", "desc", demoTime);
+        Subtopic demoSubtopic3 = new Subtopic("12rzr3324", "1", 1, 1, demoTimeFuture, "333", "Title", "desc", demoTimeFuture);
+        Subtopic demoSubtopic4 = new Subtopic("12332rr4", "1", 1, 1, demoTimeNear, "444", "Title", "desc", demoTimeNear);
+        when(mongoUserService.loadTopicsFromCurrentUser()).thenReturn(Collections.singletonList("1"));
+        when(subtopicService.getAllSubtopicsFromTopicId("1")).thenReturn(List.of(demoSubtopic1, demoSubtopic2, demoSubtopic3, demoSubtopic4));
+
+        List<Subtopic> actual = subtopicService.getAllSubtopicsToday(true);
+
+        assertEquals(List.of(demoSubtopic4, demoSubtopic3), actual);
     }
 }

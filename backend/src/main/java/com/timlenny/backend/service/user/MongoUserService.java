@@ -29,6 +29,7 @@ public class MongoUserService {
 
         MongoUser user = new MongoUser(null, userDTO.username(), userDTO.password(), null, List.of());
 
+
         if (mongoUserRepository.existsByUsername(user.username())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
         }
@@ -87,6 +88,7 @@ public class MongoUserService {
         }
     }
 
+
     public void addTopicIdToUser(String id) {
         Optional<MongoUser> user = getCurrentUser();
         if (user.isPresent()) {
@@ -110,4 +112,5 @@ public class MongoUserService {
             throw new NoSuchElementException("Current user could not be determined. Could not add topic ID.");
         }
     }
+
 }
