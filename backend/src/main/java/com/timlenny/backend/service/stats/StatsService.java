@@ -38,7 +38,6 @@ public class StatsService {
         userLoginDate.add(Instant.now());
         List<Instant> streakInstantWeak = new ArrayList<>(List.of());
         List<Boolean> streakBoolean;
-
         LocalDate today = LocalDate.now();
         LocalDate startOfWeak = today.with(DayOfWeek.MONDAY);
         LocalDate endOfWeak = today.with(DayOfWeek.SUNDAY);
@@ -50,10 +49,7 @@ public class StatsService {
         Instant endInstant = endZonedDateTime.toInstant();
 
         for (Instant lDate : userLoginDate) {
-
-            if (lDate.isBefore(Instant.from(startInstant)) || lDate.isAfter(Instant.from(endInstant))) {
-                userLoginDate.remove(lDate);
-            } else {
+            if (!lDate.isBefore(Instant.from(startInstant)) || !lDate.isAfter(Instant.from(endInstant))) {
                 streakInstantWeak.add(lDate);
             }
         }
